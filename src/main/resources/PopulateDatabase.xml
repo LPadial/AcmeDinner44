@@ -1,0 +1,1276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * PopulateDatabase.xml * * Copyright (C) 2017 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMINISTRATOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="diner1" />
+		<property name="password" value="3d8eced6c6753579d7ebb588020fa3a6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DINER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="diner2" />
+		<property name="password" value="6841c5bcb125b01942a9cec910f5a141" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DINER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="diner3" />
+		<property name="password" value="b3f22720f841867206715af4d35e5ff7" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DINER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="sponsor3" />
+		<property name="password" value="857a54956061fdc1b88d7722cafe6519" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="supermarket1" />
+		<property name="password" value="2ea1a9ae7c6c4055f34b6d58f47e6ecf" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SUPERMARKET" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="supermarket2" />
+		<property name="password" value="9b3ecefefcb605ccb116eead866ea85b" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SUPERMARKET" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="supermarket3" />
+		<property name="password" value="8103490139558a7a54438980bbce01db" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SUPERMARKET" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMINISTRATOR" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="DINER" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="SUPERMARKET" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Other domain beans come here -->
+
+	<!-- Finder -->
+
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder4" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder5" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder6" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder7" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder8" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder9" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+	<bean id="finder10" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
+
+
+
+
+	<!-- Administrator -->
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="actorName" value="Laura" />
+		<property name="surname" value="Padial" />
+		<property name="email" value="lp@hotmail.com" />
+		<property name="userAccount" ref="userAccount1" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket2" />
+				<ref bean="diner1" />
+				<ref bean="diner2" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder1" />
+		</property>
+
+	</bean>
+
+	<!-- Supermarket -->
+	<bean id="supermarket1" class="domain.Supermarket">
+		<property name="actorName" value="Juan Carlos" />
+		<property name="surname" value="Lopez" />
+		<property name="email" value="jc@hotmail.com" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket2" />
+				<ref bean="diner1" />
+				<ref bean="diner2" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp1" />
+				<ref bean="chirp5" />
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder2" />
+		</property>
+		<property name="brand" value="LACO" />
+	</bean>
+
+	<bean id="supermarket2" class="domain.Supermarket">
+		<property name="actorName" value="Laura" />
+		<property name="surname" value="Padial" />
+		<property name="email" value="laura@hotmail.com" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="followers">
+			<list>
+				<ref bean="diner1" />
+				<ref bean="diner2" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp2" />
+				<ref bean="chirp6" />
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder3" />
+		</property>
+		<property name="brand" value="LACEO" />
+	</bean>
+
+	<bean id="supermarket3" class="domain.Supermarket">
+		<property name="actorName" value="Karli" />
+		<property name="surname" value="Lopez" />
+		<property name="email" value="jc@hotmail.com" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="followers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp3" />
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder4" />
+		</property>
+		<property name="brand" value="TOARE" />
+	</bean>
+
+	<!-- Diner -->
+
+	<bean id="diner1" class="domain.Diner">
+		<property name="actorName" value="Juan Jose" />
+		<property name="surname" value="Valle" />
+		<property name="email" value="jj@hotmail.com" />
+		<property name="userAccount" ref="userAccount2" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket2" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp4" />
+				<ref bean="chirp7" />
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder5" />
+		</property>
+		<property name="events">
+			<list>
+				<ref bean="event3" />
+			</list>
+		</property>
+		<property name="bussinessCard" ref="bussinessCard1" />
+	</bean>
+
+	<bean id="diner2" class="domain.Diner">
+		<property name="actorName" value="Adrian" />
+		<property name="surname" value="Sanchez" />
+		<property name="email" value="adrian@hotmail.com" />
+		<property name="userAccount" ref="userAccount3" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket2" />
+				<ref bean="diner1" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp8" />
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder6" />
+		</property>
+		<property name="events">
+			<list>
+				<ref bean="event2" />
+				<ref bean="event3" />
+			</list>
+		</property>
+		<property name="bussinessCard" ref="bussinessCard2" />
+	</bean>
+
+	<bean id="diner3" class="domain.Diner">
+		<property name="actorName" value="Pepito" />
+		<property name="surname" value="Grillo" />
+		<property name="email" value="pegri@hotmail.com" />
+		<property name="userAccount" ref="userAccount8" />
+		<property name="followers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder7" />
+		</property>
+		<property name="events">
+			<list>
+				<ref bean="event1" />
+			</list>
+		</property>
+		<property name="bussinessCard" ref="bussinessCard3" />
+	</bean>
+
+	<!-- Sponsor -->
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="actorName" value="Carlos" />
+		<property name="surname" value="Jimenez" />
+		<property name="email" value="cj@hotmail.com" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket1" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder8" />
+		</property>
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="actorName" value="Adrian" />
+		<property name="surname" value="Sanchez" />
+		<property name="email" value="adrian@hotmail.com" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket2" />
+				<ref bean="diner1" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder9" />
+		</property>
+		<property name="sponsorships">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor3" class="domain.Sponsor">
+		<property name="actorName" value="Pepito" />
+		<property name="surname" value="Grillo" />
+		<property name="email" value="pegri@hotmail.com" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="followers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder10" />
+		</property>
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Sponsorship -->
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="dateCreation" value="20/08/2018 21:03:00" />
+		<property name="description" value="Mercadona" />
+		<property name="banners">
+			<list>
+				<value>https://flic.kr/p/9p9MYg</value>
+			</list>
+		</property>
+		<property name="decision" ref="PENDING" />
+		<property name="soiree" ref="soiree1" />
+	</bean>
+
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="dateCreation" value="20/08/2018 21:03:00" />
+		<property name="description" value="Santa Isabel" />
+		<property name="banners">
+			<list>
+				<value>https://flic.kr/p/fJ9Hjy</value>
+			</list>
+		</property>
+		<property name="decision" ref="REJECTED" />
+		<property name="soiree" ref="soiree2" />
+	</bean>
+
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="dateCreation" value="20/08/2018 21:03:00" />
+		<property name="description" value="Carrefour" />
+		<property name="banners">
+			<list>
+				<value>https://flic.kr/p/6eeC65</value>
+			</list>
+		</property>
+		<property name="decision" ref="ACCEPTED" />
+		<property name="creditCard" ref="creditCard3"/>
+		<property name="soiree" ref="soiree3" />
+	</bean>
+
+	<!-- Brand -->
+	<bean class="domain.Brand" id="VISA">
+		<property value="VISA" name="value" />
+	</bean>
+
+
+	<bean class="domain.Brand" id="MASTERCARD">
+		<property value="MASTERCARD" name="value" />
+	</bean>
+
+
+	<bean class="domain.Brand" id="DINNERS">
+		<property value="DINNERS" name="value" />
+	</bean>
+
+
+	<bean class="domain.Brand" id="AMEX">
+		<property value="AMEX" name="value" />
+	</bean>
+
+	<!-- CreditCard -->
+	<bean class="domain.CreditCard" id="creditCard1">
+		<property value="holder name 1" name="holderName" />
+		<property name="brandName" ref="AMEX" />
+		<property value="7521532412355264" name="number" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="123" name="CVV" />
+	</bean>
+
+
+	<bean class="domain.CreditCard" id="creditCard2">
+		<property value="holder name 2" name="holderName" />
+		<property name="brandName" ref="MASTERCARD" />
+		<property value="1234567891234567" name="number" />
+		<property value="10" name="expirationMonth" />
+		<property value="2019" name="expirationYear" />
+		<property value="236" name="CVV" />
+	</bean>
+
+
+	<bean class="domain.CreditCard" id="creditCard3">
+		<property value="holder name 3" name="holderName" />
+		<property name="brandName" ref="VISA" />
+		<property value="1234567891234567" name="number" />
+		<property value="10" name="expirationMonth" />
+		<property value="2019" name="expirationYear" />
+		<property value="238" name="CVV" />
+	</bean>
+	
+	<!-- Item -->
+	<bean class="domain.Item" id="item1">
+		<property name="SKU" value="TROP-NP-PLAS-89" />
+		<property name="name" value="Zumo tropical" />
+		<property name="photo" value="https://flic.kr/p/21YLHvE" />
+		<property name="price" value="1.45" />
+		<property name="VAT" value="10.0" />
+		<property name="hint" value="true" />
+		<property name="supermarket" ref="supermarket1"/>
+	</bean>
+
+
+	<bean class="domain.Item" id="item2">
+		<property name="SKU" value="APP-NP-PLAS-2" />
+		<property name="name" value="Zumo de manzana" />
+		<property name="photo" value="https://flic.kr/p/c4hri5" />
+		<property name="price" value="0.8" />
+		<property name="VAT" value="10.0" />
+		<property name="hint" value="false" />
+		<property name="supermarket" ref="supermarket2"/>
+	</bean>
+
+
+	<bean class="domain.Item" id="item3">
+		<property name="SKU" value="TOM-BOL-5" />
+		<property name="name" value="Tomate bola" />
+		<property name="photo" value="https://flic.kr/p/oyADS8" />
+		<property name="price" value="1.45" />
+		<property name="VAT" value="10.0" />
+		<property name="hint" value="true" />
+		<property name="supermarket" ref="supermarket3"/>
+	</bean>
+	
+	<!-- Shopping cart -->
+	<bean class="domain.ShoppingCart" id="shoppingcart1">
+		<property name="dateCreation" value="20/08/2018 21:03:00" />
+		<property name="isOrdered" value="true" />
+		<property name="deliveryAddress" value="calle Trucha , 3. Sevilla" />
+		<property name="priceTotal" value="3.05" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="items">
+			<list>
+				<ref bean="item1"/>
+				<ref bean="item2"/>
+				<ref bean="item2"/>
+			</list>
+		</property>
+		<property name="owner" ref="diner1"/>
+	</bean>
+
+
+	<bean class="domain.ShoppingCart" id="shoppingcart2">
+		<property name="dateCreation" value="21/08/2018 21:03:00" />
+		<property name="isOrdered" value="true" />
+		<property name="deliveryAddress" value="calle Preciados , 3. Madrid" />
+		<property name="priceTotal" value="2.90" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="items">
+			<list>
+				<ref bean="item1"/>
+				<ref bean="item3"/>
+			</list>
+		</property>
+		<property name="owner" ref="diner2"/>
+	</bean>
+	
+	<bean class="domain.ShoppingCart" id="shoppingcart3">
+		<property name="dateCreation" value="22/08/2018 21:03:00" />
+		<property name="isOrdered" value="false" />
+		<property name="deliveryAddress" value="calle Preciados , 3. Madrid" />
+		<property name="priceTotal" value="2.90" />		
+		<property name="items">
+			<list>
+				<ref bean="item1"/>
+				<ref bean="item1"/>
+			</list>
+		</property>
+		<property name="owner" ref="diner3"/>
+	</bean>
+
+	<!-- Event -->
+	<bean id="event1" class="domain.Event">
+		<property name="ticker" value="181017-190510-ABCD" />
+		<property name="title" value="Comida casera" />
+		<property name="city" value="Madrid" />
+		<property name="description" value="La cocina de antaño es el punto fuerte de este evento" />
+		<property name="organizer" ref="diner1"></property>
+		<property name="soirees">
+			<list>
+				<ref bean="soiree1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="event2" class="domain.Event">
+		<property name="ticker" value="181017-190510-ABCE" />
+		<property name="title" value="Comida española" />
+		<property name="city" value="Sevilla" />
+		<property name="description" value="Todos los platos típicos tienen cabida ene ste evento, el salmorejo, la tortilla de patatas, paella, etc." />
+		<property name="organizer" ref="diner1"></property>
+		<property name="soirees">
+			<list>
+				<ref bean="soiree2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="event3" class="domain.Event">
+		<property name="ticker" value="181017-190510-AECD" />
+		<property name="title" value="Comida internacional" />
+		<property name="city" value="Guadalajara" />
+		<property name="description" value="En este evento probaremos un poco de todo" />
+		<property name="organizer" ref="diner2"></property>
+		<property name="soirees">
+			<list>
+				<ref bean="soiree3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="event4" class="domain.Event">
+		<property name="ticker" value="181017-190511-AEDD" />
+		<property name="title" value="Cocina moderna para innovar" />
+		<property name="city" value="Sevilla" />
+		<property name="description" value="En este evento se innovará en los platos, deja volar tu imaginación" />
+		<property name="organizer" ref="diner2"></property>
+		<property name="soirees">
+			<list>
+				<ref bean="soiree4" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="event5" class="domain.Event">
+		<property name="ticker" value="181017-190512-ABCD" />
+		<property name="title" value="Comida del mar" />
+		<property name="city" value="Cádiz" />
+		<property name="description" value="En este evento podremos disfrutar de los peces de nuestro mar" />
+		<property name="organizer" ref="diner3"></property>
+		<property name="soirees">
+			<list>
+				<ref bean="soiree5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="event6" class="domain.Event">
+		<property name="ticker" value="181017-190513-ABCD" />
+		<property name="title" value="Comida de la tierra" />
+		<property name="city" value="Madrid" />
+		<property name="description" value="Todaslas verduras son bienvenidas" />
+		<property name="organizer" ref="diner3"></property>
+		<property name="soirees">
+			<list>
+				<ref bean="soiree6" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Soiree -->
+	<bean id="soiree1" class="domain.Soiree">
+		<property name="date" value="20/10/2018 21:00" />
+		<property name="address" value="Calle Pachanga, 1" />
+		<property name="pictures">
+			<list>
+				<value>https://farm4.staticflickr.com/3248/3067600928_ae593d8777_z.jpg</value>
+				<value>https://farm9.staticflickr.com/8376/8465519726_b440475406_z.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner1"></property>
+		<property name="dishes">
+			<list>
+				<ref bean="dish1" />
+			</list>
+		</property>
+		<property name="event" ref="event1" />
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="soiree2" class="domain.Soiree">
+		<property name="date" value="21/10/2018 21:00" />
+		<property name="address" value="Calle Austria, 1" />
+		<property name="pictures">
+			<list>
+				<value>https://i.pinimg.com/originals/c7/18/10/c718100074be111353ff3a80483c1632.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner2"></property>
+		<property name="dishes">
+			<list>
+				<ref bean="dish2" />
+			</list>
+		</property>
+		<property name="event" ref="event2" />
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship2"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="soiree3" class="domain.Soiree">
+		<property name="date" value="22/12/2018 21:00" />
+		<property name="address" value="Calle Veneno,5" />
+		<property name="pictures">
+			<list>
+				<value>https://i.pinimg.com/564x/bb/ab/e6/bbabe6ea7ab437bd151ee1f12caea588.jpg</value>
+				<value>https://i.pinimg.com/564x/f0/83/ff/f083ff8c4a97eb5f5ef7d26e49d93f8c.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner3"></property>
+		<property name="dishes">
+			<list>
+				<ref bean="dish3" />
+			</list>
+		</property>
+		<property name="event" ref="event3" />
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship3"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="soiree4" class="domain.Soiree">
+		<property name="date" value="20/08/2017 21:00" />
+		<property name="address" value="Calle San Juan, 3" />
+		<property name="pictures">
+			<list>
+				<value>https://i.pinimg.com/564x/2e/54/b4/2e54b4215fb090c4c58438a4a1190a08.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner1"></property>
+		<property name="dishes">
+			<list>
+				<ref bean="dish4" />
+			</list>
+		</property>
+		<property name="event" ref="event4" />
+		<property name="sponsorships">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="soiree5" class="domain.Soiree">
+		<property name="date" value="20/08/2017 21:00" />
+		<property name="address" value="Calle Esclavos,2" />
+		<property name="pictures">
+			<list>
+				<value>https://i.pinimg.com/564x/3f/78/a9/3f78a9646aab7d11efc740e971c62072.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner2"></property>
+		<property name="dishes">
+			<list>
+				<ref bean="dish5" />
+			</list>
+		</property>
+		<property name="event" ref="event5" />
+		<property name="sponsorships">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="soiree6" class="domain.Soiree">
+		<property name="date" value="20/08/2017 21:00" />
+		<property name="address" value="Calle Alegría, 1" />
+		<property name="pictures">
+			<list>
+				<value>https://i.pinimg.com/564x/81/4b/35/814b35fd003220a0c43a9f192b3d4760.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner3"></property>
+		<property name="dishes">
+			<list>
+				<ref bean="dish6" />
+			</list>
+		</property>
+		<property name="event" ref="event6" />
+		<property name="sponsorships">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
+
+	<!-- Dish type -->
+	<bean id="dishtype1" class="domain.DishType">
+		<property name="value" value="STARTERS" />
+	</bean>
+
+	<bean id="dishtype2" class="domain.DishType">
+		<property name="value" value="MAIN" />
+	</bean>
+
+	<bean id="dishtype3" class="domain.DishType">
+		<property name="value" value="SECOND" />
+	</bean>
+
+	<bean id="dishtype4" class="domain.DishType">
+		<property name="value" value="DESSERTS" />
+	</bean>
+
+	<!-- Dish -->
+	<bean id="dish1" class="domain.Dish">
+		<property name="name" value="ensalada" />
+		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="ingredients">
+			<list>
+				<value>tomate</value>
+				<value>lechuga</value>
+			</list>
+		</property>
+		<property name="dishType" ref="dishtype1" />
+		<property name="soiree" ref="soiree1" />
+	</bean>
+
+	<bean id="dish2" class="domain.Dish">
+		<property name="name" value="ensalada" />
+		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="ingredients">
+			<list>
+				<value>tomate</value>
+				<value>lechuga</value>
+			</list>
+		</property>
+		<property name="dishType" ref="dishtype2" />
+		<property name="soiree" ref="soiree2" />
+	</bean>
+
+	<bean id="dish3" class="domain.Dish">
+		<property name="name" value="ensalada" />
+		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="ingredients">
+			<list>
+				<value>tomate</value>
+				<value>lechuga</value>
+			</list>
+		</property>
+		<property name="dishType" ref="dishtype3" />
+		<property name="soiree" ref="soiree3" />
+	</bean>
+
+	<bean id="dish4" class="domain.Dish">
+		<property name="name" value="ensalada" />
+		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="ingredients">
+			<list>
+				<value>tomate</value>
+				<value>lechuga</value>
+			</list>
+		</property>
+		<property name="dishType" ref="dishtype4" />
+		<property name="soiree" ref="soiree4" />
+	</bean>
+
+	<bean id="dish5" class="domain.Dish">
+		<property name="name" value="ensalada" />
+		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="ingredients">
+			<list>
+				<value>tomate</value>
+				<value>lechuga</value>
+			</list>
+		</property>
+		<property name="dishType" ref="dishtype4" />
+		<property name="soiree" ref="soiree5" />
+	</bean>
+
+	<bean id="dish6" class="domain.Dish">
+		<property name="name" value="ensalada" />
+		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="ingredients">
+			<list>
+				<value>tomate</value>
+				<value>lechuga</value>
+			</list>
+		</property>
+		<property name="dishType" ref="dishtype4" />
+		<property name="soiree" ref="soiree6" />
+	</bean>
+	
+	<!-- Vote -->
+	<bean id="vote1" class="domain.Vote">
+		<property name="points" value="7" />
+		<property name="comments">
+			<list>
+				<value>La comida estaba muy buena</value>
+				<value>El sitio no me impresionó</value>
+			</list>
+		</property>
+		<property name="pictures">
+			<list>
+				<value>https://flic.kr/p/bUDo9H</value>
+				<value>https://flic.kr/p/fd2hWt</value>
+			</list>
+		</property>
+		<property name="voter" ref="diner1" />
+		<property name="soiree" ref="soiree6" />
+	</bean>
+	
+	<bean id="vote2" class="domain.Vote">
+		<property name="points" value="6" />
+		<property name="comments">
+			<list>
+				<value>La comida no era de calidad</value>
+				<value>El sitio tenía unas vistas espectaculares</value>
+			</list>
+		</property>
+		<property name="pictures">
+			<list>
+				<value>https://flic.kr/p/bCq24Z</value>
+			</list>
+		</property>
+		<property name="voter" ref="diner2" />
+		<property name="soiree" ref="soiree4" />
+	</bean>
+
+	<bean id="vote3" class="domain.Vote">
+		<property name="points" value="6" />
+		<property name="comments">
+			<list>
+				<value>No he congeniado con las personas que han ido a esta velada</value>
+			</list>
+		</property>
+		<property name="pictures">
+			<list>
+			</list>
+		</property>
+		<property name="voter" ref="diner3" />
+		<property name="soiree" ref="soiree1" />
+	</bean>
+	
+	<!-- Spamword -->
+	<bean id="spamWord1" class="domain.SpamWord">
+		<property name="value" value="tonto" />
+	</bean>
+
+	<bean id="spamWord2" class="domain.SpamWord">
+		<property name="value" value="tonta" />
+	</bean>
+
+	<bean id="spamWord3" class="domain.SpamWord">
+		<property name="value" value="feo" />
+	</bean>
+
+	<bean id="spamWord4" class="domain.SpamWord">
+		<property name="value" value="fea" />
+	</bean>
+
+	<!-- Chirp -->
+	<bean id="chirp1" class="domain.Chirp">
+		<property name="dateCreation" value="16/08/2017 00:00:12" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="Hello world!" />
+		<property name="spamWords">
+			<list>
+				<ref bean="spamWord1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp2" class="domain.Chirp">
+		<property name="dateCreation" value="16/08/2017 00:00:15" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="How are you?" />
+		<property name="spamWords">
+			<list>
+				<ref bean="spamWord2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp3" class="domain.Chirp">
+		<property name="dateCreation" value="16/08/2017 00:00:20" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="This is great!" />
+		<!-- <property name="actor" ref="supermarket3" /> -->
+		<property name="spamWords">
+			<list>
+				<ref bean="spamWord3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp4" class="domain.Chirp">
+		<property name="dateCreation" value="16/08/2017 00:00:21" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="I was train a lot" />
+		<!-- <property name="actor" ref="diner1" /> -->
+		<property name="spamWords">
+			<list>
+				<ref bean="spamWord4" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp5" class="domain.Chirp">
+		<property name="dateCreation" value="17/08/2017 08:00:00" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="Good morning" />
+		<!-- <property name="actor" ref="supermarket1" /> -->
+		<property name="spamWords">
+			<list>
+				<ref bean="spamWord1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp6" class="domain.Chirp">
+		<property name="dateCreation" value="17/08/2017 08:01:00" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="What's happen in the morning'" />
+		<!-- <property name="actor" ref="supermarket2" /> -->
+		<property name="spamWords">
+			<list>
+				<ref bean="spamWord3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp7" class="domain.Chirp">
+		<property name="dateCreation" value="17/08/2017 08:02:00" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="Today we start hard!" />
+		<!-- <property name="actor" ref="diner1" /> -->
+		<property name="spamWords">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chirp8" class="domain.Chirp">
+		<property name="dateCreation" value="17/08/2017 08:03:00" />
+		<property name="topic" value="Welcome" />
+		<property name="text" value="Woww I appoint!" />
+		<!-- <property name="actor" ref="diner2" /> -->
+		<property name="spamWords">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Decision -->
+	<bean id="PENDING" class="domain.Decision">
+		<property name="value" value="PENDING" />
+	</bean>
+
+	<bean id="ACCEPTED" class="domain.Decision">
+		<property name="value" value="ACCEPTED" />
+	</bean>
+
+	<bean id="REJECTED" class="domain.Decision">
+		<property name="value" value="REJECTED" />
+	</bean>
+
+	<!-- Sections -->
+	<bean id="personalSection1" class="domain.PersonalSection">
+		<property name="title" value="Mi sección" />
+		<property name="fullName" value="Laura Padial" />
+		<property name="photo" value="https://farm8.staticflickr.com/7334/13939619830_582458357a_z.jpg" />
+		<property name="birthdate" value="20/08/1994" />
+		<property name="likes">
+			<list>
+				<value>Pescado</value>
+				<value>Carne</value>
+				<value>Verdura</value>				
+			</list>
+		</property>
+		<property name="dislikes">
+			<list>
+				<value>Potaje</value>	
+			</list>
+		</property>
+	</bean>
+
+	<bean id="professionalSection1" class="domain.ProfessionalSection">
+		<property name="title" value="Professional" />
+		<property name="position" value="Full Stack Developer" />
+		<property name="company" value="Crambo" />
+	</bean>
+
+	<bean id="socialSection1" class="domain.SocialSection">
+		<property name="title" value="Social" />
+		<property name="network" value="Facebook" />
+		<property name="nickname" value="laupadgon" />
+		<property name="link" value="https://www.facebook.com/" />
+	</bean>
+
+
+	<bean id="personalSection2" class="domain.PersonalSection">
+		<property name="title" value="My data" />
+		<property name="fullName" value="Carlos Pozo" />
+		<property name="photo" value="https://farm2.staticflickr.com/1884/43982090434_239f5b1a5c_z.jpg" />
+		<property name="birthdate" value="20/01/1990" />
+		<property name="likes">
+			<list>
+				<value>Costillas</value>
+				<value>Hamburguesa</value>
+				<value>Pizza</value>
+			</list>
+		</property>
+		<property name="dislikes">
+			<list>
+				<value>Pescado</value>				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="professionalSection2" class="domain.ProfessionalSection">
+		<property name="title" value="Professional" />
+		<property name="position" value="Full Stack Developer" />
+		<property name="company" value="Crambo" />
+	</bean>
+
+	<bean id="socialSection2" class="domain.SocialSection">
+		<property name="title" value="Social" />
+		<property name="network" value="Facebook" />
+		<property name="nickname" value="laupadgon" />
+		<property name="link" value="https://www.facebook.com/" />
+	</bean>
+
+
+
+	<bean id="personalSection3" class="domain.PersonalSection">
+		<property name="title" value="My life" />
+		<property name="fullName" value="Manoli González" />
+		<property name="photo" value="https://farm3.staticflickr.com/2888/12733249174_8f3656edb8_z.jpg" />
+		<property name="birthdate" value="20/06/1960" />
+		<property name="likes">
+			<list>
+				<value>Pescado</value>
+				<value>Verdura</value>
+			</list>
+		</property>
+		<property name="dislikes">
+			<list>
+				<value>Costillas</value>
+				<value>Hamburguesas</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="professionalSection3" class="domain.ProfessionalSection">
+		<property name="title" value="Professional" />
+		<property name="position" value="Full Stack Developer" />
+		<property name="company" value="Crambo" />
+	</bean>
+
+	<bean id="socialSection3" class="domain.SocialSection">
+		<property name="title" value="Social" />
+		<property name="network" value="Facebook" />
+		<property name="nickname" value="laupadgon" />
+		<property name="link" value="https://www.facebook.com/" />
+	</bean>
+
+	<!-- Bussiness cards -->
+	<bean id="bussinessCard1" class="domain.BussinessCard">
+		<property name="personalSection" ref="personalSection1" />
+		<property name="professionalSections">
+			<list>
+				<ref bean="professionalSection1" />
+			</list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="bussinessCard2" class="domain.BussinessCard">
+		<property name="personalSection" ref="personalSection2" />
+		<property name="professionalSections">
+			<list>
+				<ref bean="professionalSection2" />
+			</list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="bussinessCard3" class="domain.BussinessCard">
+		<property name="personalSection" ref="personalSection3" />
+		<property name="professionalSections">
+			<list>
+				<ref bean="professionalSection3" />
+			</list>
+		</property>
+		<property name="socialSections">
+			<list>
+				<ref bean="socialSection3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Configuration -->
+
+</beans>
