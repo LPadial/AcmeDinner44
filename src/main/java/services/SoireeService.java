@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SoireeRepository;
+import repositories.SponsorshipRepository;
 import security.LoginService;
 import domain.Diner;
 import domain.Dish;
@@ -25,11 +26,17 @@ public class SoireeService {
 	
 		@Autowired
 		private SoireeRepository soireeRepository;
+		
+		@Autowired
+		private SponsorshipRepository sponsorshipRepository;
 
 		// Supporting services ----------------------------------------------------
 		
 		@Autowired
 		private LoginService loginService;
+		
+		@Autowired
+		private DishService dishService;
 
 
 		// Constructors -----------------------------------------------------------
@@ -87,6 +94,25 @@ public class SoireeService {
 		public boolean exists(Integer soireeID) {
 			return soireeRepository.exists(soireeID);
 		}
+		
+		public void delete(Soiree soiree) {
+			Assert.notNull(soiree);
+			
+			for(Sponsorship ss: soiree.getSponsorships()){
+				if(ss.getSoiree() == soiree){
+					sponsorshipRepository.delete(ss);
+				}
+			}
+			
+			if(soiree.getDishes().size() != 0){
+				for(Dish d: soiree.getDishes() ){
+					dishService.delete(d);
+				}
+			}
+			
+			soireeRepository.delete(soiree);
+		}
+
 
 		// Other business methods -------------------------------------------------
 		

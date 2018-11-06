@@ -11,8 +11,8 @@
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="event/diner/save-create.do"
-		hiddenFields="ticker,soirees,diner" type="create" entity="${course}">
+	<acme:acme_form url="event/save-create.do"
+		hiddenFields="ticker,soirees,diner" type="create" entity="${event}">
 	</acme:acme_form>
 
 </security:authorize>

@@ -9,9 +9,9 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('ACADEMY')">
+<security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="event/diner/save-create.do"
+	<acme:acme_form url="event/save-create.do"
 		hiddenFields="ticker,soirees,diner" type="edit" entity="${event}">
 	</acme:acme_form>
 

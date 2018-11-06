@@ -21,7 +21,11 @@
 <spring:message code="event.registeredDiners" var="eventRegisteredDiners" />
 <spring:message code="event.soirees" var="eventSoirees" />
 <spring:message code="event.view" var="view" />
-<spring:message code="event.apply" var="apply" />
+<spring:message code="event.register" var="register" />
+<spring:message code="event.unregister" var="unregister" />
+<spring:message code="event.regist" var="regist" />
+<spring:message code="event.edit" var="edit" />
+<spring:message code="event.delete" var="delete" />
 
 
 <security:authorize access="permitAll">
@@ -55,13 +59,30 @@
 				<acme:url url="event/view.do?q=${row.id}" code="event.view"/>
 			</display:column>
 			
-			<security:authentication property="principal" var="id" />
-
-				<jstl:if test="${!principal.events.contains(row.id)}">
-					<display:column title="${apply}" sortable="false">
-						<acme:url url="event/diner/apply.do?q=${row.id}" code="event.apply"/>
-					</display:column>
+			<security:authentication property="principal.id" var="id" />
+			
+			<display:column title="${edit}" sortable="false">
+				<!-- Veo mis eventos -->
+				<jstl:if test="${row.organizer.userAccount.id == id}">
+					<acme:url url="event/edit.do?q=${row.id}" code="event.edit"/>
 				</jstl:if>
+			</display:column>
+			
+			<display:column title="${delete}" sortable="false">
+				<!-- Veo mis eventos -->
+				<jstl:if test="${row.organizer.userAccount.id == id}">
+					<acme:url url="event/delete.do?q=${row.id}" code="event.delete"/>
+				</jstl:if>
+			</display:column>
+			
+			<display:column title="${regist}" sortable="false">
+				<jstl:if test="${!myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id}">
+					<acme:url url="event/diner/register.do?q=${row.id}" code="event.register"/>
+				</jstl:if>
+				<jstl:if test="${myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id}">
+					<acme:url url="event/diner/unregister.do?q=${row.id}" code="event.unregister"/>
+				</jstl:if>
+			</display:column>
 
 		</security:authorize>
 	

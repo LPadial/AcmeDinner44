@@ -14,8 +14,8 @@ import org.springframework.util.Assert;
 
 
 
-import domain.Actor;
 import domain.Diner;
+import domain.Dish;
 import domain.Event;
 import domain.Soiree;
 
@@ -34,6 +34,12 @@ public class EventService {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private SoireeService soireeService;
+	
+	@Autowired
+	private DishService dishService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -50,8 +56,8 @@ public class EventService {
 		event.setTitle(new String());
 		event.setCity(new String());
 		event.setDescription(new String());
-		Actor actor = loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-		event.setOrganizer((Diner)actor);
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		event.setOrganizer(d);
 		
 		event.setSoirees(new ArrayList<Soiree>());
 
@@ -101,12 +107,26 @@ public class EventService {
 		} else {
 
 			aca = eventRepository.save(event);
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			d.getEvents().add(aca);
 		}
 		return aca;
 	}
 
 	public boolean exists(Integer eventID) {
 		return eventRepository.exists(eventID);
+	}
+	
+	public void delete(Event event) {
+		Assert.notNull(event);
+		
+		Collection<Diner> diners = findRegisteredDinerInEvents(event.getId());
+		
+		for(Diner d: diners){
+			d.getEvents().remove(event);
+		}
+		
+		eventRepository.delete(event);
 	}
 
 	// Other business methods -------------------------------------------------
@@ -118,5 +138,14 @@ public class EventService {
 	
 	public Collection<Diner> findRegisteredDinerInEvents(int eventID){
 		return eventRepository.findRegisteredDinerInEvents(eventID);
+	}
+	
+	public void registerToEvent(int e){
+		Collection<Diner> registeredDiners = findRegisteredDinerInEvents(e);
+		Integer numRegistered = registeredDiners.size();
+		if(numRegistered<4){
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			d.getEvents().add(findOne(e));
+		}
 	}
 }

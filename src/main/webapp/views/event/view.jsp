@@ -26,34 +26,34 @@
 <spring:message code="event.organizer" var="organizador" />
 
 
-<div class=row>
-	<div class="col-md-4">
+<div class=row style="text-align:center">
+	<div class="col-md-6" >
 	
-		<div>${eventTicker}:</div>
+		<div class='title'>${eventTicker}:</div>
 		&nbsp;&nbsp;
 		<jstl:out value="${evento.ticker}" />
 		<br />
 		<br />
 		
-		<div>${eventTitle}:</div>
+		<div class='title'>${eventTitle}:</div>
 		&nbsp;&nbsp;
 		<jstl:out value="${evento.title}" />
 		<br />
 		<br />
 		
-		<div>${eventCity}:</div>
+		<div class='title'>${eventCity}:</div>
 		&nbsp;&nbsp;
 		<jstl:out value="${evento.city}" />
 		<br />
 		<br />
 		
-		<div>${eventDescription}:</div>
+		<div class='title'>${eventDescription}:</div>
 		&nbsp;&nbsp;
 		<jstl:out value="${evento.description}" />
 		<br />
 		<br />
 		
-		<div>${organizador}:</div>
+		<div class='title'>${organizador}:</div>
 		&nbsp;&nbsp;
 		<jstl:out value="${organizer.actorName}" />
 		<br />
@@ -61,10 +61,10 @@
 
 		
 	</div>
-	<div class="col-md-4">
-		<h1>${eventSoirees}</h1>
+	<div class="col-md-6">
+		<h1 class='title'>${eventSoirees}</h1>
 		<!-- Table -->
-		<display:table  name="soirees" id="row" requestURI="${requestURI}">
+		<display:table  name="soirees" id="row" requestURI="${requestURI}" class="table">
 			
 			<display:column property="address" title="${address}" sortable="false" />
 			<display:column property="date" title="${date}" sortable="false" />
@@ -77,7 +77,5 @@
 				<acme:url url="event/soiree/dish/list.do?q=${row.id}" code="soiree.dishes"/>
 			</display:column>
 		</display:table>
-	</div>
-	<div class="col-md-4">
 	</div>
 </div>

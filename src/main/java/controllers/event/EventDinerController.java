@@ -7,14 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.DinerService;
 import services.EventService;
 import services.SoireeService;
 
 import controllers.AbstractController;
 import domain.Diner;
-import domain.Event;
 import domain.Soiree;
 
 @Controller
@@ -29,8 +26,6 @@ public class EventDinerController extends AbstractController {
 	@Autowired
 	private EventService eventService;
 
-	@Autowired
-	private LoginService loginService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -62,44 +57,6 @@ public class EventDinerController extends AbstractController {
 
 			return result;
 		}
-
-	// Creation ---------------------------------------------------------------
-
-	/*
-	 * @RequestMapping(value="/create",method=RequestMethod.GET) public
-	 * ModelAndView create(){ ModelAndView res;
-	 * 
-	 * res = new ModelAndView("diner/create");
-	 * res.addObject("diner",dinerService.create());
-	 * 
-	 * return res; }
-	 */
-
-	// Save ---------------------------------------------------------------
-	/*
-	 * @RequestMapping(value="/save",method=RequestMethod.POST,params = "save")
-	 * public ModelAndView saveCreate(@Valid Diner diner, BindingResult
-	 * binding){ ModelAndView res;
-	 * 
-	 * if(binding.hasErrors()){ res = createModelAndView(diner,null); }else{
-	 * try{ dinerService.save(diner); res = new
-	 * ModelAndView("redirect:/welcome/index.do");
-	 * 
-	 * }catch(Throwable e){ res = createModelAndView(diner,
-	 * "diner.commit.error"); } } return res;
-	 * 
-	 * }
-	 */
-
-	/*
-	 * @RequestMapping(value = "/edit", method = RequestMethod.POST, params =
-	 * "delete") public ModelAndView delete(Diner diner) { ModelAndView result;
-	 * 
-	 * dinerService.delete(diner); result = new
-	 * ModelAndView("redirect:list.do");
-	 * 
-	 * return result; }
-	 */
 
 	// Ancillary methods ------------------------------------------------------
 
