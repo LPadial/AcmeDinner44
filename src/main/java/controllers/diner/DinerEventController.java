@@ -72,8 +72,7 @@ public class DinerEventController extends AbstractController {
 			if (LoginService.hasRole("DINER")) {
 				Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());				
 				result.addObject("a", 0);
-				result.addObject("events", d.getEvents());		
-				System.out.println(d.getEvents());
+				result.addObject("events", d.getEvents());
 				result.addObject("myRegisteredEvents", d.getEvents());			
 			}			
 					

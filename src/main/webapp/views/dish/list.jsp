@@ -22,7 +22,7 @@
 <display:table name="dishes" id="row" requestURI="${requestURI}" pagesize="10" class="table table-hover">	
 	<display:column property="name" title="${dishName}" sortable="false" />
 	<display:column property="description" title="${dishDescription}" sortable="false" />	
-	<display:column property="dishType.value" title="${dishType}"/>
+	<display:column property="dishType.value" title="${dishType}" sortable="true"/>
 	<display:column property="ingredients" title="${dishIngredients}" sortable="false" />
 </display:table>
 

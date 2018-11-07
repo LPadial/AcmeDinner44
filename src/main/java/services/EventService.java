@@ -15,7 +15,6 @@ import org.springframework.util.Assert;
 
 
 import domain.Diner;
-import domain.Dish;
 import domain.Event;
 import domain.Soiree;
 
@@ -141,11 +140,21 @@ public class EventService {
 	}
 	
 	public void registerToEvent(int e){
+		Assert.notNull(e);
 		Collection<Diner> registeredDiners = findRegisteredDinerInEvents(e);
 		Integer numRegistered = registeredDiners.size();
+		Assert.isTrue(numRegistered<4,"There are already four registered diners");
 		if(numRegistered<4){
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
 			d.getEvents().add(findOne(e));
 		}
+	}
+	
+	public void unregisterToEvent(int e){
+		Assert.notNull(e);
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		if(d.getEvents().contains(findOne(e))){
+			d.getEvents().remove(findOne(e));
+		}		
 	}
 }

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -42,6 +43,7 @@ public class Soiree extends DomainEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+	@Future
 	public Date getDate() {
 		return date;
 	}
@@ -108,7 +110,6 @@ public class Soiree extends DomainEntity {
 		this.event = event;
 	}
 	
-	@NotEmpty
 	@Valid
 	@OneToMany(mappedBy = "soiree", cascade = CascadeType.ALL)
 	public Collection<Dish> getDishes() {

@@ -16,6 +16,9 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>Oops! You don't have access to this resource.</p> 
+<p>Oops! You don't have access to this resource.</p>
+<jstl:if test="${param['a']==0}">
+	<h1><spring:message code="maxregistered"/></h1>
+</jstl:if>
 
 <p><a href="<spring:url value='/' />">Return to the welcome page</a><p>

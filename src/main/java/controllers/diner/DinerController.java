@@ -16,7 +16,6 @@ import controllers.AbstractController;
 
 import domain.Diner;
 
-import security.LoginService;
 import services.DinerService;
 
 @Controller
@@ -27,9 +26,6 @@ public class DinerController extends AbstractController {
 
 	@Autowired
 	private DinerService dinerService;
-	
-	@Autowired
-	private LoginService loginService;
 	
 	// Constructors -----------------------------------------------------------
 	

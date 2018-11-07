@@ -26,6 +26,7 @@
 <spring:message code="event.regist" var="regist" />
 <spring:message code="event.edit" var="edit" />
 <spring:message code="event.delete" var="delete" />
+<spring:message code="event.createsoirees" var="createsoirees" />
 
 
 <security:authorize access="permitAll">
@@ -81,6 +82,13 @@
 				</jstl:if>
 				<jstl:if test="${myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id}">
 					<acme:url url="event/diner/unregister.do?q=${row.id}" code="event.unregister"/>
+				</jstl:if>
+			</display:column>
+			
+			<!-- Botón organizar una velada -->
+			<display:column title="${createsoirees}" sortable="false">
+				<jstl:if test="${myRegisteredEvents.contains(row)}">
+					<acme:url url="event/soiree/create.do?q=${row.id}" code="event.createsoirees"/>				
 				</jstl:if>
 			</display:column>
 

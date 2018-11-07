@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.DinerService;
-import services.EventService;
 import controllers.AbstractController;
 import domain.Diner;
 
@@ -21,9 +20,6 @@ public class DinerBussinessCardController extends AbstractController {
 
 		@Autowired
 		private DinerService dinerService;
-		
-		@Autowired
-		private EventService eventService;
 		
 		@Autowired
 		private LoginService loginService;

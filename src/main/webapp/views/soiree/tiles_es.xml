@@ -21,4 +21,8 @@
 		<put-attribute name="body" value="/views/soiree/list.jsp" />
 	</definition>
 	
+	<definition name="soiree/create" extends="master.page">	
+		<put-attribute name="title" value="CREAR VELADA" />
+		<put-attribute name="body" value="/views/soiree/create.jsp" />
+	</definition>
 </tiles-definitions>

@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class SoireeService {
 		// Simple CRUD methods ----------------------------------------------------
 		
 		public Soiree create(Event e) {
+			
 			Soiree soiree = new Soiree();
 			
 			soiree.setDate(new Date());		
@@ -85,7 +87,6 @@ public class SoireeService {
 
 				aca = soireeRepository.save(aca);
 			} else {
-
 				aca = soireeRepository.save(soiree);
 			}
 			return aca;
@@ -116,9 +117,9 @@ public class SoireeService {
 
 		// Other business methods -------------------------------------------------
 		
-		/*public List<Event> findEventsByKeyWord(String keyword){
-			return eventRepository.findEventsByKeyWord(keyword);
-		}*/
+		public Collection<Diner> organizerOfSoireesOfEvent(int eventID){
+			return soireeRepository.organizerOfSoireesOfEvent(eventID);
+		}
 
 
 }

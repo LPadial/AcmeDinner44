@@ -232,7 +232,7 @@
 <%
 			} else if(Date.class.isAssignableFrom(e.getType())) {
 %>
-				<input placeholder="<%=date_stamp_list.contains(e.getName()) ? "dd/MM/yyyy hh:mm:ss" : "dd/MM/yyyy" %>" value="<%=show ? date_stamp_list.contains(e.getName()) ? format_time.format(e.get(entity)) : format.format(e.get(entity)) : "" %>" name="<%=e.getName()%>" type="text" class="form-control" id="<%=e.getName()%>">
+				<input placeholder="<%=date_stamp_list.contains(e.getName()) ? "dd/MM/yyyy hh:mm" : "dd/MM/yyyy" %>" value="<%=show ? date_stamp_list.contains(e.getName()) ? format_time.format(e.get(entity)) : format.format(e.get(entity)) : "" %>" name="<%=e.getName()%>" type="text" class="form-control" id="<%=e.getName()%>">
 <%
 			} else if(Boolean.class.isAssignableFrom(e.getType())) {
 %>
