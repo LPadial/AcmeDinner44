@@ -77,7 +77,7 @@
 			</display:column>
 			
 			<display:column title="${regist}" sortable="false">
-				<jstl:if test="${!myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id}">
+				<jstl:if test="${!myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id and eventCanRegistered.contains(row.id)}">
 					<acme:url url="event/diner/register.do?q=${row.id}" code="event.register"/>
 				</jstl:if>
 				<jstl:if test="${myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id}">
@@ -87,7 +87,7 @@
 			
 			<!-- Botón organizar una velada -->
 			<display:column title="${createsoirees}" sortable="false">
-				<jstl:if test="${myRegisteredEvents.contains(row)}">
+				<jstl:if test="${myRegisteredEvents.contains(row) and canCreateSoiree.contains(row.id)}">
 					<acme:url url="event/soiree/create.do?q=${row.id}" code="event.createsoirees"/>				
 				</jstl:if>
 			</display:column>

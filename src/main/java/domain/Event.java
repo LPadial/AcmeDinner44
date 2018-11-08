@@ -75,7 +75,7 @@ public class Event extends DomainEntity {
 	private Diner organizer;
 	
 
-
+	@Valid
 	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
 	public Collection<Soiree> getSoirees() {
 		return soirees;

@@ -49,17 +49,22 @@ public class SoireeService {
 		
 		public Soiree create(Event e) {
 			
-			Soiree soiree = new Soiree();
+			Collection<Diner> organizers = organizerOfSoireesOfEvent(e.getId());
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 			
-			soiree.setDate(new Date());		
-			soiree.setAddress(new String());
-			soiree.setPictures(new ArrayList<String>());
-			Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-			soiree.setOrganizer(d);
-			soiree.setDishes(new ArrayList<Dish>());
-			soiree.setSponsorships(new ArrayList<Sponsorship>());
-			soiree.setEvent(e);
-
+			Soiree soiree = null;
+			if(!(organizers.contains(d)) && d.getEvents().contains(e)){
+			
+				soiree = new Soiree();
+				
+				soiree.setDate(new Date());		
+				soiree.setAddress(new String());
+				soiree.setPictures(new ArrayList<String>());
+				soiree.setOrganizer(d);
+				soiree.setDishes(new ArrayList<Dish>());
+				soiree.setSponsorships(new ArrayList<Sponsorship>());
+				soiree.setEvent(e);				
+			}
 			return soiree;
 
 		}

@@ -20,6 +20,7 @@ import domain.Soiree;
 
 import security.LoginService;
 import services.EventService;
+import services.SoireeService;
 
 @Controller
 @RequestMapping("/event")
@@ -32,6 +33,9 @@ public class EventController extends AbstractController {
 
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private SoireeService soireeService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -58,10 +62,28 @@ public class EventController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("event/list");
+		ArrayList<Integer> canCreateSoiree = new ArrayList<Integer>();
+		ArrayList<Event> eventCanRegistered = new ArrayList<Event>();
+		
 
 		if (LoginService.hasRole("DINER")) {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("myRegisteredEvents", d.getEvents());			
+			result.addObject("myRegisteredEvents", d.getEvents());	
+			for (Event e : d.getEvents()){
+				if(eventService.findRegisteredDinerInEvents(e.getId()).size()<4){
+					eventCanRegistered.add(e);
+				}
+			}
+			
+			for(Event e: d.getEvents()){
+				Collection<Diner> organizers = soireeService.organizerOfSoireesOfEvent(e.getId());
+				if(!organizers.contains(d)){
+					canCreateSoiree.add(e.getId());
+				}
+			}
+			
+			result.addObject("eventCanRegistered",eventCanRegistered);
+			result.addObject("canCreateSoiree", canCreateSoiree);
 		}
 
 		result.addObject("events", eventService.findAll());
@@ -72,15 +94,32 @@ public class EventController extends AbstractController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@RequestParam(required = false) String q) {
 		ModelAndView result;
+		ArrayList<Integer> canCreateSoiree = new ArrayList<Integer>();
+		ArrayList<Integer> eventCanRegistered = new ArrayList<Integer>();
 		result = new ModelAndView("event/list");
 		
 		result.addObject("a", 0);
 		result.addObject("events", eventService.findEventsByKeyWord(q));
+		
 		if (LoginService.hasRole("DINER")) {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("myRegisteredEvents", d.getEvents());			
+			result.addObject("myRegisteredEvents", d.getEvents());	
+			
+			for (Event e : eventService.findEventsByKeyWord(q)){
+				if(eventService.findRegisteredDinerInEvents(e.getId()).size()<4){
+					eventCanRegistered.add(e.getId());
+				}
+			}
+			
+			for(Event e: eventService.findEventsByKeyWord(q)){
+				Collection<Diner> organizers = soireeService.organizerOfSoireesOfEvent(e.getId());
+				if(!organizers.contains(d)){
+					canCreateSoiree.add(e.getId());
+				}
+			}
+			result.addObject("eventCanRegistered",eventCanRegistered);
+			result.addObject("canCreateSoiree", canCreateSoiree);
 		}
-		
 		
 		
 		return result;

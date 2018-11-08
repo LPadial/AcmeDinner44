@@ -74,9 +74,7 @@ public class EventDinerController extends AbstractController {
 			if(eventService.findRegisteredDinerInEvents(q).size()<4){
 				eventService.registerToEvent(q);
 				result = new ModelAndView("redirect:/diner/event/registeredList.do");
-			}/*else{
-				result.addObject("a", 0);
-			}*/
+			}
 		}			
 		return result;			
 	}
