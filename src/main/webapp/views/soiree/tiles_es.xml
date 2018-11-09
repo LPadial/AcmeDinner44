@@ -25,4 +25,14 @@
 		<put-attribute name="title" value="CREAR VELADA" />
 		<put-attribute name="body" value="/views/soiree/create.jsp" />
 	</definition>
+	
+	<definition name="soiree/view" extends="master.page">	
+		<put-attribute name="title" value="VISTA DE VELADA" />
+		<put-attribute name="body" value="/views/soiree/view.jsp" />
+	</definition>
+	
+	<definition name="soiree/edit" extends="master.page">	
+		<put-attribute name="title" value="EDITAR VELADA" />
+		<put-attribute name="body" value="/views/soiree/edit.jsp" />
+	</definition>
 </tiles-definitions>

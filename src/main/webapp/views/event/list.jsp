@@ -63,14 +63,14 @@
 			<security:authentication property="principal.id" var="id" />
 			
 			<display:column title="${edit}" sortable="false">
-				<!-- Veo mis eventos -->
+				<!-- Editar mis eventos -->
 				<jstl:if test="${row.organizer.userAccount.id == id}">
 					<acme:url url="event/edit.do?q=${row.id}" code="event.edit"/>
 				</jstl:if>
 			</display:column>
 			
 			<display:column title="${delete}" sortable="false">
-				<!-- Veo mis eventos -->
+				<!-- Borrar mis eventos -->
 				<jstl:if test="${row.organizer.userAccount.id == id}">
 					<acme:url url="event/delete.do?q=${row.id}" code="event.delete"/>
 				</jstl:if>

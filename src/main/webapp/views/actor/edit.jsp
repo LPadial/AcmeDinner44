@@ -34,6 +34,11 @@
 		another_mapped_classes="domain.Actor"
 		hiddenFields="followers,chirps,bussinessCard,events,finder,avgScore"
 		entity="${person}">
+		
+		<acme:acme_input entity="${person.userAccount}" name="userAccount.username" field="username" />
+		<acme:acme_input entity="${person.userAccount}" name="userAccount.password" field="password" typeIn="password" />
+		
+		<form:hidden path="userAccount.Authorities" />
 
 		<security:authorize access="hasRole('DINER')">
 		</security:authorize>

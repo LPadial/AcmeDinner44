@@ -110,5 +110,10 @@
         l.search = search;
     }
 </script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".carousel-inner div").first().addClass('active');
+	});
+</script>
 </body>
 </html>

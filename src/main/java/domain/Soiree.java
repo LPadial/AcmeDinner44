@@ -42,7 +42,8 @@ public class Soiree extends DomainEntity {
 	// Getters
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@NotNull
 	@Future
 	public Date getDate() {
 		return date;
@@ -86,7 +87,6 @@ public class Soiree extends DomainEntity {
 	private Diner organizer;
 	private Event event;
 	private Collection<Dish> dishes;
-	private Collection<Sponsorship> sponsorships;
 	
 	@NotNull
 	@Valid
@@ -130,23 +130,7 @@ public class Soiree extends DomainEntity {
 		dish.setSoiree(null);
 	}
 	
-	@Valid
-	@OneToMany
-	public Collection<Sponsorship> getSponsorships(){
-		return sponsorships;
-	}
 	
-	public void setSponsorships(Collection<Sponsorship> sponsorships){
-		this.sponsorships = sponsorships;
-	}
-	
-	public void addSponsorship(Sponsorship sponsorship){
-		sponsorships.add(sponsorship);
-	}
-	
-	public void removeSponsorship(Sponsorship sponsorship){
-		sponsorships.remove(sponsorship);
-	}
 
 
 }

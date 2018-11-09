@@ -17,6 +17,8 @@ import org.springframework.util.Assert;
 import domain.Diner;
 import domain.Event;
 import domain.Soiree;
+import domain.Sponsorship;
+import domain.Vote;
 
 import repositories.EventRepository;
 import security.LoginService;
@@ -39,6 +41,12 @@ public class EventService {
 	
 	@Autowired
 	private DishService dishService;
+	
+	@Autowired
+	private SponsorshipService sponsorShipService;
+	
+	@Autowired
+	private VoteService voteService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -120,7 +128,14 @@ public class EventService {
 		Assert.notNull(event);
 		
 		Collection<Diner> diners = findRegisteredDinerInEvents(event.getId());
-		
+		for(Soiree s: event.getSoirees()){
+			for(Sponsorship ss : soireeService.sponsorsihpOfSoiree(s.getId())){
+				sponsorShipService.delete(ss);
+			}
+			for(Vote v: soireeService.votesOfSoiree(s.getId())){
+				voteService.delete(v);
+			}
+		}
 		for(Diner d: diners){
 			d.getEvents().remove(event);
 		}

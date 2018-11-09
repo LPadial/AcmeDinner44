@@ -104,6 +104,9 @@ public class DinerService {
 			String fullName = diner.getActorName() + diner.getSurname();
 			aca.getBussinessCard().getPersonalSection().setFullName(fullName);
 			aca.setFinder(diner.getFinder());
+			aca.getUserAccount().setUsername(diner.getUserAccount().getUsername());
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			aca.getUserAccount().setPassword(encoder.encodePassword(diner.getUserAccount().getPassword(), null));
 
 			aca = dinerRepository.save(aca);
 		} else {

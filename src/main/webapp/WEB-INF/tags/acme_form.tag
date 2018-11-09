@@ -64,7 +64,7 @@
 <form:form action="${url}" modelAttribute="<%=entity.getClass().getSimpleName().toLowerCase() %>" method="POST" >
 <%
 	final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-	final SimpleDateFormat format_time = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+	final SimpleDateFormat format_time = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	List<String> date_stamp_list = new LinkedList<String>();
 	
@@ -232,7 +232,7 @@
 <%
 			} else if(Date.class.isAssignableFrom(e.getType())) {
 %>
-				<input placeholder="<%=date_stamp_list.contains(e.getName()) ? "dd/MM/yyyy hh:mm" : "dd/MM/yyyy" %>" value="<%=show ? date_stamp_list.contains(e.getName()) ? format_time.format(e.get(entity)) : format.format(e.get(entity)) : "" %>" name="<%=e.getName()%>" type="text" class="form-control" id="<%=e.getName()%>">
+				<input placeholder="<%=date_stamp_list.contains(e.getName()) ? "dd/MM/yyyy HH:mm" : "dd/MM/yyyy" %>" value="<%=show ? date_stamp_list.contains(e.getName()) ? format_time.format(e.get(entity)) : format.format(e.get(entity)) : "" %>" name="<%=e.getName()%>" type="text" class="form-control" id="<%=e.getName()%>">
 <%
 			} else if(Boolean.class.isAssignableFrom(e.getType())) {
 %>

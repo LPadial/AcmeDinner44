@@ -86,8 +86,7 @@ public class Dish extends DomainEntity {
 		this.soiree = soiree;
 	}
 	
-	@NotNull	
-	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public DishType getDishType() {
 		return dishType;

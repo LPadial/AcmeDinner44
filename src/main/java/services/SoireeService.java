@@ -18,6 +18,7 @@ import domain.Dish;
 import domain.Event;
 import domain.Soiree;
 import domain.Sponsorship;
+import domain.Vote;
 
 @Service
 @Transactional
@@ -27,9 +28,6 @@ public class SoireeService {
 	
 		@Autowired
 		private SoireeRepository soireeRepository;
-		
-		@Autowired
-		private SponsorshipRepository sponsorshipRepository;
 
 		// Supporting services ----------------------------------------------------
 		
@@ -38,6 +36,9 @@ public class SoireeService {
 		
 		@Autowired
 		private DishService dishService;
+		
+		@Autowired
+		private SponsorshipService sponsorshipService;
 
 
 		// Constructors -----------------------------------------------------------
@@ -62,7 +63,6 @@ public class SoireeService {
 				soiree.setPictures(new ArrayList<String>());
 				soiree.setOrganizer(d);
 				soiree.setDishes(new ArrayList<Dish>());
-				soiree.setSponsorships(new ArrayList<Sponsorship>());
 				soiree.setEvent(e);				
 			}
 			return soiree;
@@ -104,10 +104,9 @@ public class SoireeService {
 		public void delete(Soiree soiree) {
 			Assert.notNull(soiree);
 			
-			for(Sponsorship ss: soiree.getSponsorships()){
-				if(ss.getSoiree() == soiree){
-					sponsorshipRepository.delete(ss);
-				}
+			Collection<Sponsorship> sponsorshipsToDelete = sponsorsihpOfSoiree(soiree.getId());
+			for(Sponsorship ss: sponsorshipsToDelete){
+				sponsorshipService.delete(ss);
 			}
 			
 			if(soiree.getDishes().size() != 0){
@@ -125,6 +124,19 @@ public class SoireeService {
 		public Collection<Diner> organizerOfSoireesOfEvent(int eventID){
 			return soireeRepository.organizerOfSoireesOfEvent(eventID);
 		}
+		
+		public Collection<Sponsorship> sponsorsihpOfSoiree(int soireeID){
+			return soireeRepository.sponsorsihpOfSoiree(soireeID);
+		}
+		
+		public Collection<Soiree> soireesOfDiner(int dinerID){
+			return soireeRepository.soireesOfDiner(dinerID);
+		}
+		
+		public Collection<Vote> votesOfSoiree(int soireeID){
+			return soireeRepository.votesOfSoiree(soireeID);
+		}
+		
 
 
 }

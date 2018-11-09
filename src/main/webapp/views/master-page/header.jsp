@@ -94,6 +94,16 @@
 								<li><a href="diner/event/registeredList.do"><spring:message code="diner.registeredEvents" /></a></li>
 							</ul>
 						</li>
+						<!-- My soirees -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<spring:message code="diner.soirees" />
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="diner/soiree/organizedList.do"><spring:message code="diner.organizedSoirees" /></a></li>
+							</ul>
+						</li>
 					</security:authorize>
 					
 					<li class="dropdown">

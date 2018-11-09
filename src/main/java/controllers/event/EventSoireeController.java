@@ -1,5 +1,6 @@
 package controllers.event;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -48,9 +49,23 @@ public class EventSoireeController extends AbstractController {
 	public ModelAndView soirees(@RequestParam(required = true) final int q) {
 		ModelAndView result;
 		result = new ModelAndView("soiree/list");
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		
+		ArrayList<Soiree> soireesOfDiner = new ArrayList<Soiree>();
+		ArrayList<Soiree> canCreateDish = new ArrayList<Soiree>();
 		
 		Event e = eventService.findOne(q);
 		
+		for(Soiree s: e.getSoirees()){
+			if(s.getOrganizer()==d){
+				soireesOfDiner.add(s);
+			}			
+			if(s.getDishes().size()<4){
+				canCreateDish.add(s);
+			}
+		}
+		result.addObject("canCreateDish",canCreateDish);
+		result.addObject("soireesOfDiner", soireesOfDiner);
 		result.addObject("soirees", e.getSoirees());
 
 		return result;
@@ -95,7 +110,7 @@ public class EventSoireeController extends AbstractController {
 		}else{
 			try{ 
 				soireeService.save(soiree); 
-				res = new ModelAndView("redirect:/diner/event/registeredList.do");
+				res = new ModelAndView("redirect:/diner/soiree/organizedList.do");
 			}catch(Throwable e){ 
 				res = createNewModelAndView(soiree,"soiree.commit.error"); 
 			} 

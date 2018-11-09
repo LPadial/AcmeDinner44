@@ -67,7 +67,9 @@
 		<display:table  name="soirees" id="row" requestURI="${requestURI}" class="table">
 			
 			<display:column property="address" title="${address}" sortable="false" />
-			<display:column property="date" title="${date}" sortable="false" />
+			<display:column title="${date}" sortable="false" >
+				<fmt:formatDate value="${row.date}" pattern="dd/MM/yyyy HH:mm"/>
+			</display:column>
 			<display:column title="${pictures}">
 				<jstl:forEach var="e" items="${row.pictures}">
 					<img src="${e}" style="max-width:120px;max-height:120px;"><br />
