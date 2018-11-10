@@ -21,7 +21,12 @@ public interface EventRepository extends JpaRepository<Event, Integer>{
 	@Query("select count(e), e.organizer from Event e group by e.organizer")
 	Object[] numEventForDinner();
 	
+	//Diners registers in event
 	@Query("select d from Diner d join d.events e where e.id = ?1")
 	Collection<Diner> findRegisteredDinerInEvents(int eventID);
+	
+	//Events have 4 soirees
+	@Query("select distinct e from Event e where e.soirees.size=4")
+	Collection<Event> eventsWith4Soirees();
 
 }

@@ -12,13 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Diner;
 import domain.Dish;
-import domain.Event;
 import domain.Soiree;
+import domain.Vote;
 
 import security.LoginService;
 import services.DishService;
 import services.DishTypeService;
 import services.SoireeService;
+import services.VoteService;
 
 @Controller
 @RequestMapping("/soiree")
@@ -37,6 +38,9 @@ public class SoireeController extends AbstractController {
 	
 	@Autowired
 	private DishTypeService dishTypeService;
+	
+	@Autowired
+	private VoteService voteService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -73,6 +77,19 @@ public class SoireeController extends AbstractController {
 		return result;
 	}
 	
+	//Cast a vote
+	@RequestMapping(value = "/vote", method = RequestMethod.GET)
+	public ModelAndView vote(@RequestParam(required = true) int q) {
+		ModelAndView result;
+		result = new ModelAndView("vote/create");
+			
+		Soiree s = soireeService.findOne(q);
+			
+		result.addObject("vote", voteService.create(s));	
+			
+		return result;
+	}
+	
 	// Save ---------------------------------------------------------------
 	@RequestMapping(value="/dish/save-create",method=RequestMethod.POST,params = "save")
 	public ModelAndView saveCreate(@Valid Dish dish, BindingResult binding){ 
@@ -85,6 +102,25 @@ public class SoireeController extends AbstractController {
 				res = new ModelAndView("redirect:/diner/soiree/organizedList.do");
 			}catch(Throwable e){ 
 				res = createNewModelAndView(dish,"dish.commit.error"); 
+			} 
+		} 
+		return res;
+	}
+	
+	@RequestMapping(value="/vote/save-create",method=RequestMethod.POST,params = "save")
+	public ModelAndView saveCreate(@Valid Vote vote, BindingResult binding){ 
+		ModelAndView res;
+		if(binding.hasErrors()){ 
+			res = new ModelAndView("vote/create");
+			res.addObject("vote",vote);
+		}else{
+			try{
+				voteService.save(vote); 
+				res = new ModelAndView("redirect:/diner/event/registeredList.do");
+			}catch(Throwable e){ 
+				res = new ModelAndView("vote/create");
+				res.addObject("vote",vote);
+				res.addObject("message","vote.commit.error");
 			} 
 		} 
 		return res;
@@ -127,6 +163,8 @@ public class SoireeController extends AbstractController {
 
 		return result;
 	}
+	
+	
 	
 	// Ancillary methods ------------------------------------------------------
 	protected ModelAndView createNewModelAndView(Dish dish, String message) {

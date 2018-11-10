@@ -20,6 +20,7 @@
 <spring:message code="soiree.view" var="view" />
 <spring:message code="soiree.edit" var="edit" />
 <spring:message code="soiree.delete" var="delete" />
+<spring:message code="soiree.vote" var="vote" />
 
 <!-- Table -->
 
@@ -40,7 +41,7 @@
 		<acme:url url="event/soiree/dish/list.do?q=${row.id}" code="soiree.dishes"/>
 	</display:column>
 	
-	<!-- Botón organizar una velada -->
+	<!-- Botón crear un plato -->
 	<display:column title="${createdish}" sortable="false">
 		<jstl:if test="${soireesOfDiner.contains(row) and canCreateDish.contains(row)}">
 			<acme:url url="soiree/dish/create.do?q=${row.id}" code="soiree.createdish"/>				
@@ -65,6 +66,13 @@
 	<display:column title="${delete}" sortable="false">		
 		<jstl:if test="${row.organizer.userAccount.id == id}">
 			<acme:url url="soiree/delete.do?q=${row.id}" code="soiree.delete"/>
+		</jstl:if>
+	</display:column>
+	
+	<!-- Votar -->
+	<display:column title="${vote}" sortable="false">		
+		<jstl:if test="${isRegisteredInEvent and dinerCanCastAVote.contains(row)}">
+			<acme:url url="soiree/vote.do?q=${row.id}" code="soiree.vote"/>
 		</jstl:if>
 	</display:column>
 

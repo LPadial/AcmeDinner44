@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -96,6 +97,7 @@ public class EventController extends AbstractController {
 		ModelAndView result;
 		ArrayList<Integer> canCreateSoiree = new ArrayList<Integer>();
 		ArrayList<Integer> eventCanRegistered = new ArrayList<Integer>();
+		ArrayList<Event> dateIsBeforeCurrent = new ArrayList<Event>();
 		result = new ModelAndView("event/list");
 		
 		result.addObject("a", 0);
@@ -105,18 +107,20 @@ public class EventController extends AbstractController {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 			result.addObject("myRegisteredEvents", d.getEvents());	
 			
-			for (Event e : eventService.findEventsByKeyWord(q)){
-				if(eventService.findRegisteredDinerInEvents(e.getId()).size()<4){
-					eventCanRegistered.add(e.getId());
-				}
-			}
-			
 			for(Event e: eventService.findEventsByKeyWord(q)){
 				Collection<Diner> organizers = soireeService.organizerOfSoireesOfEvent(e.getId());
 				if(!organizers.contains(d)){
 					canCreateSoiree.add(e.getId());
 				}
+				
+				if(eventService.findRegisteredDinerInEvents(e.getId()).size()<4){
+					eventCanRegistered.add(e.getId());
+				}
+				if(eventService.isOver(e)){
+					dateIsBeforeCurrent.add(e);
+				}
 			}
+			result.addObject("dateIsBeforeCurrent",dateIsBeforeCurrent);
 			result.addObject("eventCanRegistered",eventCanRegistered);
 			result.addObject("canCreateSoiree", canCreateSoiree);
 		}

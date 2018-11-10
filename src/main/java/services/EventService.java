@@ -2,6 +2,7 @@ package services;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -171,5 +172,26 @@ public class EventService {
 		if(d.getEvents().contains(findOne(e))){
 			d.getEvents().remove(findOne(e));
 		}		
+	}
+	
+	public Collection<Event> eventsWith4Soirees(){
+		return eventRepository.eventsWith4Soirees();
+	}
+	
+	public Boolean isOver(Event e){
+		Boolean isOver = false;
+	
+		if(e.getSoirees().size() == 4){
+			ArrayList<Soiree> soireesPast = new ArrayList<Soiree>();
+			for(Soiree s: e.getSoirees()){						
+				if(s.getDate().before(Calendar.getInstance().getTime())){
+					soireesPast.add(s);
+				}
+				if(soireesPast.size() == 4){
+					isOver=true;
+				}
+			}
+		}
+		return isOver;
 	}
 }

@@ -36,6 +36,7 @@
 		<value>/views/personalSection/tiles.xml</value>
 		<value>/views/professionalSection/tiles.xml</value>
 		<value>/views/socialSection/tiles.xml</value>
+		<value>/views/vote/tiles.xml</value>
 		
 	</util:list>
 

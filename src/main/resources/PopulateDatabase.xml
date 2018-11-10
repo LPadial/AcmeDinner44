@@ -829,6 +829,57 @@
 		<property name="event" ref="event6" />
 	</bean>
 	
+	<bean id="soiree7" class="domain.Soiree">
+		<property name="date" value="20/11/2018 21:00" />
+		<property name="address" value="Calle Pachanga, 1" />
+		<property name="pictures">
+			<list>
+				<value>https://farm4.staticflickr.com/3248/3067600928_ae593d8777_z.jpg</value>
+				<value>https://farm9.staticflickr.com/8376/8465519726_b440475406_z.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner2"></property>
+		<property name="dishes">
+			<list>
+			</list>
+		</property>
+		<property name="event" ref="event1" />
+	</bean>
+	
+	<bean id="soiree8" class="domain.Soiree">
+		<property name="date" value="20/11/2018 21:00" />
+		<property name="address" value="Calle Pachanga, 1" />
+		<property name="pictures">
+			<list>
+				<value>https://farm4.staticflickr.com/3248/3067600928_ae593d8777_z.jpg</value>
+				<value>https://farm9.staticflickr.com/8376/8465519726_b440475406_z.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner3"></property>
+		<property name="dishes">
+			<list>
+			</list>
+		</property>
+		<property name="event" ref="event1" />
+	</bean>
+	
+	<bean id="soiree9" class="domain.Soiree">
+		<property name="date" value="20/11/2018 21:00" />
+		<property name="address" value="Calle Pachanga, 1" />
+		<property name="pictures">
+			<list>
+				<value>https://farm4.staticflickr.com/3248/3067600928_ae593d8777_z.jpg</value>
+				<value>https://farm9.staticflickr.com/8376/8465519726_b440475406_z.jpg</value>
+			</list>
+		</property>
+		<property name="organizer" ref="diner1"></property>
+		<property name="dishes">
+			<list>
+			</list>
+		</property>
+		<property name="event" ref="event1" />
+	</bean>
+	
 	
 
 	<!-- Dish type -->

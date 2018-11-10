@@ -77,10 +77,10 @@
 			</display:column>
 			
 			<display:column title="${regist}" sortable="false">
-				<jstl:if test="${!myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id and eventCanRegistered.contains(row.id)}">
+				<jstl:if test="${!myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id and eventCanRegistered.contains(row.id) and !dateIsBeforeCurrent.contains(row)}">
 					<acme:url url="event/diner/register.do?q=${row.id}" code="event.register"/>
 				</jstl:if>
-				<jstl:if test="${myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id}">
+				<jstl:if test="${myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id and !dateIsBeforeCurrent.contains(row)}">
 					<acme:url url="event/diner/unregister.do?q=${row.id}" code="event.unregister"/>
 				</jstl:if>
 			</display:column>

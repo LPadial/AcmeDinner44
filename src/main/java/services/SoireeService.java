@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SoireeRepository;
-import repositories.SponsorshipRepository;
 import security.LoginService;
 import domain.Diner;
 import domain.Dish;
@@ -79,6 +79,7 @@ public class SoireeService {
 		}
 
 		public Soiree save(Soiree soiree) {
+			Assert.isTrue(Calendar.getInstance().getTime().before(soiree.getDate()),"Date must be in the future");
 			Assert.notNull(soiree);
 			Soiree aca = null;
 

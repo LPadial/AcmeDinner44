@@ -30,7 +30,7 @@ public class Vote extends DomainEntity {
 	// GETTERS
 
 	@Range(min = 0, max = 10)
-	public int getPoints() {
+	public Integer getPoints() {
 		return points;
 	}
 	
@@ -48,7 +48,7 @@ public class Vote extends DomainEntity {
 
 	// SETTERS
 
-	public void setPoints(int points) {
+	public void setPoints(Integer points) {
 		this.points = points;
 	}
 

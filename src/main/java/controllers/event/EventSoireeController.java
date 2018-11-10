@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.EventService;
 import services.SoireeService;
+import services.VoteService;
 
 import controllers.AbstractController;
 import domain.Diner;
@@ -33,6 +34,9 @@ public class EventSoireeController extends AbstractController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private VoteService voteService;
 	
 	@Autowired
 	private LoginService loginService;
@@ -53,6 +57,8 @@ public class EventSoireeController extends AbstractController {
 		
 		ArrayList<Soiree> soireesOfDiner = new ArrayList<Soiree>();
 		ArrayList<Soiree> canCreateDish = new ArrayList<Soiree>();
+		Boolean isRegisteredInEvent = false;
+		ArrayList<Soiree> dinerCanCastAVote = new ArrayList<Soiree>();
 		
 		Event e = eventService.findOne(q);
 		
@@ -63,7 +69,16 @@ public class EventSoireeController extends AbstractController {
 			if(s.getDishes().size()<4){
 				canCreateDish.add(s);
 			}
+			if(eventService.isOver(e) && voteService.dinerHasVoteInSoiree(d.getId(), s.getId())<1){
+				dinerCanCastAVote.add(s);
+			}
+		}		
+
+		if(d.getEvents().contains(e)){
+			isRegisteredInEvent = true;			
 		}
+		result.addObject("dinerCanCastAVote",dinerCanCastAVote);
+		result.addObject("isRegisteredInEvent",isRegisteredInEvent);
 		result.addObject("canCreateDish",canCreateDish);
 		result.addObject("soireesOfDiner", soireesOfDiner);
 		result.addObject("soirees", e.getSoirees());

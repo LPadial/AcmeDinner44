@@ -44,7 +44,6 @@ public class Soiree extends DomainEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@NotNull
-	@Future
 	public Date getDate() {
 		return date;
 	}

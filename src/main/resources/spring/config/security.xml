@@ -131,6 +131,20 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/soiree/delete.do"
 			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/dish/view.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/dish/edit.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/dish/delete.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/dish/save-create.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/soiree/vote.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/soiree/vote/create.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/soiree/vote/save-create.do"
+			access="hasRole('DINER')" />
 			
 			
 			
