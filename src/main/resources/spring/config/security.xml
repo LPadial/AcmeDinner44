@@ -146,6 +146,11 @@
 		<security:intercept-url pattern="/soiree/vote/save-create.do"
 			access="hasRole('DINER')" />
 			
+		<security:intercept-url pattern="/administrator/create.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/save.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
 			
 			
 			

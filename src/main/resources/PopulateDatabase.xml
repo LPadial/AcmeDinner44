@@ -234,9 +234,9 @@
 
 	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
-		<property name="actorName" value="Laura" />
+		<property name="actorName" value="Manuel" />
 		<property name="surname" value="Padial" />
-		<property name="email" value="lp@hotmail.com" />
+		<property name="email" value="mp@hotmail.com" />
 		<property name="userAccount" ref="userAccount1" />
 		<property name="followers">
 			<list>
@@ -330,6 +330,7 @@
 		<property name="surname" value="Padial" />
 		<property name="email" value="lp@hotmail.com" />
 		<property name="userAccount" ref="userAccount2" />
+		<property name="avgScore" value="10" />
 		<property name="followers">
 			<list>
 				<ref bean="supermarket2" />
@@ -357,6 +358,7 @@
 		<property name="surname" value="Sanchez" />
 		<property name="email" value="adrian@hotmail.com" />
 		<property name="userAccount" ref="userAccount3" />
+		<property name="avgScore" value="5.5" />
 		<property name="followers">
 			<list>
 				<ref bean="supermarket2" />
@@ -381,9 +383,10 @@
 	</bean>
 
 	<bean id="diner3" class="domain.Diner">
-		<property name="actorName" value="Pepito" />
-		<property name="surname" value="Grillo" />
-		<property name="email" value="pegri@hotmail.com" />
+		<property name="actorName" value="Manoli" />
+		<property name="surname" value="González" />
+		<property name="email" value="mg@hotmail.com" />
+		<property name="avgScore" value="3.5" />
 		<property name="userAccount" ref="userAccount11" />
 		<property name="followers">
 			<list>
@@ -651,7 +654,7 @@
 		<property name="title" value="Comida casera" />
 		<property name="city" value="Madrid" />
 		<property name="description" value="La cocina de antaño es el punto fuerte de este evento" />
-		<property name="organizer" ref="diner1"></property>
+		<property name="organizer" ref="diner3"></property>
 		<property name="soirees">
 			<list>
 				<ref bean="soiree1" />
@@ -664,7 +667,7 @@
 		<property name="title" value="Comida española" />
 		<property name="city" value="Sevilla" />
 		<property name="description" value="Todos los platos típicos tienen cabida ene ste evento, el salmorejo, la tortilla de patatas, paella, etc." />
-		<property name="organizer" ref="diner1"></property>
+		<property name="organizer" ref="diner2"></property>
 		<property name="soirees">
 			<list>
 				<ref bean="soiree2" />
@@ -677,7 +680,7 @@
 		<property name="title" value="Comida internacional" />
 		<property name="city" value="Guadalajara" />
 		<property name="description" value="En este evento probaremos un poco de todo" />
-		<property name="organizer" ref="diner2"></property>
+		<property name="organizer" ref="diner1"></property>
 		<property name="soirees">
 			<list>
 				<ref bean="soiree3" />

@@ -73,6 +73,23 @@
 						</li>
 					</security:authorize>
 					
+					<!-- Register new administrator -->
+					<security:authorize access="hasRole('ADMINISTRATOR')">
+						<li>
+							<a class="fNiv" href="administrator/dashboard.do">
+								<spring:message code="master.page.dashboard" />
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+								<spring:message code="master.page.register" /> <span class="caret"></span>
+							</a>
+							<ol class="dropdown-menu">
+								<li><a class="fNiv" href="administrator/create.do"><spring:message code="master.page.administrator.signup" /></a></li>
+							</ol>
+						</li>
+					</security:authorize>
+					
 					<!-- My bussiness card -->
 					<security:authorize access="hasRole('DINER')">
 						<li>

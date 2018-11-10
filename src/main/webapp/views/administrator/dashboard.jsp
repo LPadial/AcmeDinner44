@@ -11,56 +11,69 @@
 
 <security:authorize access="hasRole('ADMINISTRATOR')">
 
-	<b><spring:message code="administrator.minCourse" /> </b>
-	<jstl:out value="${course[0]}" />
+	<b><spring:message code="administrator.numberOfDinersInTheSystem" /> </b>
+	<jstl:out value="${numberOfDiners}" />
 	<br />
-	<b><spring:message code="administrator.stanCourse" /> </b>
-	<jstl:out value="${course[1]}" />
 	<br />
-	<b><spring:message code="administrator.avgCourse" /> </b>
-	<jstl:out value="${course[2]}" />
+	
+	
+	<b><spring:message code="administrator.minScoreDiners" /> </b>
+	<jstl:out value="${avgMinMaxScore[1]}" />
 	<br />
-	<b><spring:message code="administrator.maxCourse" /> </b>
-	<jstl:out value="${course[3]}" />
+	<b><spring:message code="administrator.maxScoreDiners" /> </b>
+	<jstl:out value="${avgMinMaxScore[2]}" />
 	<br />
-
-
-	<b><spring:message code="administrator.minApp" /> </b>
-	<jstl:out value="${app[0]}" />
+	<b><spring:message code="administrator.avgScoreDiners" /> </b>
+	<jstl:out value="${avgMinMaxScore[0]}" />
 	<br />
-	<b><spring:message code="administrator.avgApp" /> </b>
-	<jstl:out value="${app[1]}" />
-	<br />
-	<b><spring:message code="administrator.stanApp" /> </b>
-	<jstl:out value="${app[2]}" />
-	<br />
-	<b><spring:message code="administrator.maxApp" /> </b>
-	<jstl:out value="${app[3]}" />
-	<br />
-
-	<b><spring:message code="administrator.minTutorialAcad" /> </b>
-	<jstl:out value="${tutorialAcad[0]}" />
-	<br />
-	<b><spring:message code="administrator.avgTutorialAcad" /> </b>
-	<jstl:out value="${tutorialAcad[1]}" />
-	<br />
-	<b><spring:message code="administrator.maxTutorialAcad" /> </b>
-	<jstl:out value="${tutorialAcad[2]}" />
 	<br />
 
 
-	<b><spring:message code="administrator.minTutorialShow" /> </b>
-	<jstl:out value="${tutorialShow[0]}" />
+	<b><spring:message code="administrator.minEventsDiners" /> </b>
+	<jstl:out value="" />
 	<br />
+	<b><spring:message code="administrator.maxEventsDiners" /> </b>
+	<jstl:out value="" />
+	<br />
+	<b><spring:message code="administrator.avgEventsDiners" /> </b>
+	<jstl:out value="" />
+	<br />
+	<br />
+	
+	<b><spring:message code="administrator.dinersWhoHaveOrganisedMoreEvents" /> </b>
+	<jstl:out value="" />
+	<br />
+	<br />
+
+	<b><spring:message code="administrator.ratioEventsOver" /> </b>
+	<jstl:out value="" />
+	<br />
+	<br />
+	
+	<b><spring:message code="administrator.minNumDishesPerSoiree" /> </b>
+	<jstl:out value="" />
+	<br />
+	<b><spring:message code="administrator.maxNumDishesPerSoiree" /> </b>
+	<jstl:out value="" />
+	<br />
+	<b><spring:message code="administrator.avgNumDishesPerSoiree" /> </b>
+	<jstl:out value="" />
+	<br />
+	<br />
+	
 	<b><spring:message code="administrator.avgTutorialShow" /> </b>
-	<jstl:out value="${tutorialShow[1]}" />
+	<jstl:out value="" />
 	<br />
-	<b><spring:message code="administrator.maxTutorialShow" /> </b>
-	<jstl:out value="${tutorialShow[2]}" />
+	<br />
+	
+	
+	<b><spring:message code="administrator.ratioDinersWithMoreThan1ProfessionalSection" /> </b>
+	<jstl:out value="" />
+	<br />
 	<br />
 
 
-	<b><spring:message code="administrator.listTutorialSee" /> </b>
+	<!-- <b><spring:message code="administrator.ratioDinersWithMoreThan1SocialSection" /> </b>
 	<jstl:forEach var="c" items="${tutorialSee}" varStatus="loop">
 		<jstl:out value="${c.title}" />
 		<jstl:if test="${!loop.last}">, </jstl:if>
@@ -82,7 +95,7 @@
 		<jstl:out value="${c[1]}" />
 		<jstl:if test="${!loop.last}">, </jstl:if>
 	</jstl:forEach>
-	<br />
+	<br /> -->
 
 
 

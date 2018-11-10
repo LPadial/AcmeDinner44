@@ -1,16 +1,25 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
 import domain.Administrator;
+import domain.Chirp;
+import domain.Finder;
 import repositories.AdministratorRepository;
 import repositories.ChirpRepository;
 import repositories.DinerRepository;
 import repositories.SponsorshipRepository;
+import security.Authority;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -31,6 +40,8 @@ public class AdministratorService {
 	private DinerRepository dinerRepository;
 
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private FinderService finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -40,6 +51,31 @@ public class AdministratorService {
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
+	
+	public Administrator create() {
+		Administrator administrator = new Administrator();
+		
+		Finder finder = finderService.create();
+		finder = finderService.save(finder);	
+		
+		administrator.setFinder(finder);
+		
+		administrator.setActorName(new String());
+		administrator.setSurname(new String());
+		administrator.setEmail(new String());
+		administrator.setFollowers(new ArrayList<Actor>());		
+		administrator.setChirps(new ArrayList<Chirp>());
+		
+
+		Authority a = new Authority();
+		a.setAuthority(Authority.ADMINISTRATOR);
+		UserAccount account = new UserAccount();
+		account.setAuthorities(Arrays.asList(a));
+		administrator.setUserAccount(account);
+
+		return administrator;
+
+	}
 	
 	public Administrator save(Administrator administrator) {
 		Assert.notNull(administrator);
@@ -53,9 +89,17 @@ public class AdministratorService {
 			adm.setEmail(administrator.getEmail());
 			adm.setChirps(administrator.getChirps());
 			adm.setFinder(administrator.getFinder());
+			adm.getUserAccount().setUsername(administrator.getUserAccount().getUsername());
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			adm.getUserAccount().setPassword(encoder.encodePassword(administrator.getUserAccount().getPassword(), null));
 
 			adm = administratorRepository.save(adm);
 		} else {
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			administrator.getUserAccount().setPassword(
+					encoder.encodePassword(
+							administrator.getUserAccount().getPassword(), null));			
+			
 			adm = administratorRepository.save(administrator);
 		}
 		return adm;
@@ -85,6 +129,10 @@ public class AdministratorService {
 	
 	public Integer numDiners(){
 		return dinerRepository.numDiners();
+	}
+	
+	public Object[] avgMinMaxScore(){
+		return dinerRepository.avgMinMaxScore();
 	}
 }
 

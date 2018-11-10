@@ -9,13 +9,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:acme_form url="academy/save.do" type="create"
-	cancel="welcome/index.do" hiddenFields="follower,chirps,tutorials,courses" skip_fields="userAccount" entity="${academy}"
+<acme:acme_form url="administrator/save.do" type="create"
+	cancel="welcome/index.do" hiddenFields="follower,chirps,finder" skip_fields="userAccount" entity="${administrator}"
 	another_mapped_classes="domain.Actor">
 
-	<acme:acme_input entity="${academy.userAccount}"
+	<acme:acme_input entity="${administrator.userAccount}"
 		name="userAccount.username" field="username" />
-	<acme:acme_input entity="${academy.userAccount}"
+	<acme:acme_input entity="${administrator.userAccount}"
 		name="userAccount.password" field="password" typeIn="password" />
 	<form:hidden path="userAccount.Authorities" />
 
