@@ -19,10 +19,12 @@
 <spring:message code="dish.view" var="view" />
 <spring:message code="dish.update" var="edit" />
 <spring:message code="dish.delete" var="delete" />
+<spring:message code="dish.orderServed" var="orderServed" />
 
 <!-- Table -->
 
 <display:table name="dishes" id="row" requestURI="${requestURI}" pagesize="10" class="table table-hover">	
+	<display:column property="orderServed" title="${orderServed}" sortable="false"></display:column>
 	<display:column property="name" title="${dishName}" sortable="false" />
 	<display:column property="description" title="${dishDescription}" sortable="false" />	
 	<display:column property="dishType.value" title="${dishType}" sortable="false"/>

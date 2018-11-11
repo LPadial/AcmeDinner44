@@ -138,6 +138,9 @@ public class SoireeService {
 			return soireeRepository.votesOfSoiree(soireeID);
 		}
 		
+		public Collection<Dish> dishesOfSoiree(int soireeID){
+			return soireeRepository.dishesOfSoiree(soireeID);
+		}
 
 
 }

@@ -1,6 +1,5 @@
 package controllers.administrator;
 
-import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -9,16 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 
 import domain.Administrator;
-import domain.Diner;
 
 import services.AdministratorService;
-import services.DinerService;
 
 @Controller
 @RequestMapping("/administrator")
@@ -66,6 +62,17 @@ public class AdministratorController extends AbstractController {
 
 	}
 	
+	//Update the scores of the diners ------------------------------------------------------------
+	@RequestMapping("/updateScore")
+	public ModelAndView register() {
+		ModelAndView result;
+		administratorService.updateScores();
+		result = new ModelAndView("redirect:/welcome/index.do");
+				
+		return result;			
+	}
+	
+	
 	//DASHBOARD ----------------------------------------------------------------------------------
 	
 	@RequestMapping("/dashboard")
@@ -83,6 +90,24 @@ public class AdministratorController extends AbstractController {
 		result.addObject("avgMinMaxScore", administratorService.avgMinMaxScore());
 
 		// Avg, min, max number of events organised by the diners
+		result.addObject("avgEventsOrganised", administratorService.avgNumberOfEventsOrganisedByDiners());
+		result.addObject("minEventsOrganised",administratorService.minNumberOfEventsOrganisedByDiners());
+		result.addObject("maxEventsOrganised",administratorService.maxNumberOfEventsOrganisedByDiners());
+		
+		//Diners who have more events
+		result.addObject("dinersMoreEvents",administratorService.dinersWhoHaveMoreEvents());
+		
+		//Ratio of events that are over
+		result.addObject("ratioOfEventsOver",administratorService.ratioOfEventsOver());
+		
+		//Avg, min, max number of dishes per soiree
+		result.addObject("avgMinMaxNumberOfDishesPerSoiree", administratorService.avgMinMaxNumberOfDishesPerSoiree());
+		
+		//Ratio of diners who have at least one professional section
+		result.addObject("ratioPS",administratorService.ratioOfDinersWhoHaveAtLeastOneProfessionalSection());
+		
+		//Ratio of diners who have at least one social section
+		result.addObject("ratioSS",administratorService.ratioOfDinersWhoHaveAtLeastOneSocialSection());
 
 		return result;
 	}

@@ -194,4 +194,8 @@ public class EventService {
 		}
 		return isOver;
 	}
+	
+	public Object[] numEventForDinner(){
+		return eventRepository.numEventForDinner();
+	}
 }

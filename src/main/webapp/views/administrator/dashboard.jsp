@@ -30,45 +30,49 @@
 
 
 	<b><spring:message code="administrator.minEventsDiners" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${minEventsOrganised}" />
 	<br />
 	<b><spring:message code="administrator.maxEventsDiners" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${maxEventsOrganised}" />
 	<br />
 	<b><spring:message code="administrator.avgEventsDiners" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${avgEventsOrganised}" />
 	<br />
-	<br />
+	<br /> 
 	
 	<b><spring:message code="administrator.dinersWhoHaveOrganisedMoreEvents" /> </b>
-	<jstl:out value="" />
+	<jstl:forEach var="c" items="${dinersMoreEvents}" varStatus="loop">
+		<jstl:out value="${c[0]}" />:
+		<jstl:out value="${c[1]}" />
+		<jstl:if test="${!loop.last}">; </jstl:if>
+	</jstl:forEach>
 	<br />
 	<br />
 
 	<b><spring:message code="administrator.ratioEventsOver" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${ratioOfEventsOver}" />
 	<br />
 	<br />
 	
 	<b><spring:message code="administrator.minNumDishesPerSoiree" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${avgMinMaxNumberOfDishesPerSoiree[1]}" />
 	<br />
 	<b><spring:message code="administrator.maxNumDishesPerSoiree" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${avgMinMaxNumberOfDishesPerSoiree[2]}" />
 	<br />
 	<b><spring:message code="administrator.avgNumDishesPerSoiree" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${avgMinMaxNumberOfDishesPerSoiree[0]}" />
 	<br />
 	<br />
 	
-	<b><spring:message code="administrator.avgTutorialShow" /> </b>
-	<jstl:out value="" />
+	<b><spring:message code="administrator.ratioDinersWithMoreThan1SocialSection" /> </b>
+	<jstl:out value="${ratioPS}" />
 	<br />
 	<br />
 	
 	
 	<b><spring:message code="administrator.ratioDinersWithMoreThan1ProfessionalSection" /> </b>
-	<jstl:out value="" />
+	<jstl:out value="${ratioSS}" />
 	<br />
 	<br />
 

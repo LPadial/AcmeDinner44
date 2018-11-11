@@ -18,6 +18,7 @@
 <spring:message code="diner.bussinessCard" var="dinerBussinessCard" />
 <spring:message code="diner.events" var="organizedEvents" />
 <spring:message code='diner.search' var="search"/>
+<spring:message code='diner.avgScore' var="avgScore"/>
 
 <!-- Finder -->
 <form class="searchForm" action="diner/search.do" method="get">
@@ -34,6 +35,7 @@
 		<display:column property="actorName" title="${dinerName}" sortable="false" />
 		<display:column property="surname" title="${dinerSurname}" sortable="false" />
 		<display:column property="email" title="${dinerEmail}" sortable="false" />
+		<display:column property="avgScore" title="${avgScore}" sortable="false" />
 		<display:column title="${dinerBussinessCard}">
 			<acme:url url="diner/bussinessCard/view.do?q=${row.id}" code="diner.bussinessCard"/>
 		</display:column>
@@ -58,6 +60,7 @@
 			<display:column property="actorName" title="${dinerName}" sortable="false" />
 			<display:column property="surname" title="${dinerSurname}" sortable="false" />
 			<display:column property="email" title="${dinerEmail}" sortable="false" />
+			<display:column property="avgScore" title="${avgScore}" sortable="false" />
 			<display:column title="${dinerBussinessCard}">
 				<acme:url url="diner/bussinessCard/view.do?q=${row.id}" code="diner.bussinessCard"/>
 			</display:column>

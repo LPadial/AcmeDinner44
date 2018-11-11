@@ -48,6 +48,7 @@ public class DishService {
 			dish.setName(new String());		
 			dish.setDescription(new String());
 			dish.setIngredients(new ArrayList<String>());
+			dish.setOrderServed(new Integer(1));
 			dish.setDishType(new DishType());
 			dish.setSoiree(s);
 			
@@ -74,6 +75,7 @@ public class DishService {
 			aca.setName(dish.getName());
 			aca.setDescription(dish.getDescription());
 			aca.setIngredients(dish.getIngredients());
+			aca.setOrderServed(dish.getOrderServed());
 			aca.setDishType(dish.getDishType());
 
 			aca = dishRepository.save(aca);

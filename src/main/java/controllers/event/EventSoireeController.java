@@ -94,7 +94,7 @@ public class EventSoireeController extends AbstractController {
 			result = new ModelAndView("dish/list");
 				
 			Soiree s = soireeService.findOne(q);
-			result.addObject("dishes", s.getDishes());
+			result.addObject("dishes", soireeService.dishesOfSoiree(s.getId()));
 
 			return result;
 		}

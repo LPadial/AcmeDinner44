@@ -16,7 +16,7 @@
 <security:authorize access="hasRole('DINER')">
 
 	<acme:acme_form url="dish/save-create.do"
-		skip_fields="dishTypes,ingredients"
+		numberMin="1" skip_fields="dishTypes,ingredients"
 		hiddenFields="soiree" type="edit" entity="${dish}">
 		
 		<label for="label">${ingredients}</label>

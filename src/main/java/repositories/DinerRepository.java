@@ -32,14 +32,6 @@ public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	@Query("select distinct d from Diner d join d.bussinessCard bc join bc.personalSection pes join pes.dislikes dl join pes.likes l join bc.socialSections ss join bc.professionalSections prs where d.actorName like %?1% or d.surname like %?1% or pes.title like %?1% or pes.fullName like %?1% or l like %?1%  or dl like %?1% or ss.network like %?1% or ss.nickname like %?1% or ss.title like %?1% or prs.title like %?1% or prs.position like %?1%  or prs.company like %?1% ") 
 	Collection<Diner> findDinersByKeyWord(String keyword);
 	
-	//Number of diners in the system
-	@Query("select count(d) from Diner d")
-	Integer numDiners();
-	
-	//Average, minimum, maximum score of the diners
-	@Query("select avg(d.avgScore), min(d.avgScore), max(d.avgScore) from Diner d")
-	Object[] avgMinMaxScore();
-	
 	//Top 3 best-buying diners
 	@Query("select sum(sc.priceTotal) from ShoppingCart sc group by sc order by sum(sc.priceTotal) desc")
 	Object[] bestBoughtDiners();

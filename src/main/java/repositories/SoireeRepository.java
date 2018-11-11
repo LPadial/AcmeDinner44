@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Diner;
+import domain.Dish;
 import domain.Soiree;
 import domain.Sponsorship;
 import domain.Vote;
@@ -25,6 +26,9 @@ public interface SoireeRepository extends JpaRepository<Soiree, Integer>{
 	
 	@Query("select v from Vote v where v.soiree.id=?1")
 	Collection<Vote> votesOfSoiree(int soireeID);
+	
+	@Query("select d from Soiree s join s.dishes d where s.id=?1 order by d.orderServed")
+	Collection<Dish> dishesOfSoiree(int soireeID);
 	
 
 }

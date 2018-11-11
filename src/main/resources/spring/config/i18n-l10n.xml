@@ -41,6 +41,7 @@
 		<value>/views/legislation/messages</value>
 		<value>/views/event/messages</value>
 		<value>/views/vote/messages</value>
+		<value>/views/dishType/messages</value>
 		
 	</util:list>
 

@@ -17,6 +17,7 @@
 <spring:message code="dish.description" var="description" />
 <spring:message code="dish.ingredients" var="ingredients" />
 <spring:message code="dish.dishType" var="dishType" />
+<spring:message code="dish.orderServed" var="orderServed" />
 
 <div class=row style="text-align:center">
 	<div class="col-md-4" ></div>
@@ -43,6 +44,12 @@
 		<div class='title'>${dishType}:</div>		
 		&nbsp;&nbsp;
 		<jstl:out value="${dish.dishType.value}" />
+		<br />
+		<br />
+		
+		<div class='title'>${orderServed}:</div>		
+		&nbsp;&nbsp;
+		<jstl:out value="${dish.orderServed}" />
 		<br />
 		<br />
 	</div>

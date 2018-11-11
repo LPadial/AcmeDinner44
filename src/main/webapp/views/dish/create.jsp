@@ -12,11 +12,13 @@
 <!-- Messages -->
 <spring:message code="dish.ingredients" var="ingredients" />
 <spring:message code="dish.dishType" var="dishType" />
+<spring:message code="dish.other" var="other" />
+<spring:message code="dish.addDishType" var="addDishType" />
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="soiree/dish/save-create.do" skip_fields="dishType"
-		hiddenFields="soiree" type="create" entity="${dish}">
+	<acme:acme_form url="soiree/dish/save-create.do" skip_fields="dishType, ingredients"
+		numberMin="1" hiddenFields="soiree" type="create" entity="${dish}">
 		
 		<label for="label">${ingredients}</label>
 		<div class="form-group" style="width: 55%;">			
@@ -25,12 +27,13 @@
 		
 		<div class="form-group" style="width: 55%;">
 			<label for="label"><spring:message code='dish.dishType' /></label>
-			<select name="dishType">
+			<select class="dishType" name="dishType">
 				<jstl:forEach var="dt" items="${dishTypes}">
 					<option value="${dt.id}">${dt.value}</option>
 				</jstl:forEach>
 			</select>
-		</div>
+		</div>	
+		
 		
 	</acme:acme_form>
 

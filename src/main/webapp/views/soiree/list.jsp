@@ -77,4 +77,6 @@
 	</display:column>
 
 </display:table>
+<!-- Crear type of dishes -->
+<input onclick="javascript:location.href='soiree/dish/dishType/create.do'" type="button" class="btn" value="<spring:message code="dish.addDishType" />">
 

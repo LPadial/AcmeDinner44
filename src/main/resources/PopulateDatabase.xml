@@ -912,6 +912,7 @@
 				<value>lechuga</value>
 			</list>
 		</property>
+		<property name="orderServed" value="1"/>
 		<property name="dishType" ref="dishtype1" />
 		<property name="soiree" ref="soiree1" />
 	</bean>
@@ -925,6 +926,7 @@
 				<value>lechuga</value>
 			</list>
 		</property>
+		<property name="orderServed" value="1"/>
 		<property name="dishType" ref="dishtype2" />
 		<property name="soiree" ref="soiree2" />
 	</bean>
@@ -938,6 +940,7 @@
 				<value>lechuga</value>
 			</list>
 		</property>
+		<property name="orderServed" value="1"/>
 		<property name="dishType" ref="dishtype3" />
 		<property name="soiree" ref="soiree3" />
 	</bean>
@@ -951,6 +954,7 @@
 				<value>lechuga</value>
 			</list>
 		</property>
+		<property name="orderServed" value="1"/>
 		<property name="dishType" ref="dishtype4" />
 		<property name="soiree" ref="soiree4" />
 	</bean>
@@ -964,6 +968,7 @@
 				<value>lechuga</value>
 			</list>
 		</property>
+		<property name="orderServed" value="1"/>
 		<property name="dishType" ref="dishtype4" />
 		<property name="soiree" ref="soiree5" />
 	</bean>
@@ -977,6 +982,7 @@
 				<value>lechuga</value>
 			</list>
 		</property>
+		<property name="orderServed" value="1"/>
 		<property name="dishType" ref="dishtype4" />
 		<property name="soiree" ref="soiree6" />
 	</bean>

@@ -3,7 +3,12 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +18,11 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.Administrator;
 import domain.Chirp;
+import domain.Diner;
+import domain.Event;
 import domain.Finder;
+import domain.Soiree;
+import domain.Vote;
 import repositories.AdministratorRepository;
 import repositories.ChirpRepository;
 import repositories.DinerRepository;
@@ -42,6 +51,15 @@ public class AdministratorService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private FinderService finderService;
+	
+	@Autowired
+	private DinerService dinerService;
+	
+	@Autowired
+	private SoireeService soireeService;
+	
+	@Autowired
+	private EventService eventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -115,6 +133,92 @@ public class AdministratorService {
 
 	// Other business methods -------------------------------------------------
 	
+	//Update the scores of the diners
+	public void updateScores(){
+		Collection<Diner> diners = dinerService.findAll();
+		
+		for(Diner d: diners){
+			Integer points = 0;
+			Integer counter = 0;
+			for(Soiree s: soireeService.soireesOfDiner(d.getId())){
+				Collection<Vote> votesOfSoireeOrganizedByDiners = soireeService.votesOfSoiree(s.getId());
+				for(Vote v: votesOfSoireeOrganizedByDiners){
+					points += v.getPoints();
+					counter ++;
+				}
+			}
+			if(points != 0){
+				Double avgScore = (double) (points/counter);
+				d.setAvgScore(avgScore);
+			}else{
+				d.setAvgScore(0.0);
+			}
+		}
+		
+	}
+	
+	//Queries
+	public Integer numDiners(){
+		return administratorRepository.numDiners();
+	}
+	
+	public Object[] avgMinMaxScore(){
+		return administratorRepository.avgMinMaxScore();
+	}
+	
+	public Double avgNumberOfEventsOrganisedByDiners(){
+		Integer counter = 0;
+		Integer events = 0;
+		for(Number i: administratorRepository.numEventForDinner()){
+			events = events + i.intValue();
+			counter++;
+		}
+		Double avg = (double) events/counter;		
+		return avg;
+	}
+	
+	public Number maxNumberOfEventsOrganisedByDiners(){				
+		List<Number> numEventsByDiner = administratorRepository.numEventForDinner();
+		Number max = numEventsByDiner.get(0);
+		return max;
+	}
+	
+	public Number minNumberOfEventsOrganisedByDiners(){
+		List<Number> numEventsByDiner = administratorRepository.numEventForDinner();
+		Number min = numEventsByDiner.get(numEventsByDiner.size()-1);
+		return min;
+	}
+	
+	
+	public List<Array[]> dinersWhoHaveMoreEvents(){		
+		List<Array[]> dinersMoreEvents = administratorRepository.dinersWhoHaveMoreEvents();
+		return dinersMoreEvents.subList(0,3);
+	}
+	
+	public Double ratioOfEventsOver(){
+		Integer counter = 0;
+		Double ratioOfEventsOver = 0.0;
+		for(Event e: eventService.eventsWith4Soirees()){
+			if(eventService.isOver(e)){
+				counter++;
+			}
+		}
+		ratioOfEventsOver = (double) counter/eventService.findAll().size();
+		return ratioOfEventsOver;
+	}
+	
+	public Object[] avgMinMaxNumberOfDishesPerSoiree(){
+		return administratorRepository.avgMinMaxNumberOfDishesPerSoiree();
+	}
+	
+	public Integer ratioOfDinersWhoHaveAtLeastOneProfessionalSection(){
+		return administratorRepository.ratioOfDinersWhoHaveAtLeastOneProfessionalSection();
+	}
+	
+	public Integer ratioOfDinersWhoHaveAtLeastOneSocialSection(){
+		return administratorRepository.ratioOfDinersWhoHaveAtLeastOneSocialSection();
+	}
+	
 	public Object[] avgMinMaxChirpsPerActor(){
 		return chirpRepository.avgMinMaxChirpsPerActor();
 	}
@@ -127,12 +231,6 @@ public class AdministratorService {
 		return sponsorshipRepository.avgMinMaxAcceptedSponsorshipPerSponsor();
 	}
 	
-	public Integer numDiners(){
-		return dinerRepository.numDiners();
-	}
 	
-	public Object[] avgMinMaxScore(){
-		return dinerRepository.avgMinMaxScore();
-	}
 }
 

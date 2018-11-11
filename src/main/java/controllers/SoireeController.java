@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Diner;
 import domain.Dish;
+import domain.DishType;
 import domain.Soiree;
 import domain.Vote;
 
@@ -77,6 +78,14 @@ public class SoireeController extends AbstractController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/dish/dishType/create", method = RequestMethod.GET)
+	public ModelAndView dishTypeCreate() {
+		ModelAndView result;
+		result = new ModelAndView("dishType/create");
+		result.addObject("dishType", dishTypeService.create());
+		return result;
+	}
+	
 	//Cast a vote
 	@RequestMapping(value = "/vote", method = RequestMethod.GET)
 	public ModelAndView vote(@RequestParam(required = true) int q) {
@@ -99,6 +108,7 @@ public class SoireeController extends AbstractController {
 		}else{
 			try{
 				dishService.save(dish); 
+				
 				res = new ModelAndView("redirect:/diner/soiree/organizedList.do");
 			}catch(Throwable e){ 
 				res = createNewModelAndView(dish,"dish.commit.error"); 
@@ -106,6 +116,26 @@ public class SoireeController extends AbstractController {
 		} 
 		return res;
 	}
+	
+	@RequestMapping(value="/dish/dishType/save-create",method=RequestMethod.POST,params = "save")
+	public ModelAndView saveCreate(@Valid DishType dishType, BindingResult binding){ 
+		ModelAndView res = new ModelAndView("redirect:/misc/403.do");
+		if(binding.hasErrors()){ 
+			res = new ModelAndView("dishType/create");
+			res.addObject("dishType", dishTypeService.create());
+		}else{
+			try{
+				dishTypeService.save(dishType);
+				res = new ModelAndView("redirect:/diner/soiree/organizedList.do");
+			}catch(Throwable e){ 
+				res.addObject("dishType", dishTypeService.create());
+				res.addObject("message", "dishType.commit.error");
+			} 
+		} 
+		return res;
+	}
+	
+	
 	
 	@RequestMapping(value="/vote/save-create",method=RequestMethod.POST,params = "save")
 	public ModelAndView saveCreate(@Valid Vote vote, BindingResult binding){ 
