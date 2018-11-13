@@ -13,8 +13,8 @@ import controllers.AbstractController;
 import domain.Diner;
 
 @Controller
-@RequestMapping("/diner/bussinessCard")
-public class DinerBussinessCardController extends AbstractController {
+@RequestMapping("/diner/businessCard")
+public class DinerBusinessCardController extends AbstractController {
 	
 	// Services ---------------------------------------------------------------
 
@@ -26,38 +26,38 @@ public class DinerBussinessCardController extends AbstractController {
 		
 		// Constructors -----------------------------------------------------------
 		
-		public DinerBussinessCardController() {
+		public DinerBusinessCardController() {
 			super();
 		}
 
-		// Bussiness card of a diner ----------------------------------------------------------------
+		// Business card of a diner ----------------------------------------------------------------
 
 		@RequestMapping(value = "/view", method = RequestMethod.GET)
-		public ModelAndView bussinessCard(@RequestParam(required = true) final int q) {
+		public ModelAndView businessCard(@RequestParam(required = true) final int q) {
 			ModelAndView result;
-			result = new ModelAndView("bussinessCard/view");
+			result = new ModelAndView("businessCard/view");
 			
 			Diner d = dinerService.findOne(q);
-			result.addObject("personalSection", d.getBussinessCard().getPersonalSection());
-			result.addObject("professionalSections", d.getBussinessCard().getProfessionalSections());
-			result.addObject("socialSections", d.getBussinessCard().getSocialSections());
-			result.addObject("bussinessCard", d.getBussinessCard());
+			result.addObject("personalSection", d.getBusinessCard().getPersonalSection());
+			result.addObject("professionalSections", d.getBusinessCard().getProfessionalSections());
+			result.addObject("socialSections", d.getBusinessCard().getSocialSections());
+			result.addObject("businessCard", d.getBusinessCard());
 			
 			return result;
 		}
 		
-		//My bussiness card view
+		//My business card view
 		@RequestMapping("/myView")
-		public ModelAndView myBussinessCard() {
+		public ModelAndView myBusinessCard() {
 			ModelAndView result;
-			result = new ModelAndView("bussinessCard/myView");
+			result = new ModelAndView("businessCard/myView");
 			
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 			
-			result.addObject("personalSection", d.getBussinessCard().getPersonalSection());
-			result.addObject("professionalSections", d.getBussinessCard().getProfessionalSections());
-			result.addObject("socialSections", d.getBussinessCard().getSocialSections());
-			result.addObject("bussinessCard", d.getBussinessCard());
+			result.addObject("personalSection", d.getBusinessCard().getPersonalSection());
+			result.addObject("professionalSections", d.getBusinessCard().getProfessionalSections());
+			result.addObject("socialSections", d.getBusinessCard().getSocialSections());
+			result.addObject("businessCard", d.getBusinessCard());
 
 			return result;
 		}

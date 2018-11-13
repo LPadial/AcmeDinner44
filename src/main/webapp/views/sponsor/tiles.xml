@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles_es.xml
+ * tiles.xml
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -13,17 +13,12 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-      
+       
 <tiles-definitions>
 
-	<definition name="bussinessCard/view" extends="master.page">	
-		<put-attribute name="title" value="TARJETA DE VISITA" />
-		<put-attribute name="body" value="/views/bussinessCard/view.jsp" />
-	</definition>
-	
-	<definition name="bussinessCard/myView" extends="master.page">	
-		<put-attribute name="title" value="MI TARJETA DE VISITA" />
-		<put-attribute name="body" value="/views/bussinessCard/myView.jsp" />
-	</definition>
+	<definition name="sponsor/create" extends="master.page">	
+		<put-attribute name="title" value="SIGN UP AS SPONSOR" />
+		<put-attribute name="body" value="/views/sponsor/create.jsp" />
+	</definition>	
 	
 </tiles-definitions>

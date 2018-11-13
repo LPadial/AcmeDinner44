@@ -23,7 +23,7 @@
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.BrandToStringConverter" />
-		<bean class="converters.BussinessCardToStringConverter" />
+		<bean class="converters.BusinessCardToStringConverter" />
 		<bean class="converters.ChirpToStringConverter" />
 		<bean class="converters.ConfigurationToStringConverter" />
 		<bean class="converters.CreditCardToStringConverter" />
@@ -51,7 +51,7 @@
 		<bean class="converters.StringToAdministratorConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
 		<bean class="converters.StringToBrandConverter" />
-		<bean class="converters.StringToBussinessCardConverter" />
+		<bean class="converters.StringToBusinessCardConverter" />
 		<bean class="converters.StringToChirpConverter" />
 		<bean class="converters.StringToConfigurationConverter" />
 		<bean class="converters.StringToCreditCardConverter" />

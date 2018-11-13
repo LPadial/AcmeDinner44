@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -16,6 +17,8 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.Chirp;
+import domain.Finder;
+import domain.Item;
 import domain.Supermarket;
 
 @Service
@@ -26,6 +29,8 @@ public class SupermarketService {
 	public SupermarketRepository supermarketRepository;
 
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	public FinderService finderService;
 
 	// Constructors -----------------------------------------------------------
 	public SupermarketService() {
@@ -35,20 +40,26 @@ public class SupermarketService {
 	// Simple CRUD methods ----------------------------------------------------
 	public Supermarket create() {
 		Supermarket supermarket = new Supermarket();
+		
+		Finder finder = finderService.create();
+		finder = finderService.save(finder);
+		supermarket.setFinder(finder);
+		
 		supermarket.setActorName(new String());
-		supermarket.setEmail(new String());
-		supermarket.setFollowers(new ArrayList<Actor>());
 		supermarket.setSurname(new String());
+		supermarket.setEmail(new String());
+		supermarket.setFollowers(new ArrayList<Actor>());		
 		supermarket.setChirps(new ArrayList<Chirp>());
+		supermarket.setBrand(new String());
+		
 
 		Authority a = new Authority();
-		a.setAuthority(Authority.DINER);
+		a.setAuthority(Authority.SUPERMARKET);
 		UserAccount account = new UserAccount();
 		account.setAuthorities(Arrays.asList(a));
 		supermarket.setUserAccount(account);
 
 		return supermarket;
-
 	}
 
 	public List<Supermarket> findAll() {
@@ -59,7 +70,7 @@ public class SupermarketService {
 		Assert.notNull(dinner);
 		return supermarketRepository.findOne(dinner);
 	}
-
+	
 	public Supermarket save(Supermarket supermarket) {
 		Assert.notNull(supermarket);
 		Supermarket aca = null;
@@ -72,6 +83,11 @@ public class SupermarketService {
 			aca.setEmail(supermarket.getEmail());
 			aca.setChirps(supermarket.getChirps());
 			aca.setFollowers(supermarket.getFollowers());
+			aca.setBrand(supermarket.getBrand());
+			aca.setFinder(supermarket.getFinder());
+			aca.getUserAccount().setUsername(supermarket.getUserAccount().getUsername());
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			aca.getUserAccount().setPassword(encoder.encodePassword(supermarket.getUserAccount().getPassword(), null));
 
 			aca = supermarketRepository.save(aca);
 		} else {
@@ -90,5 +106,9 @@ public class SupermarketService {
 	}
 
 	// Other business methods -------------------------------------------------
+	
+	public Collection<Item> findItemsOfSupermarket(int supermarketID) { 
+		return supermarketRepository.findItemsOfSupermarket(supermarketID); 
+	}
 
 }

@@ -95,11 +95,11 @@
 						</li>
 					</security:authorize>
 					
-					<!-- My bussiness card -->
+					<!-- My business card -->
 					<security:authorize access="hasRole('DINER')">
 						<li>
-							<a class="fNiv" href="diner/bussinessCard/myView.do">
-								<spring:message code="diner.myBussinessCard" />
+							<a class="fNiv" href="diner/businessCard/myView.do">
+								<spring:message code="diner.myBusinessCard" />
 							</a>
 						</li>
 					</security:authorize>
@@ -124,6 +124,20 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="diner/soiree/organizedList.do"><spring:message code="diner.organizedSoirees" /></a></li>
+							</ul>
+						</li>
+					</security:authorize>
+					
+					<!-- My items -->
+					<security:authorize access="hasRole('SUPERMARKET')">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<spring:message code="supermarket.items" />
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="supermarket/item/create.do"><spring:message code="supermarket.createItem" /></a></li>
+								<li><a href="supermarket/item/mylist.do"><spring:message code="supermarket.myItems" /></a></li>
 							</ul>
 						</li>
 					</security:authorize>

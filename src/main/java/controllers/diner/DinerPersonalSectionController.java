@@ -41,7 +41,7 @@ public class DinerPersonalSectionController extends AbstractController{
 		Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		
 		result = new ModelAndView("personalSection/edit");
-		result.addObject("personalsection", d.getBussinessCard().getPersonalSection());
+		result.addObject("personalsection", d.getBusinessCard().getPersonalSection());
 		
 		return result;
 	}
@@ -60,7 +60,7 @@ public class DinerPersonalSectionController extends AbstractController{
 		} else {
 			try {
 				personalSectionService.save(personalSection);
-				result = new ModelAndView("redirect:/diner/bussinessCard/myView.do");
+				result = new ModelAndView("redirect:/diner/businessCard/myView.do");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(personalSection, "personalsection.commit.error"); } }
 

@@ -40,7 +40,7 @@ public class Diner extends Actor {
 	 * private List<Event> events; private List<Soiree> soirees; private
 	 * List<Vote> votes; private List<ShoppingCart> shoppingCarts;
 	 */
-	private BussinessCard bussinessCard;
+	private BusinessCard businessCard;
 	private Collection<Event> events;
 
 	/*
@@ -66,12 +66,12 @@ public class Diner extends Actor {
 	@NotNull
 	@OneToOne(optional = false)
 	@Valid
-	public BussinessCard getBussinessCard() {
-		return bussinessCard;
+	public BusinessCard getBusinessCard() {
+		return businessCard;
 	}
 
-	public void setBussinessCard(BussinessCard bussinessCard) {
-		this.bussinessCard = bussinessCard;
+	public void setBusinessCard(BusinessCard businessCard) {
+		this.businessCard = businessCard;
 	}
 	
 	@Valid

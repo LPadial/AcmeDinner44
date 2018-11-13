@@ -55,7 +55,7 @@ public class DinerSocialSectionController extends AbstractController{
 				ModelAndView result;
 				
 				Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-				Collection<SocialSection> socialSectionsOfDiner = d.getBussinessCard().getSocialSections();
+				Collection<SocialSection> socialSectionsOfDiner = d.getBusinessCard().getSocialSections();
 				SocialSection param = socialSectionService.findOne(q);
 				
 				if(socialSectionsOfDiner.contains(param)){
@@ -82,7 +82,7 @@ public class DinerSocialSectionController extends AbstractController{
 				} else {
 					try {
 						socialSectionService.save(socialSection);
-						result = new ModelAndView("redirect:/diner/bussinessCard/myView.do");
+						result = new ModelAndView("redirect:/diner/businessCard/myView.do");
 					} catch (Throwable oops) {
 						result = createEditModelAndView(socialSection, "socialsection.commit.error"); } }
 
@@ -98,9 +98,9 @@ public class DinerSocialSectionController extends AbstractController{
 				SocialSection ss = socialSectionService.findOne(q);
 
 				if (d!= null) {
-					if (d.getBussinessCard().getSocialSections().contains(ss)) {
+					if (d.getBusinessCard().getSocialSections().contains(ss)) {
 						socialSectionService.delete(ss);
-						result = new ModelAndView("redirect:/diner/bussinessCard/myView.do");
+						result = new ModelAndView("redirect:/diner/businessCard/myView.do");
 					} else {
 						result = new ModelAndView("redirect:/misc/403.do");
 					}

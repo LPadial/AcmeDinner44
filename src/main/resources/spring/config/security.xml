@@ -48,10 +48,12 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/welcome/lssi.do"
 			access="permitAll" />
-
+			
+		<!-- Dashboard administrator -->	
 		<security:intercept-url pattern="/administrator/dashboard.do"
 			access="hasRole('ADMINISTRATOR')" />
-			
+		
+		<!-- Edit an save actors -->
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/actor/save-administrator.do"
@@ -64,23 +66,37 @@
 			access="hasRole('SPONSOR')" />
 			
 
-		<security:intercept-url pattern="/diner/list.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/diner/view.do"
-			access="permitAll" />
+		<!-- Create and save actors -->
 		<security:intercept-url pattern="/diner/create.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/diner/edit.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/diner/save.do"
-			access="permitAll" />			
+			access="isAnonymous" />
+			<security:intercept-url pattern="/diner/save.do"
+			access="isAnonymous" />	
+		<security:intercept-url pattern="/supermarket/create.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/supermarket/save.do"
+			access="isAnonymous()" />			
+		<security:intercept-url pattern="/sponsor/create.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/sponsor/save.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/administrator/create.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/save.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
+		<!-- List and search diners -->	
+		<security:intercept-url pattern="/diner/list.do"
+			access="permitAll" />						
 		<security:intercept-url pattern="/diner/search.do"
 			access="permitAll" />
 			
+		<!-- List, view, create, edit and search events  -->	
 		<security:intercept-url pattern="/event/list.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/event/view.do"
 			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/event/search.do"
+			access="permitAll" />
 		<security:intercept-url pattern="/event/edit.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/event/save.do"
@@ -89,16 +105,12 @@
 			access="hasRole('DINER')" />	
 		<security:intercept-url pattern="/event/diner/mylist.do"
 			access="hasRole('DINER')" />
-				
-		<security:intercept-url pattern="/event/search.do"
-			access="permitAll" />
 		<security:intercept-url pattern="/event/diner/apply.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/event/diner/list.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/diner/eventPast/list.do"
-			access="isAnonymous()" />
-			
+			access="isAnonymous()" />			
 		<security:intercept-url pattern="/diner/event/list.do"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/diner/event/registeredList.do"
@@ -113,16 +125,19 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/event/diner/unregister.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/diner/bussinessCard/view.do"
+			
+		
+		<!-- List, view, create and edit events -->
+		<security:intercept-url pattern="/soiree/list.do"
+			access="permitAll" />	
+		<security:intercept-url pattern="/event/soiree/list.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/event/soiree/dish/list.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/event/soiree/create.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/event/soiree/save-create.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/soiree/dish/create.do"
-			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/soiree/dish/save-create.do"
-			access="hasRole('DINER')" />			
 		<security:intercept-url pattern="/diner/soiree/organizedList.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/soiree/view.do"
@@ -131,6 +146,12 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/soiree/delete.do"
 			access="hasRole('DINER')" />
+		
+		<!-- List, view, create and edit dishes -->
+		<security:intercept-url pattern="/soiree/dish/create.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/soiree/dish/save-create.do"
+			access="hasRole('DINER')" />					
 		<security:intercept-url pattern="/dish/view.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/dish/edit.do"
@@ -139,33 +160,38 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/dish/save-create.do"
 			access="hasRole('DINER')" />
+			
+		<!-- Create vote -->
 		<security:intercept-url pattern="/soiree/vote.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/soiree/vote/create.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/soiree/vote/save-create.do"
 			access="hasRole('DINER')" />
+		
+		<!-- Create dish type -->
 		<security:intercept-url pattern="/soiree/dish/dishType/save-create.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/soiree/dish/dishType/create.do"
 			access="hasRole('DINER')" />
 			
-		<security:intercept-url pattern="/administrator/create.do"
-			access="hasRole('ADMINISTRATOR')" />
-		<security:intercept-url pattern="/administrator/save.do"
-			access="hasRole('ADMINISTRATOR')" />
-			
+		<!-- Update score of diners -->
 		<security:intercept-url pattern="/administrator/updateScore.do"
 			access="hasRole('ADMINISTRATOR')" />
 			
+		<!-- View business card -->
+		<security:intercept-url pattern="/diner/businessCard/view.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/diner/businessCard/myView.do"
+			access="hasRole('DINER')" />			
 			
-			
-			
+		<!-- Edit personal section -->
 		<security:intercept-url pattern="/diner/personalSection/edit.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/personalSection/save-edit.do"
 			access="hasRole('DINER')" />
 			
+		<!-- Create, edit and delete professional sections -->
 		<security:intercept-url pattern="/diner/professionalSection/create.do"
 			access="hasRole('DINER')" />			
 		<security:intercept-url pattern="/diner/professionalSection/edit.do"
@@ -174,7 +200,8 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/professionalSection/delete.do"
 			access="hasRole('DINER')" />
-			
+		
+		<!-- Create, edit and delete social sections -->
 		<security:intercept-url pattern="/diner/socialSection/create.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/socialSection/edit.do"
@@ -184,17 +211,17 @@
 		<security:intercept-url pattern="/diner/socialSection/delete.do"
 			access="hasRole('DINER')" />
 			
-		
-		<security:intercept-url pattern="/soiree/list.do"
-			access="permitAll" />	
-		<security:intercept-url pattern="/event/soiree/list.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/event/soiree/dish/list.do"
-			access="permitAll" />			
+		<!-- List,show and create items -->
+		<security:intercept-url pattern="/supermarket/item/mylist.do"
+			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/view.do"
+			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/create.do"
+			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/save-create.do"
+			access="hasRole('SUPERMARKET')" />				
 			
-		<security:intercept-url pattern="/diner/bussinessCard/myView.do"
-			access="hasRole('DINER')" />
-
+		<!-- Chirps -->
 		<security:intercept-url pattern="/chirp/actor/delete.do"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/chirp/actor/create.do"

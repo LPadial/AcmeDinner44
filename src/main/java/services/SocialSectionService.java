@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 import repositories.SocialSectionRepository;
 import security.LoginService;
-import domain.BussinessCard;
+import domain.BusinessCard;
 import domain.Diner;
 import domain.SocialSection;
 
@@ -23,7 +23,7 @@ public class SocialSectionService {
 	// Supporting services ----------------------------------------------------
 	
 	@Autowired
-	private BussinessCardService bussinessCardService;
+	private BusinessCardService businessCardService;
 	
 	@Autowired
 	private LoginService loginService;
@@ -75,7 +75,7 @@ public class SocialSectionService {
 		} else {
 			aca = socialSectionRepository.save(socialSection);
 			Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-			d.getBussinessCard().addSocialSection(aca);
+			d.getBusinessCard().addSocialSection(aca);
 		}
 		return aca;
 	}
@@ -88,7 +88,7 @@ public class SocialSectionService {
 	public void delete(SocialSection socialSection) {
 		Assert.notNull(socialSection);
 		
-		BussinessCard bc = bussinessCardService.findBussinessCardOfSocialSection(socialSection.getId());
+		BusinessCard bc = businessCardService.findBusinessCardOfSocialSection(socialSection.getId());
 		bc.removeSocialSection(socialSection);		
 
 		socialSectionRepository.delete(socialSection);

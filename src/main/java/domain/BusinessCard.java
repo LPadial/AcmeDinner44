@@ -14,11 +14,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class BussinessCard extends DomainEntity {
+public class BusinessCard extends DomainEntity {
 
 	// Constructors -----------------------------------------------------------
 
-	public BussinessCard() {
+	public BusinessCard() {
 		super();
 	}
 

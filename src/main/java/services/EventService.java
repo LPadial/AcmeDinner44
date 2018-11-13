@@ -41,9 +41,6 @@ public class EventService {
 	private SoireeService soireeService;
 	
 	@Autowired
-	private DishService dishService;
-	
-	@Autowired
 	private SponsorshipService sponsorShipService;
 	
 	@Autowired

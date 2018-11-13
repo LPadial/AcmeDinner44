@@ -56,7 +56,7 @@ public class DinerProfessionalSectionController extends AbstractController{
 			ModelAndView result;
 			
 			Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-			Collection<ProfessionalSection> professionalSectionsOfDiner = d.getBussinessCard().getProfessionalSections();
+			Collection<ProfessionalSection> professionalSectionsOfDiner = d.getBusinessCard().getProfessionalSections();
 			ProfessionalSection param = professionalSectionService.findOne(q);
 			
 			if(professionalSectionsOfDiner.contains(param)){
@@ -83,7 +83,7 @@ public class DinerProfessionalSectionController extends AbstractController{
 			} else {
 				try {
 					professionalSectionService.save(professionalSection);
-					result = new ModelAndView("redirect:/diner/bussinessCard/myView.do");
+					result = new ModelAndView("redirect:/diner/businessCard/myView.do");
 				} catch (Throwable oops) {
 					result = createEditModelAndView(professionalSection, "professionalsection.commit.error"); } }
 
@@ -99,9 +99,9 @@ public class DinerProfessionalSectionController extends AbstractController{
 			ProfessionalSection ps = professionalSectionService.findOne(q);
 
 			if (d!= null) {
-				if (d.getBussinessCard().getProfessionalSections().contains(ps)) {
+				if (d.getBusinessCard().getProfessionalSections().contains(ps)) {
 					professionalSectionService.delete(ps);
-					result = new ModelAndView("redirect:/diner/bussinessCard/myView.do");
+					result = new ModelAndView("redirect:/diner/businessCard/myView.do");
 				} else {
 					result = new ModelAndView("redirect:/misc/403.do");
 				}

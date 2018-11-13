@@ -15,7 +15,7 @@
 <spring:message code="diner.actorName" var="dinerName" />
 <spring:message code="diner.surname" var="dinerSurname" />
 <spring:message code="diner.email" var="dinerEmail" />
-<spring:message code="diner.bussinessCard" var="dinerBussinessCard" />
+<spring:message code="diner.businessCard" var="dinerBusinessCard" />
 <spring:message code="diner.events" var="organizedEvents" />
 <spring:message code='diner.search' var="search"/>
 <spring:message code='diner.avgScore' var="avgScore"/>
@@ -36,8 +36,8 @@
 		<display:column property="surname" title="${dinerSurname}" sortable="false" />
 		<display:column property="email" title="${dinerEmail}" sortable="false" />
 		<display:column property="avgScore" title="${avgScore}" sortable="false" />
-		<display:column title="${dinerBussinessCard}">
-			<acme:url url="diner/bussinessCard/view.do?q=${row.id}" code="diner.bussinessCard"/>
+		<display:column title="${dinerBusinessCard}">
+			<acme:url url="diner/businessCard/view.do?q=${row.id}" code="diner.businessCard"/>
 		</display:column>
 		<security:authorize access="isAnonymous()">
 			<display:column title="${organizedEvents}" sortable="false">
@@ -61,8 +61,8 @@
 			<display:column property="surname" title="${dinerSurname}" sortable="false" />
 			<display:column property="email" title="${dinerEmail}" sortable="false" />
 			<display:column property="avgScore" title="${avgScore}" sortable="false" />
-			<display:column title="${dinerBussinessCard}">
-				<acme:url url="diner/bussinessCard/view.do?q=${row.id}" code="diner.bussinessCard"/>
+			<display:column title="${dinerBusinessCard}">
+				<acme:url url="diner/businessCard/view.do?q=${row.id}" code="diner.businessCard"/>
 			</display:column>
 			<display:column title="${organizedEvents}" sortable="false">
 				<acme:url url="diner/event/list.do?q=${row.id}" code="diner.events"/>

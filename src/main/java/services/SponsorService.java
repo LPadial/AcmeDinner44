@@ -15,6 +15,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.Chirp;
+import domain.Finder;
 import domain.Sponsor;
 
 @Service
@@ -25,6 +26,9 @@ public class SponsorService {
 		public SponsorRepository sponsorRepository;
 
 		// Supporting services ----------------------------------------------------
+		
+		@Autowired
+		private FinderService finderService;
 
 		// Constructors -----------------------------------------------------------
 		public SponsorService() {
@@ -34,14 +38,19 @@ public class SponsorService {
 		// Simple CRUD methods ----------------------------------------------------
 		public Sponsor create() {
 			Sponsor sponsor = new Sponsor();
+			
+			Finder finder = finderService.create();
+			finder = finderService.save(finder);
+			sponsor.setFinder(finder);
+			
 			sponsor.setActorName(new String());
-			sponsor.setEmail(new String());
-			sponsor.setFollowers(new ArrayList<Actor>());
 			sponsor.setSurname(new String());
+			sponsor.setEmail(new String());
+			sponsor.setFollowers(new ArrayList<Actor>());			
 			sponsor.setChirps(new ArrayList<Chirp>());
 
 			Authority a = new Authority();
-			a.setAuthority(Authority.DINER);
+			a.setAuthority(Authority.SPONSOR);
 			UserAccount account = new UserAccount();
 			account.setAuthorities(Arrays.asList(a));
 			sponsor.setUserAccount(account);
@@ -71,6 +80,10 @@ public class SponsorService {
 				aca.setEmail(sponsor.getEmail());
 				aca.setChirps(sponsor.getChirps());
 				aca.setFollowers(sponsor.getFollowers());
+				aca.setFinder(sponsor.getFinder());
+				aca.getUserAccount().setUsername(sponsor.getUserAccount().getUsername());
+				Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				aca.getUserAccount().setPassword(encoder.encodePassword(sponsor.getUserAccount().getPassword(), null));
 
 				aca = sponsorRepository.save(aca);
 			} else {

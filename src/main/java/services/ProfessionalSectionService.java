@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.BussinessCard;
+import domain.BusinessCard;
 import domain.Diner;
 import domain.ProfessionalSection;
 
@@ -24,7 +24,7 @@ public class ProfessionalSectionService {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private BussinessCardService bussinessCardService;
+	private BusinessCardService businessCardService;
 	
 	@Autowired
 	private LoginService loginService;
@@ -73,7 +73,7 @@ public class ProfessionalSectionService {
 		} else {
 			aca = professionalSectionRepository.save(professionalSection);
 			Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-			d.getBussinessCard().addProfessionalSection(aca);
+			d.getBusinessCard().addProfessionalSection(aca);
 		}
 		return aca;
 	}
@@ -86,7 +86,7 @@ public class ProfessionalSectionService {
 	public void delete(ProfessionalSection professionalSection) {
 		Assert.notNull(professionalSection);
 		
-		BussinessCard bc = bussinessCardService.findBussinessCardOfProfessionalSection(professionalSection.getId());
+		BusinessCard bc = businessCardService.findBusinessCardOfProfessionalSection(professionalSection.getId());
 		bc.removeProfessionalSection(professionalSection);		
 
 		professionalSectionRepository.delete(professionalSection);

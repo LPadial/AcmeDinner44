@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 
 
 import domain.Actor;
-import domain.BussinessCard;
+import domain.BusinessCard;
 import domain.Chirp;
 import domain.Diner;
 import domain.Event;
@@ -40,7 +40,7 @@ public class DinerService {
 	private FinderService finderService;
 	
 	@Autowired
-	private BussinessCardService bussinessCardService;
+	private BusinessCardService businessCardService;
 
 	// Constructors -----------------------------------------------------------
 	public DinerService() {
@@ -54,13 +54,13 @@ public class DinerService {
 		
 		Finder finder = finderService.create();
 		finder = finderService.save(finder);
-		BussinessCard bussinessCard = bussinessCardService.create();
-		bussinessCard = bussinessCardService.save(bussinessCard);
+		BusinessCard businessCard = businessCardService.create();
+		businessCard = businessCardService.save(businessCard);
 		
 		
 		
 		diner.setFinder(finder);
-		diner.setBussinessCard(bussinessCard);
+		diner.setBusinessCard(businessCard);
 		
 		diner.setActorName(new String());
 		diner.setSurname(new String());
@@ -102,7 +102,7 @@ public class DinerService {
 			aca.setChirps(diner.getChirps());
 			aca.setFollowers(diner.getFollowers());
 			String fullName = diner.getActorName() + diner.getSurname();
-			aca.getBussinessCard().getPersonalSection().setFullName(fullName);
+			aca.getBusinessCard().getPersonalSection().setFullName(fullName);
 			aca.setFinder(diner.getFinder());
 			aca.getUserAccount().setUsername(diner.getUserAccount().getUsername());
 			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
@@ -115,7 +115,7 @@ public class DinerService {
 					encoder.encodePassword(
 							diner.getUserAccount().getPassword(), null));
 			
-			diner.getBussinessCard().getPersonalSection().setFullName(diner.getActorName() + " " + diner.getSurname());
+			diner.getBusinessCard().getPersonalSection().setFullName(diner.getActorName() + " " + diner.getSurname());
 
 			aca = dinerRepository.save(diner);
 		}

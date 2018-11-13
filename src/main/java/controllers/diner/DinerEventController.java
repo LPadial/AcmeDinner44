@@ -13,13 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.DinerService;
-import services.EventService;
 import services.SoireeService;
 
 import controllers.AbstractController;
 import domain.Diner;
 import domain.Event;
-import domain.Soiree;
 
 @Controller
 @RequestMapping("/diner/event")
@@ -29,9 +27,6 @@ public class DinerEventController extends AbstractController {
 
 	@Autowired
 	private DinerService dinerService;
-	
-	@Autowired
-	private EventService eventService;
 	
 	@Autowired
 	private SoireeService soireeService;

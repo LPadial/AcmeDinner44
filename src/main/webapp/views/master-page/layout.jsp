@@ -61,7 +61,6 @@
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
-</div>
 <!-- Bootstrap links -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

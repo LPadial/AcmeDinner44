@@ -13,10 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.DishService;
 import services.DishTypeService;
-import services.SoireeService;
 import domain.Diner;
 import domain.Dish;
-import domain.Soiree;
 
 @Controller
 @RequestMapping("/dish")
@@ -26,9 +24,6 @@ public class DishController extends AbstractController {
 
 	@Autowired
 	private LoginService loginService;
-	
-	@Autowired
-	private SoireeService soireeService;
 	
 	@Autowired
 	private DishService dishService;

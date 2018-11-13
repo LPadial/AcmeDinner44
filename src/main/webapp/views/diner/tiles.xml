@@ -17,7 +17,7 @@
 <tiles-definitions>
 
 	<definition name="diner/create" extends="master.page">	
-		<put-attribute name="title" value="REGISTRATION OF DINERS" />
+		<put-attribute name="title" value="SIGN UP AS DINER" />
 		<put-attribute name="body" value="/views/diner/create.jsp" />
 	</definition>
 	

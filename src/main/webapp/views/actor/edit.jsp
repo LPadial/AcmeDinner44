@@ -35,29 +35,10 @@
 		hiddenFields="followers,chirps,bussinessCard,events,finder,avgScore"
 		entity="${person}">
 		
-		<acme:acme_input entity="${person.userAccount}" name="userAccount.username" field="username" />
-		<acme:acme_input entity="${person.userAccount}" name="userAccount.password" field="password" typeIn="password" />
+		<acme:acme_input entity="${person.userAccount}" name="userAccount.username" field="username" showVal="true" />
+		<acme:acme_input entity="${person.userAccount}" name="userAccount.password" field="password" typeIn="password"/>
 		
 		<form:hidden path="userAccount.Authorities" />
-
-		<security:authorize access="hasRole('DINER')">
-		</security:authorize>
-
-		<!--<security:authorize access="hasRole('ACADEMY')">
-
-			<div class="form-group" style="width: 55%">
-				<form:label path="commercialName">
-					<spring:message code="actor.commercialName" />
-				</form:label>
-				<br />
-				<form:input path="commercialName" class="form-control" type="text" />
-			</div>
-
-			<br />
-
-			<form:hidden path="tutorials" />
-			<form:hidden path="courses" />
-		</security:authorize>-->
 	</acme:acme_form>
 </security:authorize>
 

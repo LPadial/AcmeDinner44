@@ -13,23 +13,23 @@ import domain.Event;
 public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	
 	//Search for diners using a single keyword that must appear in their names, surnames or personalSection
-	@Query("select distinct d from Diner d join d.bussinessCard bc join bc.personalSection pes where d.actorName like %?1% or d.surname like %?1% or pes.title like %?1% or pes.fullName like %?1%")
+	@Query("select distinct d from Diner d join d.businessCard bc join bc.personalSection pes where d.actorName like %?1% or d.surname like %?1% or pes.title like %?1% or pes.fullName like %?1%")
 	Collection<Diner> findDinersByKeywordInNameOrPersonalSection(String keyword);
 	
 	//Search for diners using a single keyword that must appear in their likes or dislikes
-	@Query("select distinct d from Diner d join d.bussinessCard bc join bc.personalSection pes join pes.dislikes dl join pes.likes l where dl like %?1% or l like %?1%") 
+	@Query("select distinct d from Diner d join d.businessCard bc join bc.personalSection pes join pes.dislikes dl join pes.likes l where dl like %?1% or l like %?1%") 
 	Collection<Diner> findDinersByKeyWordInLikesDislikes(String keyword);
 	
 	//Search for diners using a single keyword that must appear in their social sections
-	@Query("select distinct d from Diner d join d.bussinessCard bc join bc.socialSections ss where ss.network like %?1% or ss.nickname like %?1% or ss.title like %?1%") 
+	@Query("select distinct d from Diner d join d.businessCard bc join bc.socialSections ss where ss.network like %?1% or ss.nickname like %?1% or ss.title like %?1%") 
 	Collection<Diner> findDinersByKeyWordSocialSections(String keyword);
 	
 	//Search for diners using a single keyword that must appear in their professional sections
-	@Query("select distinct d from Diner d join d.bussinessCard bc join bc.professionalSections prs where prs.title like %?1% or prs.position like %?1%  or prs.company like %?1% ") 
+	@Query("select distinct d from Diner d join d.businessCard bc join bc.professionalSections prs where prs.title like %?1% or prs.position like %?1%  or prs.company like %?1% ") 
 	Collection<Diner> findDinersByKeyWordProfessionalSections(String keyword);
 	
-	//Search for diners using a single keyword that must appear in their names, surnames or any of the sections of their bussiness cards
-	@Query("select distinct d from Diner d join d.bussinessCard bc join bc.personalSection pes join pes.dislikes dl join pes.likes l join bc.socialSections ss join bc.professionalSections prs where d.actorName like %?1% or d.surname like %?1% or pes.title like %?1% or pes.fullName like %?1% or l like %?1%  or dl like %?1% or ss.network like %?1% or ss.nickname like %?1% or ss.title like %?1% or prs.title like %?1% or prs.position like %?1%  or prs.company like %?1% ") 
+	//Search for diners using a single keyword that must appear in their names, surnames or any of the sections of their business cards
+	@Query("select distinct d from Diner d join d.businessCard bc join bc.personalSection pes join pes.dislikes dl join pes.likes l join bc.socialSections ss join bc.professionalSections prs where d.actorName like %?1% or d.surname like %?1% or pes.title like %?1% or pes.fullName like %?1% or l like %?1%  or dl like %?1% or ss.network like %?1% or ss.nickname like %?1% or ss.title like %?1% or prs.title like %?1% or prs.position like %?1%  or prs.company like %?1% ") 
 	Collection<Diner> findDinersByKeyWord(String keyword);
 	
 	//Top 3 best-buying diners

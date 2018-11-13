@@ -22,22 +22,24 @@
 		<value>/views/misc/tiles.xml</value>		
 		<value>/views/security/tiles.xml</value>
 		<value>/views/welcome/tiles.xml</value>
-		<value>/views/administrator/tiles.xml</value>
 		
-		<value>/views/diner/tiles.xml</value>
-		<value>/views/bussinessCard/tiles.xml</value>
-		<value>/views/soiree/tiles.xml</value>
-		<value>/views/dish/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
+		<value>/views/administrator/tiles.xml</value>
+		<value>/views/businessCard/tiles.xml</value>
 		<value>/views/chirp/tiles.xml</value>
-		<value>/views/event/tiles.xml</value>	
+		<value>/views/diner/tiles.xml</value>
+		<value>/views/dish/tiles.xml</value>
+		<value>/views/dishType/tiles.xml</value>
+		<value>/views/event/tiles.xml</value>
+		<value>/views/item/tiles.xml</value>
 		<value>/views/legislation/tiles.xml</value>
-		
 		<value>/views/personalSection/tiles.xml</value>
 		<value>/views/professionalSection/tiles.xml</value>
 		<value>/views/socialSection/tiles.xml</value>
+		<value>/views/soiree/tiles.xml</value>
+		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/supermarket/tiles.xml</value>
 		<value>/views/vote/tiles.xml</value>
-		<value>/views/dishType/tiles.xml</value>
 		
 	</util:list>
 

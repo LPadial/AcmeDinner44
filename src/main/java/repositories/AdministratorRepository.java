@@ -1,9 +1,6 @@
 
 package repositories;
 
-
-
-import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.mapping.Array;
@@ -12,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Administrator;
-import domain.Diner;
 
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
@@ -38,11 +34,11 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	Object[] avgMinMaxNumberOfDishesPerSoiree();
 	
 	//Ratio of diners who have at least one professional section
-	@Query("select count(d)/(select count(d1) from Diner d1) from Diner d join d.bussinessCard bc where bc.professionalSections.size>=1")
+	@Query("select count(d)/(select count(d1) from Diner d1) from Diner d join d.businessCard bc where bc.professionalSections.size>=1")
 	Integer ratioOfDinersWhoHaveAtLeastOneProfessionalSection();
 	
 	//Ratio of diners who have at least one social section
-	@Query("select count(d)/(select count(d1) from Diner d1) from Diner d join d.bussinessCard bc where bc.socialSections.size>=1")
+	@Query("select count(d)/(select count(d1) from Diner d1) from Diner d join d.businessCard bc where bc.socialSections.size>=1")
 	Integer ratioOfDinersWhoHaveAtLeastOneSocialSection();
 
 	//El mínimo, media, desviación estándar y máximo de cursos por academia.

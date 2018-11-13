@@ -237,7 +237,7 @@
 			} else if(Boolean.class.isAssignableFrom(e.getType())) {
 %>
 				<div class="checkbox">
-				  <label><input <%=show ? Boolean.valueOf(e.get(entity).toString()) ? "checked" : "" : "" %> type="checkbox" value=""><spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + e.getName() %>' /></label>
+				  <label><input <%=show ? Boolean.valueOf(e.get(entity).toString()) ? "checked" : "1" : "0" %> type="checkbox" value="1"><spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + e.getName() %>' /></label>
 				</div>
 <%
 			}

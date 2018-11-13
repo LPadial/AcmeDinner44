@@ -25,7 +25,7 @@ public class Item extends DomainEntity {
 	private String photo;
 	private Double price;
 	private Double VAT;
-	private Boolean hint;
+	private Boolean retailed;
 
 	// Getters
 
@@ -53,8 +53,8 @@ public class Item extends DomainEntity {
 		return VAT;
 	}
 
-	public Boolean getHint() {
-		return hint;
+	public Boolean getRetailed() {
+		return retailed;
 	}
 
 	// Setters
@@ -78,8 +78,8 @@ public class Item extends DomainEntity {
 		this.VAT = VAT;
 	}
 
-	public void setHint(Boolean hint) {
-		this.hint = hint;
+	public void setRetailed(Boolean retailed) {
+		this.retailed = retailed;
 	}
 	
 	// Relationships ----------------------------------------------------------

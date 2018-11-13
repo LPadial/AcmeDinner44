@@ -350,7 +350,7 @@
 				<ref bean="event3" />
 			</list>
 		</property>
-		<property name="bussinessCard" ref="bussinessCard1" />
+		<property name="businessCard" ref="businessCard1" />
 	</bean>
 
 	<bean id="diner2" class="domain.Diner">
@@ -379,7 +379,7 @@
 				<ref bean="event3" />
 			</list>
 		</property>
-		<property name="bussinessCard" ref="bussinessCard2" />
+		<property name="businessCard" ref="businessCard2" />
 	</bean>
 
 	<bean id="diner3" class="domain.Diner">
@@ -404,7 +404,7 @@
 				<ref bean="event1" />
 			</list>
 		</property>
-		<property name="bussinessCard" ref="bussinessCard3" />
+		<property name="businessCard" ref="businessCard3" />
 	</bean>
 
 	<!-- Sponsor -->
@@ -575,7 +575,7 @@
 		<property name="photo" value="https://flic.kr/p/21YLHvE" />
 		<property name="price" value="1.45" />
 		<property name="VAT" value="10.0" />
-		<property name="hint" value="true" />
+		<property name="retailed" value="true" />
 		<property name="supermarket" ref="supermarket1"/>
 	</bean>
 
@@ -586,7 +586,7 @@
 		<property name="photo" value="https://flic.kr/p/c4hri5" />
 		<property name="price" value="0.8" />
 		<property name="VAT" value="10.0" />
-		<property name="hint" value="false" />
+		<property name="retailed" value="false" />
 		<property name="supermarket" ref="supermarket2"/>
 	</bean>
 
@@ -597,7 +597,7 @@
 		<property name="photo" value="https://flic.kr/p/oyADS8" />
 		<property name="price" value="1.45" />
 		<property name="VAT" value="10.0" />
-		<property name="hint" value="true" />
+		<property name="retailed" value="true" />
 		<property name="supermarket" ref="supermarket3"/>
 	</bean>
 	
@@ -1261,8 +1261,8 @@
 		<property name="link" value="https://www.facebook.com/" />
 	</bean>
 
-	<!-- Bussiness cards -->
-	<bean id="bussinessCard1" class="domain.BussinessCard">
+	<!-- Business cards -->
+	<bean id="businessCard1" class="domain.BusinessCard">
 		<property name="personalSection" ref="personalSection1" />
 		<property name="professionalSections">
 			<list>
@@ -1276,7 +1276,7 @@
 		</property>
 	</bean>
 
-	<bean id="bussinessCard2" class="domain.BussinessCard">
+	<bean id="businessCard2" class="domain.BusinessCard">
 		<property name="personalSection" ref="personalSection2" />
 		<property name="professionalSections">
 			<list>
@@ -1290,7 +1290,7 @@
 		</property>
 	</bean>
 
-	<bean id="bussinessCard3" class="domain.BussinessCard">
+	<bean id="businessCard3" class="domain.BusinessCard">
 		<property name="personalSection" ref="personalSection3" />
 		<property name="professionalSections">
 			<list>

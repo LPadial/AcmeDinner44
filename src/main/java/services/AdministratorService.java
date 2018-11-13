@@ -4,8 +4,6 @@ package services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.mapping.Array;
@@ -25,7 +23,6 @@ import domain.Soiree;
 import domain.Vote;
 import repositories.AdministratorRepository;
 import repositories.ChirpRepository;
-import repositories.DinerRepository;
 import repositories.SponsorshipRepository;
 import security.Authority;
 import security.UserAccount;
@@ -44,9 +41,6 @@ public class AdministratorService {
 	
 	@Autowired
 	private SponsorshipRepository sponsorshipRepository;
-	
-	@Autowired
-	private DinerRepository dinerRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired

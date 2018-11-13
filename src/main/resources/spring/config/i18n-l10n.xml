@@ -23,25 +23,23 @@
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		
-		<value>/views/administrator/messages</value>
-		
-		<value>/views/academy/messages</value>
-		<value>/views/bussinessCard/messages</value>
-		<value>/views/soiree/messages</value>
+		<value>/views/actor/messages</value>
+		<value>/views/administrator/messages</value>		
+		<value>/views/businessCard/messages</value>
+		<value>/views/chirp/messages</value>
+		<value>/views/diner/messages</value>
 		<value>/views/dish/messages</value>
+		<value>/views/dishType/messages</value>
+		<value>/views/event/messages</value>
+		<value>/views/item/messages</value>
+		<value>/views/legislation/messages</value>
 		<value>/views/personalSection/messages</value>
 		<value>/views/professionalSection/messages</value>
 		<value>/views/socialSection/messages</value>
-		<value>/views/style/messages</value>
-		<value>/views/tutorial/messages</value>
-		<value>/views/application/messages</value>
-		<value>/views/diner/messages</value>
-		<value>/views/actor/messages</value>
-		<value>/views/chirp/messages</value>
-		<value>/views/legislation/messages</value>
-		<value>/views/event/messages</value>
+		<value>/views/soiree/messages</value>
+		<value>/views/sponsor/messages</value>
+		<value>/views/supermarket/messages</value>
 		<value>/views/vote/messages</value>
-		<value>/views/dishType/messages</value>
 		
 	</util:list>
 
