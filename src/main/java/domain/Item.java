@@ -1,15 +1,13 @@
 package domain;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"supermarket_id", "SKU"}), @UniqueConstraint(columnNames = {"SKU", "name"})})
 public class Item extends DomainEntity {
 
 	// Constructors -----------------------------------------------------------
@@ -26,6 +24,7 @@ public class Item extends DomainEntity {
 	private Double price;
 	private Double VAT;
 	private Boolean retailed;
+	private Boolean delivered;
 
 	// Getters
 
@@ -56,6 +55,10 @@ public class Item extends DomainEntity {
 	public Boolean getRetailed() {
 		return retailed;
 	}
+	
+	public Boolean getDelivered() {
+		return delivered;
+	}
 
 	// Setters
 	public void setSKU(String SKU) {
@@ -80,6 +83,10 @@ public class Item extends DomainEntity {
 
 	public void setRetailed(Boolean retailed) {
 		this.retailed = retailed;
+	}
+	
+	public void setDelivered(Boolean delivered) {
+		this.delivered = delivered;
 	}
 	
 	// Relationships ----------------------------------------------------------

@@ -11,8 +11,11 @@
 
 <security:authorize access="hasRole('SUPERMARKET')">
 
-	<acme:acme_form url="supermarket/item/save-create.do"
-		hiddenFields="supermarket" numberMin="0" numberSteps="0.01" type="create" entity="${item}">
+	<acme:acme_form url="supermarket/item/save-create.do" skip_fields="retailed"
+		hiddenFields="supermarket,delivered" numberMin="0" numberSteps="0.01" type="create" entity="${item}">
+		 <div class="checkbox">				  
+				  <acme:checkBox code="item.retailed" path="retailed" css="w3-check"/>
+				</div>
 	</acme:acme_form>
 
 </security:authorize>
