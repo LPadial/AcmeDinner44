@@ -75,6 +75,22 @@ public class ItemService {
 		return itemRepository.exists(itemID);
 	}
 
+	public Item changeToRetailed(Item item) {
+		Assert.notNull(item);
+		Assert.isTrue(item.getRetailed()==false);
+		item.setRetailed(true);
+		item = itemRepository.save(item);
+		return item;		
+	}
+	
+	public Item changeToNotRetailed(Item item) {
+		Assert.notNull(item);
+		Assert.isTrue(item.getRetailed()==true);
+		item.setRetailed(false);
+		item = itemRepository.save(item);
+		return item;		
+	}
+
 
 	// Other business methods -------------------------------------------------
 

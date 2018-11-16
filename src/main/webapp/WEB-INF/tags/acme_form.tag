@@ -24,6 +24,7 @@
 
 <%@ attribute name="url" required="true" rtexprvalue="true" %>
 <%@ attribute name="type" required="false" rtexprvalue="true" %>
+<%@ attribute name="copy" required="false" rtexprvalue="true" %>
 <%@ attribute name="cancel" required="false" rtexprvalue="true" %>
 <%@ attribute name="entity" required="true" rtexprvalue="true" type="domain.DomainEntity" %>
 <%@ attribute name="numberMin" required="false" rtexprvalue="true" type="java.lang.Integer" %>
@@ -110,7 +111,12 @@
 	if(type == null || type.trim().isEmpty()) {
 		type = "create"; }
 	
+	
 	boolean show = type.equalsIgnoreCase("edit");
+	
+	if(copy == null || copy.trim().isEmpty()){
+		copy = "false";
+	}
 	
 	List<Class<? extends DomainEntity>> another = new LinkedList<Class<? extends DomainEntity>>();
 	List<Field> fields = new LinkedList<Field>(Arrays.asList(clazz.getDeclaredFields()));
@@ -136,7 +142,7 @@
 %>
 
 <%
-	if(show) {
+	if(show && copy == "false") {
 %>
 		<input type="hidden" name="id" value="<%=show ? entity.getId() : ""%>">
 		<input type="hidden" name="version" value="<%=show ? entity.getVersion() : ""%>">
@@ -235,12 +241,13 @@
 				<input placeholder="<%=date_stamp_list.contains(e.getName()) ? "dd/MM/yyyy HH:mm" : "dd/MM/yyyy" %>" value="<%=show ? date_stamp_list.contains(e.getName()) ? format_time.format(e.get(entity)) : format.format(e.get(entity)) : "" %>" name="<%=e.getName()%>" type="text" class="form-control" id="<%=e.getName()%>">
 <%
 			} else if(Boolean.class.isAssignableFrom(e.getType())) {
+				
 %>
-				<div class="checkbox">				  
-				  <input type="checkbox" id="<%=e.getName()%>" name="<%=e.getName()%>" value="<%= show ? "0" : "1"%>" >
-				  <label>
-				  <spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + e.getName() %>' />
-				  </label>
+				<div class="checkbox">			
+					<form:checkbox id="<%=e.getName()%>" name="<%=e.getName()%>" path="<%=e.getName()%>" cssStyle="display:inline; margin-right:0.3em;"/>
+					<label>
+				  		<spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + e.getName() %>' />
+				  	</label>
 				</div>
 <%
 			}

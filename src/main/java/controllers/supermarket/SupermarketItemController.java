@@ -47,6 +47,7 @@ public class SupermarketItemController extends AbstractController {
 		if (LoginService.hasRole("SUPERMARKET")) {
 			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 			result.addObject("items", supermarketService.findItemsOfSupermarket(s.getId()));	
+			result.addObject("requestURI","/supermarket/item/mylist.do");
 		}		
 		return result;
 	}
@@ -91,7 +92,45 @@ public class SupermarketItemController extends AbstractController {
 		}
 		return result;
 	}
-		
+	
+	// Change property retailed of a item ----------------------------------------------------------------
+
+	@RequestMapping(value = "/changeToRetailed", method = RequestMethod.GET)
+	public ModelAndView retailed(@RequestParam(required = true) final int q) {
+		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
+		Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Item item = itemService.findOne(q);
+		if(item.getSupermarket()==s){
+			itemService.changeToRetailed(item);
+			result = new ModelAndView("redirect:/supermarket/item/mylist.do");			
+		}			
+		return result;			
+	}
+	
+	@RequestMapping(value = "/changeToNotRetailed", method = RequestMethod.GET)
+	public ModelAndView notRetailed(@RequestParam(required = true) final int q) {
+		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
+		Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Item item = itemService.findOne(q);
+		if(item.getSupermarket()==s){
+			itemService.changeToNotRetailed(item);
+			result = new ModelAndView("redirect:/supermarket/item/mylist.do");			
+		}			
+		return result;			
+	}
+	
+	//Copy the data to create new item
+	@RequestMapping(value = "/copy", method = RequestMethod.GET)
+	public ModelAndView copy(@RequestParam(required = true) final int q) {
+		ModelAndView result = new ModelAndView("redirect:/misc/403.do");;
+		Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Item item = itemService.findOne(q);
+		if(item.getSupermarket()==s){
+			result = new ModelAndView("item/copy");
+			result.addObject("item", item);	
+		}			
+		return result;			
+	}
 	
 		
 	// Ancillary methods ------------------------------------------------------

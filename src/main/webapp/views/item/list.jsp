@@ -19,6 +19,7 @@
 <spring:message code="item.VAT" var="VAT" />
 <spring:message code="item.retailed" var="retailed"/>
 <spring:message code="acme.view" var="view"/>
+<spring:message code="item.copy" var="copy"/>
 
 
 <security:authorize access="permitAll">
@@ -50,6 +51,9 @@
 					<display:column title="${view}" sortable="false">
 						<acme:url url="supermarket/item/view.do?q=${row.id}" code="acme.view"/>
 					</display:column>
+					<display:column title="${copy}" sortable="false">
+						<acme:url url="supermarket/item/copy.do?q=${row.id}" code="item.copy"/>
+					</display:column>					
 				</jstl:if>
 				
 			</display:table>

@@ -219,7 +219,16 @@
 		<security:intercept-url pattern="/supermarket/item/create.do"
 			access="hasRole('SUPERMARKET')" />
 		<security:intercept-url pattern="/supermarket/item/save-create.do"
-			access="hasRole('SUPERMARKET')" />				
+			access="hasRole('SUPERMARKET')" />			
+		<!-- Edit retailed item -->	
+		<security:intercept-url pattern="/supermarket/item/changeToNotRetailed.do"
+			access="hasRole('SUPERMARKET')" />		
+		<security:intercept-url pattern="/supermarket/item/changeToRetailed.do"
+			access="hasRole('SUPERMARKET')" />	
+		<!-- Copy data to create new object -->	
+		<security:intercept-url pattern="/supermarket/item/copy.do"
+			access="hasRole('SUPERMARKET')" />
+		
 			
 		<!-- Chirps -->
 		<security:intercept-url pattern="/chirp/actor/delete.do"
