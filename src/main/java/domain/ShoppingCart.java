@@ -1,12 +1,10 @@
 package domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -40,9 +38,7 @@ public class ShoppingCart extends DomainEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	public Date getDateCreation() {
 		return dateCreation;
-	}
-
-	
+	}	
 
 	public Boolean getIsOrdered() {
 		return isOrdered;
@@ -77,20 +73,8 @@ public class ShoppingCart extends DomainEntity {
 	
 	// Relationships ----------------------------------------------------------
 	
-	private List<Item> items;
 	private Diner owner;
 	private CreditCard creditCard;
-	
-	@NotNull
-	@Valid
-	@ManyToMany
-	public List<Item> getItems() {
-		return items;
-	}
-	
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
 	
 	@Valid
 	@NotNull
@@ -112,5 +96,6 @@ public class ShoppingCart extends DomainEntity {
 	public void setCreditCard(CreditCard creditCard){
 		this.creditCard = creditCard;
 	}
+	
 
 }

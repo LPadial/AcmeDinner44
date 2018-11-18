@@ -260,7 +260,7 @@
 		<property name="actorName" value="Juan Carlos" />
 		<property name="surname" value="Lopez" />
 		<property name="email" value="jc@hotmail.com" />
-		<property name="userAccount" ref="userAccount4" />
+		<property name="userAccount" ref="userAccount6" />
 		<property name="followers">
 			<list>
 				<ref bean="supermarket2" />
@@ -284,7 +284,7 @@
 		<property name="actorName" value="Laura" />
 		<property name="surname" value="Padial" />
 		<property name="email" value="laura@hotmail.com" />
-		<property name="userAccount" ref="userAccount5" />
+		<property name="userAccount" ref="userAccount7" />
 		<property name="followers">
 			<list>
 				<ref bean="diner1" />
@@ -307,7 +307,7 @@
 		<property name="actorName" value="Karli" />
 		<property name="surname" value="Lopez" />
 		<property name="email" value="jc@hotmail.com" />
-		<property name="userAccount" ref="userAccount7" />
+		<property name="userAccount" ref="userAccount9" />
 		<property name="followers">
 			<list>
 			</list>
@@ -608,13 +608,6 @@
 		<property name="deliveryAddress" value="calle Trucha , 3. Sevilla" />
 		<property name="priceTotal" value="3.05" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="items">
-			<list>
-				<ref bean="item1"/>
-				<ref bean="item2"/>
-				<ref bean="item2"/>
-			</list>
-		</property>
 		<property name="owner" ref="diner1"/>
 	</bean>
 
@@ -625,12 +618,6 @@
 		<property name="deliveryAddress" value="calle Preciados , 3. Madrid" />
 		<property name="priceTotal" value="2.90" />
 		<property name="creditCard" ref="creditCard2" />
-		<property name="items">
-			<list>
-				<ref bean="item1"/>
-				<ref bean="item3"/>
-			</list>
-		</property>
 		<property name="owner" ref="diner2"/>
 	</bean>
 	
@@ -638,14 +625,63 @@
 		<property name="dateCreation" value="22/08/2018 21:03:00" />
 		<property name="isOrdered" value="false" />
 		<property name="deliveryAddress" value="calle Preciados , 3. Madrid" />
-		<property name="priceTotal" value="2.90" />		
-		<property name="items">
-			<list>
-				<ref bean="item1"/>
-				<ref bean="item1"/>
-			</list>
-		</property>
+		<property name="priceTotal" value="2.90" />	
 		<property name="owner" ref="diner3"/>
+	</bean>
+	
+	<!-- Delivery -->
+	<bean id="delivery1" class="domain.Delivery">
+		<property name="delivered" value="false" />
+		<property name="item" ref="item1" />
+		<property name="shoppingCart" ref="shoppingcart1" />
+	</bean>
+	
+	<bean id="delivery2" class="domain.Delivery">
+		<property name="delivered" value="false" />
+		<property name="item" ref="item2" />
+		<property name="shoppingCart" ref="shoppingcart2" />
+	</bean>
+	
+	<bean id="delivery3" class="domain.Delivery">
+		<property name="delivered" value="false" />
+		<property name="item" ref="item3" />
+		<property name="shoppingCart" ref="shoppingcart3" />
+	</bean>
+	
+	<bean id="delivery4" class="domain.Delivery">
+		<property name="delivered" value="false" />
+		<property name="item" ref="item1" />
+		<property name="shoppingCart" ref="shoppingcart1" />
+	</bean>
+	
+	<bean id="delivery5" class="domain.Delivery">
+		<property name="delivered" value="true" />
+		<property name="item" ref="item2" />
+		<property name="shoppingCart" ref="shoppingcart2" />
+	</bean>
+	
+	<bean id="delivery6" class="domain.Delivery">
+		<property name="delivered" value="true" />
+		<property name="item" ref="item1" />
+		<property name="shoppingCart" ref="shoppingcart2" />
+	</bean>
+	
+	<bean id="delivery7" class="domain.Delivery">
+		<property name="delivered" value="true" />
+		<property name="item" ref="item1" />
+		<property name="shoppingCart" ref="shoppingcart3" />
+	</bean>
+	
+	<bean id="delivery8" class="domain.Delivery">
+		<property name="delivered" value="false" />
+		<property name="item" ref="item2" />
+		<property name="shoppingCart" ref="shoppingcart3" />
+	</bean>
+	
+	<bean id="delivery9" class="domain.Delivery">
+		<property name="delivered" value="false" />
+		<property name="item" ref="item2" />
+		<property name="shoppingCart" ref="shoppingcart1" />
 	</bean>
 
 	<!-- Event -->

@@ -13,7 +13,7 @@ import domain.Supermarket;
 public interface SupermarketRepository extends JpaRepository<Supermarket, Integer>  {
 	
 	//Top 3 best-selling supermarkets
-	@Query("select s,count(i) from ShoppingCart sc join sc.items i join i.supermarket s where sc.isOrdered = true group by s.id order by count(i) desc")
+	@Query("select s,count(i) from Delivery d join d.shoppingCart sc join d.item i join i.supermarket s where sc.isOrdered = true group by s.id order by count(i) desc")
 	Object[] bestSellingSupermarkets();
 	
 	//The events that a diner has organized

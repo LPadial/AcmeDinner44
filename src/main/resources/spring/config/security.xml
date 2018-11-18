@@ -214,6 +214,12 @@
 		<!-- List,show and create items -->
 		<security:intercept-url pattern="/supermarket/item/mylist.do"
 			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/notDelivered.do"
+			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/delivered.do"
+			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/markDelivered.do"
+			access="hasRole('SUPERMARKET')" />
 		<security:intercept-url pattern="/supermarket/item/view.do"
 			access="hasRole('SUPERMARKET')" />
 		<security:intercept-url pattern="/supermarket/item/create.do"

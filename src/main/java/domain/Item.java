@@ -1,5 +1,6 @@
 package domain;
 
+
 import javax.persistence.*;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,7 +25,6 @@ public class Item extends DomainEntity {
 	private Double price;
 	private Double VAT;
 	private Boolean retailed;
-	private Boolean delivered;
 
 	// Getters
 
@@ -56,9 +56,6 @@ public class Item extends DomainEntity {
 		return retailed;
 	}
 	
-	public Boolean getDelivered() {
-		return delivered;
-	}
 
 	// Setters
 	public void setSKU(String SKU) {
@@ -85,9 +82,6 @@ public class Item extends DomainEntity {
 		this.retailed = retailed;
 	}
 	
-	public void setDelivered(Boolean delivered) {
-		this.delivered = delivered;
-	}
 	
 	// Relationships ----------------------------------------------------------
 	

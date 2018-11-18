@@ -138,6 +138,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="supermarket/item/create.do"><spring:message code="supermarket.createItem" /></a></li>
 								<li><a href="supermarket/item/mylist.do"><spring:message code="supermarket.myItems" /></a></li>
+								<li><a href="supermarket/item/notDelivered.do"><spring:message code="supermarket.itemsToDeliver" /></a></li>
+								<li><a href="supermarket/item/delivered.do"><spring:message code="supermarket.itemsDelivered" /></a></li>
 							</ul>
 						</li>
 					</security:authorize>

@@ -1,6 +1,4 @@
-package controllers.supermarket;
-
-import java.util.List;
+package controllers.diner;
 
 import javax.validation.Valid;
 
@@ -13,82 +11,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import services.DeliveryService;
+import services.DinerService;
 import services.ItemService;
+import services.ShoppingCartService;
 import services.SupermarketService;
 import controllers.AbstractController;
-import domain.Delivery;
+import domain.Diner;
 import domain.Item;
 import domain.Supermarket;
 
 @Controller
-@RequestMapping("/supermarket/item")
-public class SupermarketItemController extends AbstractController {
+@RequestMapping("/diner/shoppingCart")
+public class DinerShoppingCartController extends AbstractController {
 	
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private SupermarketService supermarketService;
+	private DinerService dinerService;
 	
 	@Autowired
-	private ItemService itemService;
+	private ShoppingCartService shoppingCartService;
 		
 	@Autowired
 	private LoginService loginService;
-	
-	@Autowired
-	private DeliveryService deliveryService;
 		
 	// Constructors -----------------------------------------------------------
 		
-	public SupermarketItemController() {
+	public DinerShoppingCartController() {
 		super();
 	}
 
 	// Supermarkets can list their items ----------------------------------------------------------------
 	@RequestMapping(value = "/mylist", method = RequestMethod.GET)
-	public ModelAndView items() {
+	public ModelAndView myShoppingCarts() {
 		ModelAndView result;
-		result = new ModelAndView("item/list");
+		result = new ModelAndView("shoppingCart/list");
 		result.addObject("a", 0);
-		if (LoginService.hasRole("SUPERMARKET")) {
-			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("items", supermarketService.findItemsOfSupermarket(s.getId()));	
-			result.addObject("requestURI","/supermarket/item/mylist.do");
+		if (LoginService.hasRole("DINER")) {
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+			result.addObject("shoppingCarts", dinerService.findShoppingCartsOfDiner(d.get));	
+			result.addObject("requestURI","/diner/shoppingCart/mylist.do");
 		}		
 		return result;
 	}
-	
-	// Supermarkets can list their items that they have to deliver grouped by delivery address ----------------------------------------------------------------
-	@RequestMapping(value = "/notDelivered", method = RequestMethod.GET)
-	public ModelAndView itemsNotDelivery() {
-		ModelAndView result;
-		result = new ModelAndView("item/list");
-		result.addObject("a", 1);
-		if (LoginService.hasRole("SUPERMARKET")) {
-			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("items", itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(s.getId()));	
-			result.addObject("notDelivered", true);
-			result.addObject("requestURI","/supermarket/item/notDelivered.do");
-		}		
-		return result;
-	}
-	
-	// Supermarkets can list their items that they have delivered grouped by delivery address ----------------------------------------------------------------
-	@RequestMapping(value = "/delivered", method = RequestMethod.GET)
-	public ModelAndView itemsDelivery() {
-		ModelAndView result;
-		result = new ModelAndView("item/list");
-		result.addObject("a", 1);
-		if (LoginService.hasRole("SUPERMARKET")) {
-			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("items", itemService.itemsOfSupermarketDeliveredGroupByDeliveredAddress(s.getId()));	
-			result.addObject("requestURI","/supermarket/item/delivered.do");
-		}		
-		return result;
-	}
-	
-
 	
 	//View item ----------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -155,22 +120,6 @@ public class SupermarketItemController extends AbstractController {
 			result = new ModelAndView("redirect:/supermarket/item/mylist.do");			
 		}			
 		return result;			
-	}
-	
-	//Mark as delivered ----------------------------------------------------------------
-	@RequestMapping(value = "/markDelivered", method = RequestMethod.GET)
-	public ModelAndView markItemsDelivery(@RequestParam(required = true) final String address) {
-		ModelAndView result  = new ModelAndView("redirect:/misc/403.do");
-
-		if (LoginService.hasRole("SUPERMARKET")) {
-			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			List<Delivery> itemsToDeliver = itemService.itemsNotDeliveredInAddress(address, s.getId());
-			for(Delivery d: itemsToDeliver){
-				deliveryService.changeToDelivered(d);
-			}
-			result = new ModelAndView("redirect:/supermarket/item/notDelivered.do");
-		}		
-		return result;
 	}
 	
 	//Copy the data to create new item

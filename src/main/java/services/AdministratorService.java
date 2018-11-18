@@ -23,6 +23,7 @@ import domain.Soiree;
 import domain.Vote;
 import repositories.AdministratorRepository;
 import repositories.ChirpRepository;
+import repositories.ItemRepository;
 import repositories.SponsorshipRepository;
 import security.Authority;
 import security.UserAccount;
@@ -41,6 +42,9 @@ public class AdministratorService {
 	
 	@Autowired
 	private SponsorshipRepository sponsorshipRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
@@ -55,6 +59,7 @@ public class AdministratorService {
 	@Autowired
 	private EventService eventService;
 
+	
 
 	// Constructors -----------------------------------------------------------
 	
@@ -224,7 +229,9 @@ public class AdministratorService {
 	public Object[] avgMinMaxAcceptedSponsorshipPerSponsor(){
 		return sponsorshipRepository.avgMinMaxAcceptedSponsorshipPerSponsor();
 	}
-	
+	public List<Object[]> bestSelledItems(){
+		return itemRepository.bestSelledItems();
+	}
 	
 }
 

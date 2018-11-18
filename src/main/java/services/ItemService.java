@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Delivery;
 import domain.Item;
 import domain.Supermarket;
 
@@ -93,5 +94,16 @@ public class ItemService {
 
 
 	// Other business methods -------------------------------------------------
+	public List<Object[]> itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(int idSupermarket){
+		return itemRepository.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(idSupermarket);
+	}
+	
+	public List<Object[]> itemsOfSupermarketDeliveredGroupByDeliveredAddress(int idSupermarket){
+		return itemRepository.itemsOfSupermarketDeliveredGroupByDeliveredAddress(idSupermarket);
+	}
+	
+	public List<Delivery> itemsNotDeliveredInAddress(String address, int idSupermarket){
+		return itemRepository.itemsNotDeliveredInAddress(address, idSupermarket);
+	}
 
 }
