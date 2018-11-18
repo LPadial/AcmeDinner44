@@ -12,13 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.DinerService;
-import services.ItemService;
 import services.ShoppingCartService;
-import services.SupermarketService;
 import controllers.AbstractController;
 import domain.Diner;
-import domain.Item;
-import domain.Supermarket;
+import domain.ShoppingCart;
 
 @Controller
 @RequestMapping("/diner/shoppingCart")
@@ -46,10 +43,9 @@ public class DinerShoppingCartController extends AbstractController {
 	public ModelAndView myShoppingCarts() {
 		ModelAndView result;
 		result = new ModelAndView("shoppingCart/list");
-		result.addObject("a", 0);
 		if (LoginService.hasRole("DINER")) {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("shoppingCarts", dinerService.findShoppingCartsOfDiner(d.get));	
+			result.addObject("shoppingCarts", dinerService.findShoppingCartsOfDiner(d.getId()));	
 			result.addObject("requestURI","/diner/shoppingCart/mylist.do");
 		}		
 		return result;
@@ -59,11 +55,11 @@ public class DinerShoppingCartController extends AbstractController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView view(@RequestParam(required = true) int q) {
 		ModelAndView result;
-		result = new ModelAndView("item/view");
+		result = new ModelAndView("shoppingCart/view");
 		
-		Item i = itemService.findOne(q);
+		ShoppingCart shoppingCart = shoppingCartService.findOne(q);
 		
-		result.addObject("item", i);
+		result.addObject("item", shoppingCart);
 		
 		return result;
 	}
@@ -73,77 +69,50 @@ public class DinerShoppingCartController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		
-		result = createNewModelAndView(itemService.create(), null);
+		result = createNewModelAndView(shoppingCartService.create(), null);
 
 		return result;
 	}
 	
 	//Save item --------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/save-create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveCreateEdit(@Valid Item item, BindingResult binding) {
+	public ModelAndView saveCreateEdit(@Valid ShoppingCart shoppingCart, BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			result = createNewModelAndView(item, null);
+			result = createNewModelAndView(shoppingCart, null);
 		} else {
 			try {
-				itemService.save(item);
-				result = new ModelAndView("redirect:/supermarket/item/mylist.do");
+				shoppingCartService.save(shoppingCart);
+				result = new ModelAndView("redirect:/diner/shoppingCart/mylist.do");
 
 			} catch (Throwable th) {
-				result = createNewModelAndView(item, "item.commit.error");
+				result = createNewModelAndView(shoppingCart, "shoppingCart.commit.error");
 			}
 		}
 		return result;
-	}
+	} 
 	
-	// Change property retailed of a item ----------------------------------------------------------------
-
-	@RequestMapping(value = "/changeToRetailed", method = RequestMethod.GET)
-	public ModelAndView retailed(@RequestParam(required = true) final int q) {
+	//Order shoppingCart--------------------------------------------------------------------------------------------------
+	@RequestMapping(value = "/order", method = RequestMethod.POST)
+	public ModelAndView order(@RequestParam(required = true) final int q) {
 		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
-		Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		Item item = itemService.findOne(q);
-		if(item.getSupermarket()==s){
-			itemService.changeToRetailed(item);
-			result = new ModelAndView("redirect:/supermarket/item/mylist.do");			
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		ShoppingCart shoppingCart = shoppingCartService.findOne(q);
+		if(shoppingCart.getOwner()==d){
+			shoppingCartService.order(shoppingCart);
+			result = new ModelAndView("redirect:/diner/shoppingCart/mylist.do");			
 		}			
-		return result;			
+		return result;
 	}
-	
-	@RequestMapping(value = "/changeToNotRetailed", method = RequestMethod.GET)
-	public ModelAndView notRetailed(@RequestParam(required = true) final int q) {
-		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
-		Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		Item item = itemService.findOne(q);
-		if(item.getSupermarket()==s){
-			itemService.changeToNotRetailed(item);
-			result = new ModelAndView("redirect:/supermarket/item/mylist.do");			
-		}			
-		return result;			
-	}
-	
-	//Copy the data to create new item
-	@RequestMapping(value = "/copy", method = RequestMethod.GET)
-	public ModelAndView copy(@RequestParam(required = true) final int q) {
-		ModelAndView result = new ModelAndView("redirect:/misc/403.do");;
-		Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		Item item = itemService.findOne(q);
-		if(item.getSupermarket()==s){
-			result = new ModelAndView("item/copy");
-			result.addObject("item", item);	
-		}			
-		return result;			
-	}
-	
 		
 	// Ancillary methods ------------------------------------------------------
 	
-	protected ModelAndView createNewModelAndView(Item item, String message) {
+	protected ModelAndView createNewModelAndView(ShoppingCart shoppingCart, String message) {
 		ModelAndView result;
 		
-		result = new ModelAndView("item/create");
+		result = new ModelAndView("shoppingCart/create");
 		
-		result.addObject("item", item);
+		result.addObject("shoppingCart", shoppingCart);
 		result.addObject("message", message);
 		
 		return result;

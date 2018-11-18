@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+	
+	<definition name="shoppingCart/list" extends="master.page">	
+		<put-attribute name="title" value="LISTA DE CARROS DE COMPRA" />
+		<put-attribute name="body" value="/views/shoppingCart/list.jsp" />
+	</definition>
+	
+	<definition name="shoppingCart/create" extends="master.page">	
+		<put-attribute name="title" value="NUEVO CARRO DE COMPRA" />
+		<put-attribute name="body" value="/views/shoppingCart/create.jsp" />
+	</definition>
+	
+	<definition name="shoppingCart/view" extends="master.page">	
+		<put-attribute name="title" value="CARRO DE COMPRA" />
+		<put-attribute name="body" value="/views/shoppingCart/view.jsp" />
+	</definition>
+	
+</tiles-definitions>

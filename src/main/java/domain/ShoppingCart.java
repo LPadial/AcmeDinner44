@@ -10,8 +10,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -43,11 +46,14 @@ public class ShoppingCart extends DomainEntity {
 	public Boolean getIsOrdered() {
 		return isOrdered;
 	}
-
+	
+	@NotBlank
+	@SafeHtml
 	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}
-
+	
+	@Digits(integer = 7, fraction = 2 )
 	public Double getPriceTotal() {
 		return priceTotal;
 	}

@@ -77,15 +77,32 @@
 	<br />
 
 
-	<!-- <b><spring:message code="administrator.ratioDinersWithMoreThan1SocialSection" /> </b>
-	<jstl:forEach var="c" items="${tutorialSee}" varStatus="loop">
-		<jstl:out value="${c.title}" />
+	<b><spring:message code="administrator.bestSelledItems" /> </b>
+	<jstl:forEach var="c" items="${bestSelledItems}" varStatus="loop" end="3">
+		<jstl:out value="${c[0].name}" />:
+		<jstl:out value="${c[1]}"></jstl:out>
+		<jstl:if test="${!loop.last}">, </jstl:if>
+	</jstl:forEach>
+	<br />
+	
+	<b><spring:message code="administrator.bestBuyingDiners" /> </b>
+	<jstl:forEach var="c" items="${bestBuyingDiners}" varStatus="loop" end="3">
+		<jstl:out value="${c[0].actorName}" />:
+		<jstl:out value="${c[1]}"></jstl:out>
+		<jstl:if test="${!loop.last}">, </jstl:if>
+	</jstl:forEach>
+	<br />
+	
+	<b><spring:message code="administrator.bestSellingSupermarkets" /> </b>
+	<jstl:forEach var="c" items="${bestSellingSupermarkets}" varStatus="loop" end="3">
+		<jstl:out value="${c[0].brand}" />:
+		<jstl:out value="${c[1]}"></jstl:out>
 		<jstl:if test="${!loop.last}">, </jstl:if>
 	</jstl:forEach>
 	<br />
 
 
-	<b><spring:message code="administrator.avgChirpActor" /> </b>
+	<!-- <b><spring:message code="administrator.avgChirpActor" /> </b>
 	<jstl:forEach var="c" items="${chirpActor}" varStatus="loop">
 		<jstl:out value="${c[0]}" />:
 		<jstl:out value="${c[1]}" />

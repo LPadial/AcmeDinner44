@@ -2,8 +2,10 @@ package domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -34,6 +36,7 @@ public class Item extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml
 	public String getName() {
 		return name;
 	}
@@ -43,11 +46,13 @@ public class Item extends DomainEntity {
 	public String getPhoto() {
 		return photo;
 	}
-
+	
+	@Digits(integer = 7, fraction = 2 )
 	public Double getPrice() {
 		return price;
 	}
-
+	
+	@Digits(integer = 2, fraction = 2 )
 	public Double getVAT() {
 		return VAT;
 	}

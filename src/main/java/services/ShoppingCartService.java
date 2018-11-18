@@ -106,6 +106,18 @@ public class ShoppingCartService {
 		
 		return shoppingCart;		
 	}
+	
+	public ShoppingCart order(ShoppingCart shoppingCart) {
+		Assert.notNull(shoppingCart);
+		
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Assert.isTrue(shoppingCart.getOwner() == d);
+		
+		shoppingCart.setIsOrdered(true);
+		shoppingCart = shoppingCartRepository.save(shoppingCart);
+		
+		return shoppingCart;		
+	}
 
 	
 

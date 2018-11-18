@@ -19,6 +19,7 @@ import domain.Chirp;
 import domain.Diner;
 import domain.Event;
 import domain.Finder;
+import domain.ShoppingCart;
 
 import repositories.DinerRepository;
 import security.Authority;
@@ -152,6 +153,10 @@ public class DinerService {
 	
 	public Collection<Event> findEventsPastOfDiner(int dinerID) {
 		return dinerRepository.findEventsPastOfDiner(dinerID); 
+	}
+
+	public List<ShoppingCart> findShoppingCartsOfDiner(int idDiner) {
+		return dinerRepository.findShoppingCartsOfDiner(idDiner);
 	}
 	 
 

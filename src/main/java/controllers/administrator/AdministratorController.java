@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-
-import domain.Administrator;
-
 import services.AdministratorService;
+import controllers.AbstractController;
+import domain.Administrator;
 
 @Controller
 @RequestMapping("/administrator")
@@ -108,6 +106,15 @@ public class AdministratorController extends AbstractController {
 		
 		//Ratio of diners who have at least one social section
 		result.addObject("ratioSS",administratorService.ratioOfDinersWhoHaveAtLeastOneSocialSection());
+		
+		//Top-3 best-selling items
+		result.addObject("bestSelledItems",administratorService.bestSelledItems());
+		
+		//Top-3 best-buying diners
+		result.addObject("bestBuyingDiners",administratorService.bestBuyingDiners());
+		
+		//Top-3 best-selling supermarkets
+		result.addObject("bestSellingSupermarkets",administratorService.bestSellingSupermarkets());
 
 		return result;
 	}

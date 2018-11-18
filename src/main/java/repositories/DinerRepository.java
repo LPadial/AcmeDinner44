@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import domain.Diner;
 import domain.Event;
+import domain.ShoppingCart;
 
 @Repository
 public interface DinerRepository extends JpaRepository<Diner, Integer>{
@@ -33,8 +35,8 @@ public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	Collection<Diner> findDinersByKeyWord(String keyword);
 	
 	//Top 3 best-buying diners
-	@Query("select sum(sc.priceTotal) from ShoppingCart sc group by sc order by sum(sc.priceTotal) desc")
-	Object[] bestBoughtDiners();
+	@Query("select sc.owner,sum(sc.priceTotal) from ShoppingCart sc group by sc order by sum(sc.priceTotal) desc")
+	List<Object[]> bestBuyingDiners();
 	
 	//The events that a diner has organized
 	@Query("select e from Event e where e.organizer.id = ?1")
@@ -44,5 +46,8 @@ public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	@Query("select e from Event e join e.soirees s where s.date<CURRENT_DATE and e.organizer.id = ?1")
 	Collection<Event> findEventsPastOfDiner(int dinerID);
 	
+	//The shopping carts that a diner has 
+	@Query("select sc from ShoppingCart sc where sc.owner.id = ?1")
+	List<ShoppingCart> findShoppingCartsOfDiner(int idDiner);
 
 }

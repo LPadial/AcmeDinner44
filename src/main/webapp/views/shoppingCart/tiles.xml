@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>	
+		
+	<definition name="shoppingCart/list" extends="master.page">	
+		<put-attribute name="title" value="SHOPPING CARTS LIST" />
+		<put-attribute name="body" value="/views/shoppingCart/list.jsp" />
+	</definition>
+	
+	<definition name="shoppingCart/create" extends="master.page">	
+		<put-attribute name="title" value="CREATE SHOPPING CART" />
+		<put-attribute name="body" value="/views/shoppingCart/create.jsp" />
+	</definition>
+	
+	<definition name="shoppingCart/view" extends="master.page">	
+		<put-attribute name="title" value="VIEW SHOPPING CART" />
+		<put-attribute name="body" value="/views/shoppingCart/view.jsp" />
+	</definition>
+	
+</tiles-definitions>

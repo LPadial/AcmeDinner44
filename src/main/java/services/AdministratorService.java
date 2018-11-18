@@ -23,8 +23,10 @@ import domain.Soiree;
 import domain.Vote;
 import repositories.AdministratorRepository;
 import repositories.ChirpRepository;
+import repositories.DinerRepository;
 import repositories.ItemRepository;
 import repositories.SponsorshipRepository;
+import repositories.SupermarketRepository;
 import security.Authority;
 import security.UserAccount;
 
@@ -45,6 +47,12 @@ public class AdministratorService {
 	
 	@Autowired
 	private ItemRepository itemRepository;
+	
+	@Autowired
+	private DinerRepository dinerRepository;
+	
+	@Autowired
+	private SupermarketRepository supermarketRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
@@ -231,6 +239,14 @@ public class AdministratorService {
 	}
 	public List<Object[]> bestSelledItems(){
 		return itemRepository.bestSelledItems();
+	}
+	
+	public List<Object[]> bestBuyingDiners(){
+		return dinerRepository.bestBuyingDiners();
+	}
+	
+	public List<Object[]> bestSellingSupermarkets(){
+		return supermarketRepository.bestSellingSupermarkets();
 	}
 	
 }

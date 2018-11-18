@@ -126,6 +126,17 @@
 								<li><a href="diner/soiree/organizedList.do"><spring:message code="diner.organizedSoirees" /></a></li>
 							</ul>
 						</li>
+						<!-- My shopping carts -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<spring:message code="diner.shoppingCarts" />
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="diner/shoppingCart/create.do"><spring:message code="diner.createShoppingCart" /></a></li>
+								<li><a href="diner/shoppingCart/mylist.do"><spring:message code="diner.myShoppingCart" /></a></li>
+							</ul>
+						</li>
 					</security:authorize>
 					
 					<!-- My items -->

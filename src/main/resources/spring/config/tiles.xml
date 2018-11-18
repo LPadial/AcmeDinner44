@@ -34,7 +34,8 @@
 		<value>/views/item/tiles.xml</value>
 		<value>/views/legislation/tiles.xml</value>
 		<value>/views/personalSection/tiles.xml</value>
-		<value>/views/professionalSection/tiles.xml</value>
+		<value>/views/professionalSection/tiles.xml</value>		
+		<value>/views/shoppingCart/tiles.xml</value>
 		<value>/views/socialSection/tiles.xml</value>
 		<value>/views/soiree/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>

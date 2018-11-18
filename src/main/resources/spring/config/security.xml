@@ -234,7 +234,24 @@
 		<!-- Copy data to create new object -->	
 		<security:intercept-url pattern="/supermarket/item/copy.do"
 			access="hasRole('SUPERMARKET')" />
-		
+			
+		<!-- List, show, create update and delete shopping carts -->
+		<security:intercept-url pattern="/diner/shoppingCart/mylist.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/view.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/create.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/save-create.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/order.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/modifyItems.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/seeItems.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/delete.do"
+			access="hasRole('DINER')" />
 			
 		<!-- Chirps -->
 		<security:intercept-url pattern="/chirp/actor/delete.do"
