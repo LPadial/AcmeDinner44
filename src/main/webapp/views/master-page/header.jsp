@@ -133,7 +133,12 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="diner/shoppingCart/create.do"><spring:message code="diner.createShoppingCart" /></a></li>
+								<li>
+									<a class="fNiv" href="diner/shoppingCart/createShoppingCart.do">
+										<spring:message code="diner.createShoppingCart" />
+									</a>
+								</li>
+								
 								<li><a href="diner/shoppingCart/mylist.do"><spring:message code="diner.myShoppingCart" /></a></li>
 							</ul>
 						</li>

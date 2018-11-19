@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.CreditCard;
 import domain.Delivery;
 import domain.Diner;
 import domain.Item;
@@ -42,14 +41,14 @@ public class ShoppingCartService {
 		
 		shoppingCart.setDateCreation(new Date());
 		shoppingCart.setIsOrdered(new Boolean(false));
-		shoppingCart.setDeliveryAddress(new String());
+		shoppingCart.setDeliveryAddress(new String(""));
 		shoppingCart.setPriceTotal(new Double(0.0));
 		
 		
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());		
 		shoppingCart.setOwner(d);
 		
-		shoppingCart.setCreditCard(new CreditCard());
+		shoppingCart.setCreditCard(null);
 		
 		return shoppingCart;
 	}
@@ -92,7 +91,10 @@ public class ShoppingCartService {
 		Delivery delivery = deliveryService.create(shoppingCart,item);
 		deliveryService.save(delivery);
 		
-		return shoppingCart;		
+		shoppingCart.setPriceTotal(priceOfShoppingCart(shoppingCart.getId()));
+		ShoppingCart sc = shoppingCartRepository.save(shoppingCart);
+		
+		return sc;		
 	}
 	
 	public ShoppingCart removeItem(ShoppingCart shoppingCart,Item item) {
@@ -104,7 +106,10 @@ public class ShoppingCartService {
 		Delivery deliveryToDelete = deliveryService.findDelivery(shoppingCart.getId(), item.getId());
 		deliveryService.delete(deliveryToDelete);
 		
-		return shoppingCart;		
+		shoppingCart.setPriceTotal(priceOfShoppingCart(shoppingCart.getId()));
+		ShoppingCart sc = shoppingCartRepository.save(shoppingCart);
+		
+		return sc;		
 	}
 	
 	public ShoppingCart order(ShoppingCart shoppingCart) {
@@ -118,9 +123,29 @@ public class ShoppingCartService {
 		
 		return shoppingCart;		
 	}
+	
+	public void delete(ShoppingCart shoppingCart){
+		Assert.notNull(shoppingCart);
+		
+		List<Delivery> deliveries = shoppingCartRepository.deliveriesOfShoppingCart(shoppingCart.getId());
+		
+		for(Delivery d: deliveries){
+			deliveryService.delete(d);
+		}
+		
+		shoppingCartRepository.delete(shoppingCart);
+	}
 
 	
 
 	// Other business methods -------------------------------------------------
+	
+	public List<Item> listItemsOfShoppingCart(int idShoppingCart){
+		return shoppingCartRepository.listItemsOfShoppingCart(idShoppingCart);
+	}
+	
+	public Double priceOfShoppingCart(int idShoppingCart){
+		return shoppingCartRepository.priceOfShoppingCart(idShoppingCart);
+	}
 
 }

@@ -20,12 +20,14 @@
 <spring:message code="item.retailed" var="retailed"/>
 <spring:message code="acme.view" var="view"/>
 <spring:message code="item.copy" var="copy"/>
+<spring:message code="item.add" var="add"/>
+<spring:message code="item.remove" var="remove"/>
 
 
 <security:authorize access="permitAll">
 
 	<jstl:if test="${a==0}">
-		<security:authorize access="hasRole('SUPERMARKET')">
+		
 			<!-- Table -->
 			<display:table  name="items" id="row" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 		
@@ -38,27 +40,35 @@
 				<display:column property="VAT" title="${VAT}" sortable="false" />
 				
 				<security:authentication property="principal.id" var="id" />
-				
-				<jstl:if test="${row.supermarket.userAccount.id == id}">
-					<display:column title="${retailed}" sortable="false" >
-						<jstl:if test="${row.retailed == true}">
-							<acme:url url="supermarket/item/changeToNotRetailed.do?q=${row.id}" code="item.changeToFalse"/>
-						</jstl:if>
-						<jstl:if test="${row.retailed == false}">
-							<acme:url url="supermarket/item/changeToRetailed.do?q=${row.id}" code="item.changeToTrue"/>
-						</jstl:if>
+				<security:authorize access="hasRole('SUPERMARKET')">
+					<jstl:if test="${row.supermarket.userAccount.id == id}">
+						<display:column title="${retailed}" sortable="false" >
+							<jstl:if test="${row.retailed == true}">
+								<acme:url url="supermarket/item/changeToNotRetailed.do?q=${row.id}" code="item.changeToFalse"/>
+							</jstl:if>
+							<jstl:if test="${row.retailed == false}">
+								<acme:url url="supermarket/item/changeToRetailed.do?q=${row.id}" code="item.changeToTrue"/>
+							</jstl:if>
+						</display:column>
+						<display:column title="${view}" sortable="false">
+							<acme:url url="supermarket/item/view.do?q=${row.id}" code="acme.view"/>
+						</display:column>
+						<display:column title="${copy}" sortable="false">
+							<acme:url url="supermarket/item/copy.do?q=${row.id}" code="item.copy"/>
+						</display:column>					
+					</jstl:if>
+				</security:authorize>
+				<security:authorize access="hasRole('DINER')">
+					<display:column title="${add}" sortable="false">
+						<acme:url url="diner/shoppingCart/addItem.do?q=${row.id}" code="item.add"/>
 					</display:column>
-					<display:column title="${view}" sortable="false">
-						<acme:url url="supermarket/item/view.do?q=${row.id}" code="acme.view"/>
-					</display:column>
-					<display:column title="${copy}" sortable="false">
-						<acme:url url="supermarket/item/copy.do?q=${row.id}" code="item.copy"/>
-					</display:column>					
-				</jstl:if>
-				
+					<display:column title="${remove}" sortable="false">
+						<acme:url url="diner/shoppingCart/removeItem.do?q=${row.id}" code="item.remove"/>
+					</display:column>	
+				</security:authorize>
 			</display:table>
 
-		</security:authorize>
+		
 	</jstl:if>
 	
 	<jstl:if test="${a==1}">

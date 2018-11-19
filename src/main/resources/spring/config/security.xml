@@ -240,7 +240,7 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/shoppingCart/view.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/diner/shoppingCart/create.do"
+		<security:intercept-url pattern="/diner/shoppingCart/createShoppingCart.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/shoppingCart/save-create.do"
 			access="hasRole('DINER')" />
@@ -252,6 +252,9 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/shoppingCart/delete.do"
 			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/formOrder.do"
+			access="hasRole('DINER')" />
+			
 			
 		<!-- Chirps -->
 		<security:intercept-url pattern="/chirp/actor/delete.do"

@@ -11,73 +11,62 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- Messages -->
-<spring:message code="event.searchtext" var="eventSearchText" />
-<spring:message code="event.search" var="eventSearch" />
-<spring:message code="event.ticker" var="eventTicker" />
-<spring:message code="event.title" var="eventTitle" />
-<spring:message code="event.city" var="eventCity" />
-<spring:message code="event.description" var="eventDescription"/>
-<spring:message code="event.registeredDiners" var="eventRegisteredDiners" />
-<spring:message code="event.soirees" var="eventSoirees" />
-<spring:message code="event.address" var="address" />
-<spring:message code="event.date" var="date" />
-<spring:message code="event.pictures" var="pictures" />
-<spring:message code="event.dishes" var="dishes" />
-<spring:message code="event.organizer" var="organizador" />
+<spring:message code="shoppingcart.dateCreation" var="dateCreation" />
+<spring:message code="shoppingcart.deliveryAddress" var="deliveryAddress" />
+<spring:message code="shoppingcart.priceTotal" var="priceTotal" />
+<spring:message code="creditCard.brandName" var="brandName" />
+<spring:message code="shoppingcart.items" var="items" />
+<spring:message code="shoppingcart.isOrdered" var="isOrdered"/>
+<spring:message code="shoppingcart.view" var="view" />
+<spring:message code="shoppingcart.delete" var="delete" />
 
 
 <div class=row style="text-align:center">
 	<div class="col-md-6" >
 	
-		<div class='title'>${eventTicker}:</div>
+		<div class='title'>${dateCreation}:</div>
 		&nbsp;&nbsp;
-		<jstl:out value="${evento.ticker}" />
+		<jstl:out value="${shoppingCart.dateCreation}" />
 		<br />
 		<br />
 		
-		<div class='title'>${eventTitle}:</div>
+		
+		<div class='title'>${priceTotal}:</div>
 		&nbsp;&nbsp;
-		<jstl:out value="${evento.title}" />
+		<jstl:out value="${shoppingCart.priceTotal}" />
 		<br />
 		<br />
 		
-		<div class='title'>${eventCity}:</div>
+		<div class='title'>${deliveryAddress}:</div>
 		&nbsp;&nbsp;
-		<jstl:out value="${evento.city}" />
+		<jstl:out value="${shoppingCart.deliveryAddress}" />
 		<br />
 		<br />
 		
-		<div class='title'>${eventDescription}:</div>
+		<div class='title'>${brandName}:</div>
 		&nbsp;&nbsp;
-		<jstl:out value="${evento.description}" />
+		<jstl:out value="${shoppingCart.creditCard.brandName}" />
 		<br />
 		<br />
 		
-		<div class='title'>${organizador}:</div>
+		<div class='title'>${isOrdered}:</div>
 		&nbsp;&nbsp;
-		<jstl:out value="${organizer.actorName}" />
+		<jstl:out value="${shoppingCart.isOrdered}" />
 		<br />
-		<br />
-
-		
+		<br />		
 	</div>
 	<div class="col-md-6">
-		<h1 class='title'>${eventSoirees}</h1>
+		<h1 class='title'>${items}</h1>
 		<!-- Table -->
-		<display:table  name="soirees" id="row" requestURI="${requestURI}" class="table">
+		<display:table  name="items" id="row" requestURI="diner/shoppingCart/view.do" class="table">
 			
-			<display:column property="address" title="${address}" sortable="false" />
-			<display:column title="${date}" sortable="false" >
-				<fmt:formatDate value="${row.date}" pattern="dd/MM/yyyy HH:mm"/>
-			</display:column>
-			<display:column title="${pictures}">
-				<jstl:forEach var="e" items="${row.pictures}">
-					<img src="${e}" style="max-width:120px;max-height:120px;"><br />
-				</jstl:forEach>		
-			</display:column>
-			<display:column title="${dishes}">
-				<acme:url url="event/soiree/dish/list.do?q=${row.id}" code="soiree.dishes"/>
-			</display:column>
+			<display:column property="SKU" title="${SKU}" sortable="false" />
+				<display:column title="${photo}" sortable="false" >
+					<img src="${row.photo}" style="max-width:120px;max-height:120px;">
+				</display:column>
+				<display:column property="price" title="${price}" sortable="false" />
+				<display:column property="VAT" title="${VAT}" sortable="false" />
+			
 		</display:table>
 	</div>
 </div>

@@ -47,8 +47,6 @@ public class ShoppingCart extends DomainEntity {
 		return isOrdered;
 	}
 	
-	@NotBlank
-	@SafeHtml
 	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}
