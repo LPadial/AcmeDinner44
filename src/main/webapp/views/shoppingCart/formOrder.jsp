@@ -14,7 +14,7 @@
 <spring:message code="shoppingcart.dateCreation" var="dateCreation" />
 <spring:message code="shoppingcart.deliveryAddress" var="deliveryAddress" />
 <spring:message code="shoppingcart.priceTotal" var="priceTotal" />
-<spring:message code="creditcard.brandName" var="brandName" />
+<spring:message code="shoppingcart.creditcard" var="creditcard" />
 <spring:message code="shoppingcart.items" var="items" />
 <spring:message code="shoppingcart.isOrdered" var="isOrdered"/>
 <spring:message code="shoppingcart.view" var="view" />
@@ -24,8 +24,8 @@
 
 	<acme:acme_form url="diner/shoppingCart/save-order.do" skip_fields="creditCard"
 		hiddenFields="dateCreation,isOrdered,priceTotal,owner" type="edit" entity="${shoppingcart}">
-		<label for="label"><spring:message code='creditcard.brandName'/></label>
-		<select class="brandName" name="brandName">
+		<label for="label"><spring:message code='shoppingcart.creditcard'/></label>
+		<select name="creditCard">
 			<jstl:forEach var="cc" items="${creditCards}">
 				<option value="${cc.id}">${cc.brandName.value} - ${cc.number}</option>
 			</jstl:forEach>

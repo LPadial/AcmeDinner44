@@ -64,11 +64,19 @@ public class ShoppingCartService {
 
 	public ShoppingCart save(ShoppingCart shoppingCart) {
 		Assert.notNull(shoppingCart);
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		
+		Assert.isTrue(shoppingCart.getOwner() == d, "shoppingcart.error.nomine");
 		ShoppingCart aca = null;
 
-		if (exists(shoppingCart.getId())) {
+		if (exists(shoppingCart.getId())) {			
 			aca = findOne(shoppingCart.getId());
-			shoppingCart.setIsOrdered(aca.getIsOrdered());
+			aca.setDeliveryAddress(shoppingCart.getDeliveryAddress());
+			aca.setCreditCard(shoppingCart.getCreditCard());
+			aca.setDateCreation(shoppingCart.getDateCreation());
+			aca.setIsOrdered(true);
+			aca.setPriceTotal(shoppingCart.getPriceTotal());
+			aca.setOwner(shoppingCart.getOwner());		
 
 			aca = shoppingCartRepository.save(aca);
 		} else {

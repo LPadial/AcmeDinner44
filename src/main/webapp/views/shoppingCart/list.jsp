@@ -15,7 +15,7 @@
 <spring:message code="shoppingcart.dateCreation" var="dateCreation" />
 <spring:message code="shoppingcart.deliveryAddress" var="deliveryAddress" />
 <spring:message code="shoppingcart.priceTotal" var="priceTotal" />
-<spring:message code="creditcard.brandName" var="brandName" />
+<spring:message code="shoppingcart.creditcard" var="brandName" />
 <spring:message code="shoppingcart.items" var="items" />
 <spring:message code="shoppingcart.isOrdered" var="isOrdered"/>
 <spring:message code="shoppingcart.view" var="view" />
@@ -33,7 +33,9 @@
 				</display:column>
 				<display:column property="deliveryAddress" title="${deliveryAddress}" sortable="false" />
 				<display:column property="priceTotal" title="${priceTotal}" sortable="false" />
-				<display:column property="creditCard.brandName.value" title="${brandName}" sortable="false" />
+				<display:column title="${brandName}" sortable="false" >
+					<jstl:out value="${row.creditCard.brandName.value}-${row.creditCard.number}"></jstl:out>
+				</display:column>
 				
 				<security:authentication property="principal.id" var="id" />
 				

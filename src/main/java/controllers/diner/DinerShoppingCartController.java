@@ -130,7 +130,6 @@ public class DinerShoppingCartController extends AbstractController {
 		} else {
 			try {
 				shoppingCartService.save(shoppingCart);
-				shoppingCartService.order(shoppingCart);
 				result = new ModelAndView("redirect:/diner/shoppingCart/mylist.do");
 
 			} catch (Throwable th) {
