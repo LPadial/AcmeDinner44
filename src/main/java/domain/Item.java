@@ -5,7 +5,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -36,7 +35,6 @@ public class Item extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml
 	public String getName() {
 		return name;
 	}

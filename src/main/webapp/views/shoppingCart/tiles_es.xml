@@ -11,9 +11,9 @@
 		<put-attribute name="body" value="/views/shoppingCart/list.jsp" />
 	</definition>
 	
-	<definition name="shoppingCart/create" extends="master.page">	
-		<put-attribute name="title" value="NUEVO CARRO DE COMPRA" />
-		<put-attribute name="body" value="/views/shoppingCart/create.jsp" />
+	<definition name="shoppingCart/formOrder" extends="master.page">	
+		<put-attribute name="title" value="PEDIR CARRO DE COMPRA" />
+		<put-attribute name="body" value="/views/shoppingCart/formOrder.jsp" />
 	</definition>
 	
 	<definition name="shoppingCart/view" extends="master.page">	

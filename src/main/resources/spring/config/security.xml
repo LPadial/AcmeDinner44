@@ -254,7 +254,18 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/shoppingCart/formOrder.do"
 			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/addItem.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/removeItem.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/shoppingCart/save-order.do"
+			access="hasRole('DINER')" />
 			
+		<!-- Create credit card -->
+		<security:intercept-url pattern="/diner/creditCard/create.do"
+			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/diner/creditCard/save.do"
+			access="hasRole('DINER')" />
 			
 		<!-- Chirps -->
 		<security:intercept-url pattern="/chirp/actor/delete.do"

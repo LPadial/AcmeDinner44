@@ -36,32 +36,11 @@ public class Diner extends Actor {
 
 	// Relationships ----------------------------------------------------------
 
-	/*
-	 * private List<Event> events; private List<Soiree> soirees; private
-	 * List<Vote> votes; private List<ShoppingCart> shoppingCarts;
-	 */
+	
 	private BusinessCard businessCard;
 	private Collection<Event> events;
 
-	/*
-	 * @OneToMany public List<Event> getEvents() { return events; }
-	 * 
-	 * public void setEvents(List<Event> events) { this.events = events; }
-	 * 
-	 * @OneToMany public List<Soiree> getSoirees() { return soirees; }
-	 * 
-	 * public void setSoirees(List<Soiree> soirees) { this.soirees = soirees; }
-	 * 
-	 * @OneToMany public List<Vote> getVotes() { return votes; }
-	 * 
-	 * public void setVotes(List<Vote> votes) { this.votes = votes; }
-	 * 
-	 * @OneToMany public List<ShoppingCart> getShoppingCarts() { return
-	 * shoppingCarts; }
-	 * 
-	 * public void setShoppingCarts(List<ShoppingCart> shoppingCarts) {
-	 * this.shoppingCarts = shoppingCarts; }
-	 */
+	
 	
 	@NotNull
 	@OneToOne(optional = false)

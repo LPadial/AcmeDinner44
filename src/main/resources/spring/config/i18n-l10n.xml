@@ -27,6 +27,7 @@
 		<value>/views/administrator/messages</value>		
 		<value>/views/businessCard/messages</value>
 		<value>/views/chirp/messages</value>
+		<value>/views/creditCard/messages</value>
 		<value>/views/diner/messages</value>
 		<value>/views/dish/messages</value>
 		<value>/views/dishType/messages</value>

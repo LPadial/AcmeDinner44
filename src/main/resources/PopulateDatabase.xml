@@ -546,6 +546,7 @@
 		<property value="12" name="expirationMonth" />
 		<property value="2020" name="expirationYear" />
 		<property value="123" name="CVV" />
+		<property name="owner" ref="diner1" />
 	</bean>
 
 
@@ -556,6 +557,7 @@
 		<property value="10" name="expirationMonth" />
 		<property value="2019" name="expirationYear" />
 		<property value="236" name="CVV" />
+		<property name="owner" ref="diner2" />
 	</bean>
 
 
@@ -566,6 +568,7 @@
 		<property value="10" name="expirationMonth" />
 		<property value="2019" name="expirationYear" />
 		<property value="238" name="CVV" />
+		<property name="owner" ref="diner3" />
 	</bean>
 	
 	<!-- Item -->

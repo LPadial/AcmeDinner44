@@ -24,5 +24,9 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Inte
 	//Devuelve los registros del carro de compra
 	@Query("select d from Delivery d where d.shoppingCart.id=?1")
 	List<Delivery> deliveriesOfShoppingCart(int idShoppingCart);
+	
+	//Devuelve la cantidad de un producto que tiene un carro de compra
+	@Query("select count(i) from Delivery d join d.item i where d.shoppingCart.id=?1 and i.id = ?2")
+	Integer countItemInShoppingCart(int idShoppingCart, int idItem);
 
 }

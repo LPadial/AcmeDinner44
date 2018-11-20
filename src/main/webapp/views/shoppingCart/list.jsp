@@ -15,7 +15,7 @@
 <spring:message code="shoppingcart.dateCreation" var="dateCreation" />
 <spring:message code="shoppingcart.deliveryAddress" var="deliveryAddress" />
 <spring:message code="shoppingcart.priceTotal" var="priceTotal" />
-<spring:message code="creditCard.brandName" var="brandName" />
+<spring:message code="creditcard.brandName" var="brandName" />
 <spring:message code="shoppingcart.items" var="items" />
 <spring:message code="shoppingcart.isOrdered" var="isOrdered"/>
 <spring:message code="shoppingcart.view" var="view" />
@@ -51,7 +51,7 @@
 				<display:column title="${isOrdered}" sortable="false">
 					<!-- Pedir el carro de compra -->
 					<jstl:if test="${row.isOrdered == false && row.owner.userAccount.id == id}">
-						<acme:url url="diner/shoppingCart/order.do?q=${row.id}" code="shoppingcart.orderShoppingCart"/>
+						<acme:url url="diner/shoppingCart/formOrder.do?q=${row.id}" code="shoppingcart.orderShoppingCart"/>
 					</jstl:if>
 					<!-- El carro ya está pedido -->
 					<jstl:if test="${row.isOrdered == true}">

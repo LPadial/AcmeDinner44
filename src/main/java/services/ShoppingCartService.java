@@ -102,7 +102,8 @@ public class ShoppingCartService {
 		Assert.notNull(item);
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 		Assert.isTrue(shoppingCart.getOwner() == d);
-		
+		Integer numItems = countItemInShoppingCart(shoppingCart.getId(), item.getId());
+		Assert.isTrue(numItems>=1,"item.error.numItems");
 		Delivery deliveryToDelete = deliveryService.findDelivery(shoppingCart.getId(), item.getId());
 		deliveryService.delete(deliveryToDelete);
 		
@@ -146,6 +147,10 @@ public class ShoppingCartService {
 	
 	public Double priceOfShoppingCart(int idShoppingCart){
 		return shoppingCartRepository.priceOfShoppingCart(idShoppingCart);
+	}
+	
+	public Integer countItemInShoppingCart(int idShoppingCart, int idItem){
+		return shoppingCartRepository.countItemInShoppingCart(idShoppingCart, idItem);
 	}
 
 }

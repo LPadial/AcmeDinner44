@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.BusinessCard;
 import domain.Chirp;
+import domain.CreditCard;
 import domain.Diner;
 import domain.Event;
 import domain.Finder;
@@ -157,6 +158,10 @@ public class DinerService {
 
 	public List<ShoppingCart> findShoppingCartsOfDiner(int idDiner) {
 		return dinerRepository.findShoppingCartsOfDiner(idDiner);
+	}
+	
+	public List<CreditCard> findCreditCardsOfDiner(int idDiner){
+		return dinerRepository.findCreditCardsOfDiner(idDiner);
 	}
 	 
 

@@ -22,6 +22,7 @@
 <spring:message code="item.copy" var="copy"/>
 <spring:message code="item.add" var="add"/>
 <spring:message code="item.remove" var="remove"/>
+<spring:message code="item.orders" var="num"/>
 
 
 <security:authorize access="permitAll">
@@ -59,12 +60,16 @@
 					</jstl:if>
 				</security:authorize>
 				<security:authorize access="hasRole('DINER')">
-					<display:column title="${add}" sortable="false">
-						<acme:url url="diner/shoppingCart/addItem.do?q=${row.id}" code="item.add"/>
-					</display:column>
-					<display:column title="${remove}" sortable="false">
-						<acme:url url="diner/shoppingCart/removeItem.do?q=${row.id}" code="item.remove"/>
-					</display:column>	
+					<jstl:if test="${b != 0 }">
+						<display:column title="${add}" sortable="false">
+							<acme:url url="diner/shoppingCart/addItem.do?shoppingCart=${shoppingCart}&item=${row.id}" code="item.add"/>
+						</display:column>
+						<display:column title="${remove}" sortable="false">
+							<jstl:if test="${itemsToDelete.contains(row)}">
+								<acme:url url="diner/shoppingCart/removeItem.do?shoppingCart=${shoppingCart}&item=${row.id}" code="item.remove"/>
+							</jstl:if>
+						</display:column>	
+					</jstl:if>
 				</security:authorize>
 			</display:table>
 
@@ -88,7 +93,9 @@
 					</display:column>
 					<display:column property="price" title="${price}" sortable="false" />
 					<display:column property="VAT" title="${VAT}" sortable="false" />
-					
+					<display:column title="${num}" sortable="false" >
+						<jstl:out value="${i[2]}"></jstl:out>
+					</display:column>
 					<security:authentication property="principal.id" var="id" />
 					
 					<jstl:if test="${row.supermarket.userAccount.id == id}">

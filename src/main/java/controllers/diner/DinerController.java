@@ -113,17 +113,6 @@ public class DinerController extends AbstractController {
 		return res;
 
 	}
-
-
-	/*@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(Diner diner) {
-		ModelAndView result;
-
-		dinerService.delete(diner);
-		result = new ModelAndView("redirect:list.do");
-
-		return result;
-	}*/
 	
 	// Ancillary methods ------------------------------------------------------
 	

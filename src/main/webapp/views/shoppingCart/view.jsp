@@ -14,7 +14,7 @@
 <spring:message code="shoppingcart.dateCreation" var="dateCreation" />
 <spring:message code="shoppingcart.deliveryAddress" var="deliveryAddress" />
 <spring:message code="shoppingcart.priceTotal" var="priceTotal" />
-<spring:message code="creditCard.brandName" var="brandName" />
+<spring:message code="creditcard.brandName" var="brandName" />
 <spring:message code="shoppingcart.items" var="items" />
 <spring:message code="shoppingcart.isOrdered" var="isOrdered"/>
 <spring:message code="shoppingcart.view" var="view" />

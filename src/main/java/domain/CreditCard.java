@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -89,6 +90,21 @@ public class CreditCard extends DomainEntity {
 
 	public void setCVV(Integer CVV) {
 		this.CVV = CVV;
+	}
+	
+	// Relationships ----------------------------------------------------------
+	
+	private Diner owner;
+	
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Diner getOwner(){
+		return owner;
+	}
+	
+	public void setOwner(Diner owner){
+		this.owner = owner;
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import domain.CreditCard;
 import domain.Diner;
 import domain.Event;
 import domain.ShoppingCart;
@@ -49,5 +50,9 @@ public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	//The shopping carts that a diner has 
 	@Query("select sc from ShoppingCart sc where sc.owner.id = ?1")
 	List<ShoppingCart> findShoppingCartsOfDiner(int idDiner);
+	
+	//The credit cards of a diner
+	@Query("select cc from CreditCard cc where cc.owner.id = ?1")
+	List<CreditCard> findCreditCardsOfDiner(int idDiner);
 
 }

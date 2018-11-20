@@ -1,5 +1,8 @@
 package controllers.diner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,10 @@ import services.DinerService;
 import services.ItemService;
 import services.ShoppingCartService;
 import controllers.AbstractController;
+import domain.CreditCard;
 import domain.Diner;
-import domain.Event;
+import domain.Item;
 import domain.ShoppingCart;
-import domain.Supermarket;
 
 @Controller
 @RequestMapping("/diner/shoppingCart")
@@ -57,6 +60,19 @@ public class DinerShoppingCartController extends AbstractController {
 		return result;
 	}
 	
+	// Items that have a shopping cart ----------------------------------------------------------------
+	@RequestMapping(value = "/seeItems", method = RequestMethod.GET)
+	public ModelAndView seeItems(@RequestParam(required = true) final int q) {
+		ModelAndView result;
+		result = new ModelAndView("item/list");
+		result.addObject("a",0);
+		result.addObject("b",0);
+		List<Item> items = shoppingCartService.listItemsOfShoppingCart(q);
+		result.addObject("items", items);	
+		result.addObject("requestURI","/diner/shoppingCart/seeItems.do?q"+q);	
+		return result;
+		}
+	
 	//View item ----------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView view(@RequestParam(required = true) int q) {
@@ -85,8 +101,28 @@ public class DinerShoppingCartController extends AbstractController {
 		return result;
 	}
 	
-	//Save item --------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/save-create", method = RequestMethod.POST, params = "save")
+	
+	//Order shoppingCart--------------------------------------------------------------------------------------------------
+	@RequestMapping("/formOrder")
+	public ModelAndView order(@RequestParam(required = true) final int q) {
+		ModelAndView result;
+		
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		ShoppingCart shoppingCart = shoppingCartService.findOne(q);
+		
+		if(shoppingCart.getOwner()==d){
+			result = createNewModelAndView(shoppingCartService.findOne(q), null);
+			List<CreditCard> creditCards = dinerService.findCreditCardsOfDiner(d.getId());
+			
+			result.addObject("creditCards",creditCards);		
+		} else {
+			result = new ModelAndView("redirect:/misc/403.do");
+		}
+		return result;
+	}
+	
+	//Save shopping cart --------------------------------------------------------------------------------------------------
+	@RequestMapping(value = "/save-order", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveCreateEdit(@Valid ShoppingCart shoppingCart, BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
@@ -94,6 +130,7 @@ public class DinerShoppingCartController extends AbstractController {
 		} else {
 			try {
 				shoppingCartService.save(shoppingCart);
+				shoppingCartService.order(shoppingCart);
 				result = new ModelAndView("redirect:/diner/shoppingCart/mylist.do");
 
 			} catch (Throwable th) {
@@ -102,22 +139,6 @@ public class DinerShoppingCartController extends AbstractController {
 		}
 		return result;
 	} 
-	
-	//Order shoppingCart--------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/formOrder", method = RequestMethod.POST)
-	public ModelAndView order(@RequestParam(required = true) final int q) {
-		ModelAndView result;
-		
-		result = createNewModelAndView(shoppingCartService.findOne(q), null);
-		
-		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		ShoppingCart shoppingCart = shoppingCartService.findOne(q);
-		if(shoppingCart.getOwner()==d){
-			shoppingCartService.order(shoppingCart);
-			result = new ModelAndView("redirect:/diner/shoppingCart/mylist.do");			
-		}			
-		return result;
-	}
 	
 	//Delete shopping cart -------------------------------------------------------------------------------------------------------
 	@RequestMapping("/delete")
@@ -144,11 +165,48 @@ public class DinerShoppingCartController extends AbstractController {
 	@RequestMapping("/modifyItems")
 	public ModelAndView modifyItems(@RequestParam(required = true) final int q) {
 		ModelAndView result;
-		
+		List<Item> itemsToDelete = new ArrayList<Item>();
 		result = new ModelAndView("item/list");
 		result.addObject("a",0);
 		result.addObject("items", itemService.findAll());	
+		for(Item i : itemService.findAll()){
+			if(shoppingCartService.countItemInShoppingCart(q, i.getId()) >= 1){
+				itemsToDelete.add(i);
+			}			
+		}
+		result.addObject("itemsToDelete",itemsToDelete);
+		result.addObject("shoppingCart",q);
 		result.addObject("requestURI","/diner/shoppingCart/modifyItems.do?q="+q);
+				
+		return result;
+	}
+	
+	@RequestMapping(value = "/addItem")
+	public ModelAndView addItem(@RequestParam(required = true) final int shoppingCart, @RequestParam(required = true) final int item) {
+		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
+		
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		ShoppingCart sc = shoppingCartService.findOne(shoppingCart);
+		if(sc.getOwner() == d){
+			shoppingCartService.addItem(sc, itemService.findOne(item));
+			result = new ModelAndView("redirect:/diner/shoppingCart/modifyItems.do?q="+shoppingCart);
+		}
+		
+				
+		return result;
+	}
+	
+	@RequestMapping(value = "/removeItem")
+	public ModelAndView removeItem(@RequestParam(required = true) final int shoppingCart, @RequestParam(required = true) final int item) {
+		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
+		
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		ShoppingCart sc = shoppingCartService.findOne(shoppingCart);
+		Integer numItem = shoppingCartService.countItemInShoppingCart(shoppingCart, item);
+		if(sc.getOwner() == d && numItem>=1){
+			shoppingCartService.removeItem(shoppingCartService.findOne(shoppingCart), itemService.findOne(item));
+			result = new ModelAndView("redirect:/diner/shoppingCart/modifyItems.do?q="+shoppingCart);
+		}
 				
 		return result;
 	}
@@ -160,7 +218,7 @@ public class DinerShoppingCartController extends AbstractController {
 		
 		result = new ModelAndView("shoppingCart/formOrder");
 		
-		result.addObject("shoppingCart", shoppingCart);
+		result.addObject("shoppingcart", shoppingCart);
 		result.addObject("message", message);
 		
 		return result;
