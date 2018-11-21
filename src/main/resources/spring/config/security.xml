@@ -68,9 +68,9 @@
 
 		<!-- Create and save actors -->
 		<security:intercept-url pattern="/diner/create.do"
-			access="isAnonymous" />
+			access="isAnonymous()" />
 			<security:intercept-url pattern="/diner/save.do"
-			access="isAnonymous" />	
+			access="isAnonymous()" />	
 		<security:intercept-url pattern="/supermarket/create.do"
 			access="isAnonymous()" />
 		<security:intercept-url pattern="/supermarket/save.do"
