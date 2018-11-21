@@ -1,4 +1,4 @@
-package usercase;
+package usecases;
 
 import javax.transaction.Transactional;
 

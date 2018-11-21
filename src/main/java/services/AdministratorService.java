@@ -137,6 +137,15 @@ public class AdministratorService {
 	public Administrator findOne(Integer adminID) {
 		return administratorRepository.findOne(adminID);
 	}
+	
+	public List<Administrator> findAll() {
+		return administratorRepository.findAll();
+	}
+	
+	public void flush(){
+		administratorRepository.flush();
+	}
+	
 
 	// Other business methods -------------------------------------------------
 	
