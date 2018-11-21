@@ -53,34 +53,37 @@ public class EventSoireeController extends AbstractController {
 	public ModelAndView soirees(@RequestParam(required = true) final int q) {
 		ModelAndView result;
 		result = new ModelAndView("soiree/list");
-		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		
-		ArrayList<Soiree> soireesOfDiner = new ArrayList<Soiree>();
-		ArrayList<Soiree> canCreateDish = new ArrayList<Soiree>();
-		Boolean isRegisteredInEvent = false;
-		ArrayList<Soiree> dinerCanCastAVote = new ArrayList<Soiree>();
-		
 		Event e = eventService.findOne(q);
-		
-		for(Soiree s: e.getSoirees()){
-			if(s.getOrganizer()==d){
-				soireesOfDiner.add(s);
-			}			
-			if(s.getDishes().size()<4){
-				canCreateDish.add(s);
+		if(LoginService.hasRole("DINER")){
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+			
+			ArrayList<Soiree> soireesOfDiner = new ArrayList<Soiree>();
+			ArrayList<Soiree> canCreateDish = new ArrayList<Soiree>();
+			Boolean isRegisteredInEvent = false;
+			ArrayList<Soiree> dinerCanCastAVote = new ArrayList<Soiree>();
+			
+			
+			
+			for(Soiree s: e.getSoirees()){
+				if(s.getOrganizer()==d){
+					soireesOfDiner.add(s);
+				}			
+				if(s.getDishes().size()<4){
+					canCreateDish.add(s);
+				}
+				if(eventService.isOver(e) && voteService.dinerHasVoteInSoiree(d.getId(), s.getId())<1){
+					dinerCanCastAVote.add(s);
+				}
+			}		
+	
+			if(d.getEvents().contains(e)){
+				isRegisteredInEvent = true;			
 			}
-			if(eventService.isOver(e) && voteService.dinerHasVoteInSoiree(d.getId(), s.getId())<1){
-				dinerCanCastAVote.add(s);
-			}
-		}		
-
-		if(d.getEvents().contains(e)){
-			isRegisteredInEvent = true;			
+			result.addObject("dinerCanCastAVote",dinerCanCastAVote);
+			result.addObject("isRegisteredInEvent",isRegisteredInEvent);
+			result.addObject("canCreateDish",canCreateDish);
+			result.addObject("soireesOfDiner", soireesOfDiner);
 		}
-		result.addObject("dinerCanCastAVote",dinerCanCastAVote);
-		result.addObject("isRegisteredInEvent",isRegisteredInEvent);
-		result.addObject("canCreateDish",canCreateDish);
-		result.addObject("soireesOfDiner", soireesOfDiner);
 		result.addObject("soirees", e.getSoirees());
 
 		return result;
