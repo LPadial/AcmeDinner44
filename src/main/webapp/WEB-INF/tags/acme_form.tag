@@ -43,8 +43,10 @@
 <%
 	// Errors
 	Enumeration<? extends String> names = request.getAttributeNames();
-	while(names.hasMoreElements()) {
+
+	while(names.hasMoreElements()) {		
 		String next = names.nextElement();
+		
 		if(request.getAttribute(next) instanceof BindingResult) {
 			BindingResult binding = (BindingResult) request.getAttribute(next);
 			if(binding.hasErrors()) {

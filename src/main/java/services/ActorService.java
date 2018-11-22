@@ -66,6 +66,8 @@ public class ActorService {
 	
 	public Actor save(Actor actor) {
 		Assert.notNull(actor);
+		Assert.notNull(actor.getUserAccount().getUsername(),"error.username");
+		Assert.notNull(actor.getUserAccount().getPassword(),"error.password");
 		
 		Actor result;
 
@@ -81,6 +83,7 @@ public class ActorService {
 		
 		actorRepository.delete(actor);
 	}
+	
 
 	// Other business methods -------------------------------------------------
 
@@ -93,5 +96,9 @@ public class ActorService {
 		result = userAccountService.findByActor(actor);
 		
 		return result;
+	}
+	
+	public String encryptPassword(Actor a){
+		return actorRepository.encryptPassword(a);
 	}
 }

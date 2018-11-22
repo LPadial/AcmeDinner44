@@ -51,6 +51,7 @@ public class EventSoireeController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView soirees(@RequestParam(required = true) final int q) {
+		
 		ModelAndView result;
 		result = new ModelAndView("soiree/list");
 		Event e = eventService.findOne(q);

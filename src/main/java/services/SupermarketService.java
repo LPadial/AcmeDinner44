@@ -73,6 +73,10 @@ public class SupermarketService {
 	
 	public Supermarket save(Supermarket supermarket) {
 		Assert.notNull(supermarket);
+		Assert.notNull(supermarket.getUserAccount().getUsername(),"error.username");
+		Assert.notNull(supermarket.getUserAccount().getPassword(),"error.password");
+		Assert.isTrue(supermarket.getUserAccount().getUsername().length()>=5 && supermarket.getUserAccount().getUsername().length()<=32, "error.username.length");
+		Assert.isTrue(supermarket.getUserAccount().getPassword().length()>=5 && supermarket.getUserAccount().getPassword().length()<=32, "error.password.length");
 		Supermarket aca = null;
 
 		if (exists(supermarket.getId())) {

@@ -93,10 +93,17 @@ public class DinerService {
 
 	public Diner save(Diner diner) {
 		Assert.notNull(diner);
+		Assert.notNull(diner.getUserAccount().getUsername(),"error.username");
+		Assert.notNull(diner.getUserAccount().getPassword(),"error.password");
+		Assert.isTrue(diner.getUserAccount().getUsername().length()>=5 && diner.getUserAccount().getUsername().length()<=32, "error.username.length");
+		Assert.isTrue(diner.getUserAccount().getPassword().length()>=5 && diner.getUserAccount().getPassword().length()<=32, "error.password.length");
 		Diner aca = null;
-
+		
+		
 		if (exists(diner.getId())) {
+			
 			aca = findOne(diner.getId());
+			
 
 			aca.setActorName(diner.getActorName());
 			aca.setSurname(diner.getSurname());
@@ -106,9 +113,12 @@ public class DinerService {
 			String fullName = diner.getActorName() + diner.getSurname();
 			aca.getBusinessCard().getPersonalSection().setFullName(fullName);
 			aca.setFinder(diner.getFinder());
+			
 			aca.getUserAccount().setUsername(diner.getUserAccount().getUsername());
+			
 			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			aca.getUserAccount().setPassword(encoder.encodePassword(diner.getUserAccount().getPassword(), null));
+			String encryptPassword = encoder.encodePassword(diner.getUserAccount().getPassword(), null);
+			aca.getUserAccount().setPassword(encryptPassword);
 
 			aca = dinerRepository.save(aca);
 		} else {

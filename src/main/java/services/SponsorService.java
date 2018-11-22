@@ -70,6 +70,10 @@ public class SponsorService {
 
 		public Sponsor save(Sponsor sponsor) {
 			Assert.notNull(sponsor);
+			Assert.notNull(sponsor.getUserAccount().getUsername(),"error.username");
+			Assert.notNull(sponsor.getUserAccount().getPassword(),"error.password");
+			Assert.isTrue(sponsor.getUserAccount().getUsername().length()>=5 && sponsor.getUserAccount().getUsername().length()<=32, "error.username.length");
+			Assert.isTrue(sponsor.getUserAccount().getPassword().length()>=5 && sponsor.getUserAccount().getPassword().length()<=32, "error.password.length");
 			Sponsor aca = null;
 
 			if (exists(sponsor.getId())) {
