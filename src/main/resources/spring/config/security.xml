@@ -225,6 +225,8 @@
 		<security:intercept-url pattern="/supermarket/item/create.do"
 			access="hasRole('SUPERMARKET')" />
 		<security:intercept-url pattern="/supermarket/item/save-create.do"
+			access="hasRole('SUPERMARKET')" />
+		<security:intercept-url pattern="/supermarket/item/save-copy.do"
 			access="hasRole('SUPERMARKET')" />			
 		<!-- Edit retailed item -->	
 		<security:intercept-url pattern="/supermarket/item/changeToNotRetailed.do"

@@ -131,6 +131,23 @@ public class SupermarketItemController extends AbstractController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/save-copy", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveCopy(@Valid Item item, BindingResult binding) {
+		ModelAndView result;
+		if (binding.hasErrors()) {
+			result = createCopyNewModelAndView(item, null);
+		} else {
+			try {
+				itemService.save(item);
+				result = new ModelAndView("redirect:/supermarket/item/mylist.do");
+
+			} catch (Throwable th) {
+				result = createCopyNewModelAndView(item, "item.commit.error");
+			}
+		}
+		return result;
+	}
+	
 	// Change property retailed of a item ----------------------------------------------------------------
 
 	@RequestMapping(value = "/changeToRetailed", method = RequestMethod.GET)
@@ -193,6 +210,17 @@ public class SupermarketItemController extends AbstractController {
 		ModelAndView result;
 		
 		result = new ModelAndView("item/create");
+		
+		result.addObject("item", item);
+		result.addObject("message", message);
+		
+		return result;
+	}
+	
+	protected ModelAndView createCopyNewModelAndView(Item item, String message) {
+		ModelAndView result;
+		
+		result = new ModelAndView("item/copy");		
 		
 		result.addObject("item", item);
 		result.addObject("message", message);

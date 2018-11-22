@@ -58,11 +58,15 @@ public class ItemService {
 
 	public Item save(Item item) {
 		Assert.notNull(item);
+		Assert.isTrue(item.getPrice()!=null);
+		Assert.isTrue(item.getVAT()!=null);
+		Assert.isTrue(item.getPrice()>=0);
+		Assert.isTrue(item.getVAT()>=0);
 		Item aca = null;
 
 		if (exists(item.getId())) {
 			aca = findOne(item.getId());
-			item.setRetailed(aca.getRetailed());
+			aca.setRetailed(item.getRetailed());
 
 			aca = itemRepository.save(aca);
 		} else {
