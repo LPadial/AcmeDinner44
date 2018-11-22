@@ -47,62 +47,7 @@ public class EventSoireeController extends AbstractController {
 		super();
 	}
 
-	// This event's soirees ----------------------------------------------------------------
-
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView soirees(@RequestParam(required = true) final int q) {
-		
-		ModelAndView result;
-		result = new ModelAndView("soiree/list");
-		Event e = eventService.findOne(q);
-		if(LoginService.hasRole("DINER")){
-			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			
-			ArrayList<Soiree> soireesOfDiner = new ArrayList<Soiree>();
-			ArrayList<Soiree> canCreateDish = new ArrayList<Soiree>();
-			Boolean isRegisteredInEvent = false;
-			ArrayList<Soiree> dinerCanCastAVote = new ArrayList<Soiree>();
-			
-			
-			
-			for(Soiree s: e.getSoirees()){
-				if(s.getOrganizer()==d){
-					soireesOfDiner.add(s);
-				}			
-				if(s.getDishes().size()<4){
-					canCreateDish.add(s);
-				}
-				if(eventService.isOver(e) && voteService.dinerHasVoteInSoiree(d.getId(), s.getId())<1){
-					dinerCanCastAVote.add(s);
-				}
-			}		
 	
-			if(d.getEvents().contains(e)){
-				isRegisteredInEvent = true;			
-			}
-			result.addObject("dinerCanCastAVote",dinerCanCastAVote);
-			result.addObject("isRegisteredInEvent",isRegisteredInEvent);
-			result.addObject("canCreateDish",canCreateDish);
-			result.addObject("soireesOfDiner", soireesOfDiner);
-		}
-		result.addObject("soirees", e.getSoirees());
-
-		return result;
-	}
-	
-	// This soiree's dishes ----------------------------------------------------------------
-
-		@RequestMapping(value = "/dish/list", method = RequestMethod.GET)
-		public ModelAndView dishes(@RequestParam(required = true) final int q) {
-			ModelAndView result;
-			result = new ModelAndView("dish/list");
-				
-			Soiree s = soireeService.findOne(q);
-			result.addObject("dishes", soireeService.dishesOfSoiree(s.getId()));
-
-			return result;
-		}
-
 	// Creation ---------------------------------------------------------------
 		
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

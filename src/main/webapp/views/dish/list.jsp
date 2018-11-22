@@ -30,26 +30,28 @@
 	<display:column property="dishType.value" title="${dishType}" sortable="false"/>
 	<display:column property="ingredients" title="${dishIngredients}" sortable="false" />
 	
-	<!-- Mostrar -->
-	<display:column title="${view}" sortable="false">
-		<acme:url url="dish/view.do?q=${row.id}" code="dish.view"/>
-	</display:column>
-			
-	<security:authentication property="principal.id" var="id" />
-	
-	<!-- Editar -->		
-	<display:column title="${edit}" sortable="false">		
-		<jstl:if test="${row.soiree.organizer.userAccount.id == id}">
-			<acme:url url="dish/edit.do?q=${row.id}" code="dish.update"/>
-		</jstl:if>
-	</display:column>
-	
-	<!-- Borrar-->
-	<display:column title="${delete}" sortable="false">		
-		<jstl:if test="${row.soiree.organizer.userAccount.id == id}">
-			<acme:url url="dish/delete.do?q=${row.id}" code="dish.delete"/>
-		</jstl:if>
-	</display:column>
+	<security:authorize access="hasRole('DINER')">
+		<!-- Mostrar -->
+		<display:column title="${view}" sortable="false">
+			<acme:url url="dish/view.do?q=${row.id}" code="dish.view"/>
+		</display:column>
+				
+		<security:authentication property="principal.id" var="id" />
+		
+		<!-- Editar -->		
+		<display:column title="${edit}" sortable="false">		
+			<jstl:if test="${row.soiree.organizer.userAccount.id == id}">
+				<acme:url url="dish/edit.do?q=${row.id}" code="dish.update"/>
+			</jstl:if>
+		</display:column>
+		
+		<!-- Borrar-->
+		<display:column title="${delete}" sortable="false">		
+			<jstl:if test="${row.soiree.organizer.userAccount.id == id}">
+				<acme:url url="dish/delete.do?q=${row.id}" code="dish.delete"/>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 	
 </display:table>
 
