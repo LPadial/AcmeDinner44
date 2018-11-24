@@ -28,7 +28,7 @@
 	<display:column property="name" title="${dishName}" sortable="false" />
 	<display:column property="description" title="${dishDescription}" sortable="false" />	
 	<display:column property="dishType.value" title="${dishType}" sortable="false"/>
-	<display:column property="ingredients" title="${dishIngredients}" sortable="false" />
+	<display:column title="${dishIngredients}" sortable="false" ><jstl:forEach var="e" items="${row.ingredients}" varStatus="loop">${e}<jstl:if test="${!loop.last}">,</jstl:if></jstl:forEach></display:column>
 	
 	<security:authorize access="hasRole('DINER')">
 		<!-- Mostrar -->
@@ -41,14 +41,14 @@
 		<!-- Editar -->		
 		<display:column title="${edit}" sortable="false">		
 			<jstl:if test="${row.soiree.organizer.userAccount.id == id}">
-				<acme:url url="dish/edit.do?q=${row.id}" code="dish.update"/>
+				<acme:url url="diner/dish/edit.do?q=${row.id}&soiree=${soiree}" code="dish.update"/>
 			</jstl:if>
 		</display:column>
 		
 		<!-- Borrar-->
 		<display:column title="${delete}" sortable="false">		
 			<jstl:if test="${row.soiree.organizer.userAccount.id == id}">
-				<acme:url url="dish/delete.do?q=${row.id}" code="dish.delete"/>
+				<acme:url url="diner/dish/delete.do?q=${row.id}&soiree=${soiree}" code="dish.delete"/>
 			</jstl:if>
 		</display:column>
 	</security:authorize>

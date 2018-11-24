@@ -154,11 +154,9 @@
 			access="hasRole('DINER')" />					
 		<security:intercept-url pattern="/dish/view.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/dish/edit.do"
+		<security:intercept-url pattern="/diner/dish/edit.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/dish/delete.do"
-			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/dish/save-create.do"
+		<security:intercept-url pattern="/diner/dish/delete.do"
 			access="hasRole('DINER')" />
 			
 		<!-- Create vote -->

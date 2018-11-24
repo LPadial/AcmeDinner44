@@ -15,14 +15,13 @@
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="dish/save-create.do"
-		numberMin="1" skip_fields="dishTypes,ingredients"
+	<acme:acme_form url="diner/dish/save-create.do?q=${soiree}"
+		numberMin="1" skip_fields="dishType,ingredients"
 		hiddenFields="soiree" type="edit" entity="${dish}">
 		
 		<label for="label">${ingredients}</label>
 		<div class="form-group" style="width: 55%;">			
-			<textarea name="ingredients" id="ingredients" class="form-control">${dish.ingredients}
-			</textarea>
+			<textarea name="ingredients" id="ingredients" class="form-control"><jstl:forEach var="e" items="${dish.ingredients}" varStatus="loop">${e}<jstl:if test="${!loop.last}">,</jstl:if></jstl:forEach></textarea>
 		</div>
 		
 		<div class="form-group" style="width: 55%;">

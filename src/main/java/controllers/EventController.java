@@ -209,6 +209,7 @@ public class EventController extends AbstractController {
 
 		Soiree s = soireeService.findOne(q);
 		result.addObject("dishes", soireeService.dishesOfSoiree(s.getId()));
+		result.addObject("soiree",q);
 
 		return result;
 	}

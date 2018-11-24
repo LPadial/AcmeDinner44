@@ -69,7 +69,7 @@ public class DishService {
 		Assert.notNull(dish);
 		Assert.notNull(dish.getIngredients());
 		Assert.notEmpty(dish.getIngredients());
-		System.out.println(dish.getIngredients());
+		System.out.println(dish.getDishType());
 		Assert.isTrue(dish.getIngredients().size()>=1);
 		Dish aca = null;
 

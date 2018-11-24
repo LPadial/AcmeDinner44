@@ -37,7 +37,7 @@
 		
 		<div class='title'>${ingredients}:</div>
 		&nbsp;&nbsp;
-		<jstl:out value="${dish.ingredients}" />
+		<jstl:forEach var="e" items="${dish.ingredients}" varStatus="loop">${e}<jstl:if test="${!loop.last}">,</jstl:if></jstl:forEach>
 		<br />
 		<br />
 		

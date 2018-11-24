@@ -14,13 +14,10 @@ import security.LoginService;
 import services.DishService;
 import services.DishTypeService;
 import services.SoireeService;
-import services.VoteService;
 import controllers.AbstractController;
 import domain.Diner;
 import domain.Dish;
-import domain.DishType;
 import domain.Soiree;
-import domain.Vote;
 
 
 @Controller
@@ -61,7 +58,47 @@ public class DinerDishController extends AbstractController {
 
 		return result;
 	}
-	
+	// Edit --------------------------------------------------------------------------------------
+	@RequestMapping("/edit")
+	public ModelAndView edit(@RequestParam Dish q, @RequestParam int soiree) {
+		ModelAndView result;
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+
+		if (d != null) {
+			if (q.getSoiree().getOrganizer()==d) {
+				result = createNewModelAndView(q,soiree, null);
+			} else {
+				result = new ModelAndView("redirect:/misc/403.do");
+			}
+		} else {
+			return new ModelAndView("redirect:/welcome/index.do");
+		}
+
+		return result;
+	}
+		
+		
+	@RequestMapping("/delete")
+	public ModelAndView delete(@RequestParam Dish q, @RequestParam int soiree) {
+		ModelAndView result;
+
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+
+		if (d != null) {
+			if (q.getSoiree().getOrganizer() == d) {
+				dishService.delete(q);
+				result = new ModelAndView("redirect:/event/soiree/dish/list.do?q="+soiree);
+			} else {
+				result = new ModelAndView("redirect:/misc/403.do");
+			}
+		} else {
+			return new ModelAndView("redirect:/welcome/index.do");
+		}
+
+		return result;
+	}
+
+
 	// Save ---------------------------------------------------------------
 	@RequestMapping(value="/save-create",method=RequestMethod.POST,params = "save")
 	public ModelAndView saveCreate(@Valid Dish dish, BindingResult binding,@RequestParam(required = true) final int q){ 
@@ -72,7 +109,8 @@ public class DinerDishController extends AbstractController {
 			try{
 				dishService.save(dish); 
 				
-				res = new ModelAndView("redirect:/diner/soiree/organizedList.do");
+				res = new ModelAndView("redirect:/event/soiree/dish/list.do?q="+q);
+				
 			}catch(Throwable e){ 
 				res = createNewModelAndView(dish,q,"dish.commit.error"); 
 			} 
