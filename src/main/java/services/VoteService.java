@@ -43,7 +43,7 @@ public class VoteService {
 			if(d.getEvents().contains(s.getEvent())){		
 				vote = new Vote();
 				
-				vote.setPoints(new Integer(10));
+				vote.setPoints(new Integer(-1));
 				vote.setComments(new ArrayList<String>());
 				vote.setPictures(new ArrayList<String>());
 				vote.setVoter(d);
@@ -65,6 +65,9 @@ public class VoteService {
 
 	public Vote save(Vote vote) {
 		Assert.notNull(vote);
+		Assert.notNull(vote.getPoints(), "error.vote.null");
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Assert.isTrue(dinerHasVoteInSoiree(d.getId(), vote.getSoiree().getId())==0);
 		Vote aca = null;
 
 		if (exists(vote.getId())) {

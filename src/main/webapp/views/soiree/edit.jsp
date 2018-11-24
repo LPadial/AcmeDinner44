@@ -11,20 +11,22 @@
 
 <!-- Messages -->
 <spring:message code="soiree.pictures" var="pictures" />
+<spring:message code="soiree.date" var="date" />
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="event/soiree/save-create.do"
-		date_stamp="date"
-		skip_fields="pictures"
+	<acme:acme_form url="diner/soiree/save-create.do"
+		skip_fields="pictures,date"
 		hiddenFields="organizer,event,dishes,sponsorships" type="edit" entity="${soiree}">
+		
+		<label for="label">${date}</label>
+		<div class="form-group" style="width: 55%;">
+			<input placeholder="dd/MM/yyyy HH:mm" value="<fmt:formatDate value="${soiree.date}" pattern="dd/MM/yyyy HH:mm"/>" type="text" class="form-control" id="date" name="date">
+		</div>
 		
 		<label for="label">${pictures}</label>
 		<div class="form-group" style="width: 55%;">			
-			<textarea name="pictures" id="pictures" class="form-control">			
-				<jstl:forEach items="${soiree.pictures}" var="p">${p},
-				</jstl:forEach>
-			</textarea>
+			<textarea name="pictures" id="pictures" class="form-control"><jstl:forEach items="${soiree.pictures}" var="p" varStatus="loop">${p.trim()}<jstl:if test="${!loop.last}">, </jstl:if></jstl:forEach></textarea>
 		</div>
 		
 	</acme:acme_form>

@@ -1,7 +1,4 @@
-package controllers.event;
-
-import java.util.ArrayList;
-import java.util.Collection;
+package controllers.diner;
 
 import javax.validation.Valid;
 
@@ -14,93 +11,90 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import services.EventService;
+import services.DishService;
+import services.DishTypeService;
 import services.SoireeService;
 import services.VoteService;
-
 import controllers.AbstractController;
 import domain.Diner;
-import domain.Event;
+import domain.Dish;
+import domain.DishType;
 import domain.Soiree;
+import domain.Vote;
+
 
 @Controller
-@RequestMapping("/event/soiree")
-public class EventSoireeController extends AbstractController {
-	
+@RequestMapping("/diner/dish")
+public class DinerDishController extends AbstractController {
+
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private SoireeService soireeService;
-
-	@Autowired
-	private EventService eventService;
-	
-	@Autowired
-	private VoteService voteService;
-	
-	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private SoireeService soireeService;
+	
+	@Autowired
+	private DishService dishService;
+	
+	@Autowired
+	private DishTypeService dishTypeService;
+
 
 	// Constructors -----------------------------------------------------------
-
-	public EventSoireeController() {
+	public DinerDishController() {
 		super();
 	}
 
+	// Actions
 	
-	// Creation ---------------------------------------------------------------
-		
+	//Create ---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam(required = true) final int q) {
 		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		Collection<Diner> dinersCreators = soireeService.organizerOfSoireesOfEvent(q);
-		
-		if(!dinersCreators.contains(d)){
-			result = createNewModelAndView(soireeService.create(eventService.findOne(q)), null);
+		Soiree s = soireeService.findOne(q);
+		if(s.getOrganizer() == d){
+			result = createNewModelAndView(dishService.create(s),q, null);
 		}
 
 		return result;
 	}
 	
 	// Save ---------------------------------------------------------------
-	
 	@RequestMapping(value="/save-create",method=RequestMethod.POST,params = "save")
-	public ModelAndView saveCreate(@Valid Soiree soiree, BindingResult binding){ 
+	public ModelAndView saveCreate(@Valid Dish dish, BindingResult binding,@RequestParam(required = true) final int q){ 
 		ModelAndView res;
-		
 		if(binding.hasErrors()){ 
-			res = createNewModelAndView(soiree,null); 
+			res = createNewModelAndView(dish,q,null); 
 		}else{
-			try{ 
-				soireeService.save(soiree); 
+			try{
+				dishService.save(dish); 
+				
 				res = new ModelAndView("redirect:/diner/soiree/organizedList.do");
 			}catch(Throwable e){ 
-				res = createNewModelAndView(soiree,"soiree.commit.error"); 
+				res = createNewModelAndView(dish,q,"dish.commit.error"); 
 			} 
 		} 
 		return res;
-	 }
-
-	/*
-	 * @RequestMapping(value = "/edit", method = RequestMethod.POST, params =
-	 * "delete") public ModelAndView delete(Diner diner) { ModelAndView result;
-	 * 
-	 * dinerService.delete(diner); result = new
-	 * ModelAndView("redirect:list.do");
-	 * 
-	 * return result; }
-	 */
-
+	}	
+	
 	// Ancillary methods ------------------------------------------------------
-
-	protected ModelAndView createNewModelAndView(Soiree soiree, String message) {
+	protected ModelAndView createNewModelAndView(Dish dish, int soiree, String message) {
 		ModelAndView result;
-		result = new ModelAndView("soiree/create");
-		
-		result.addObject("soiree", soiree);
+
+		if (dish.getId() == 0) {
+			result = new ModelAndView("dish/create");
+		} else {
+			result = new ModelAndView("dish/edit");
+		}
+		result.addObject("dish", dish);
+		result.addObject("soiree",soiree);
+		result.addObject("dishTypes",dishTypeService.findAll());
 		result.addObject("message", message);
 		return result;
 	}
+	
 
 }

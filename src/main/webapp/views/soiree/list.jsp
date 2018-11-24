@@ -43,14 +43,14 @@
 		<security:authorize access="hasRole('DINER')">
 			<!-- Botón crear un plato -->
 			<display:column title="${createdish}" sortable="false">
-				<jstl:if test="${soireesOfDiner.contains(row) and canCreateDish.contains(row)}">
-					<acme:url url="soiree/dish/create.do?q=${row.id}" code="soiree.createdish"/>				
+				<jstl:if test="${soireesOfDiner.contains(row)}">
+					<acme:url url="diner/dish/create.do?q=${row.id}" code="soiree.createdish"/>				
 				</jstl:if>
 			</display:column>
 			
 			<!-- Mostrar -->
 			<display:column title="${view}" sortable="false">
-				<acme:url url="soiree/view.do?q=${row.id}" code="soiree.view"/>
+				<acme:url url="diner/soiree/view.do?q=${row.id}" code="soiree.view"/>
 			</display:column>
 					
 			<security:authentication property="principal.id" var="id" />
@@ -58,27 +58,24 @@
 			<!-- Editar -->		
 			<display:column title="${edit}" sortable="false">		
 				<jstl:if test="${row.organizer.userAccount.id == id}">
-					<acme:url url="soiree/edit.do?q=${row.id}" code="soiree.edit"/>
+					<acme:url url="diner/soiree/edit.do?q=${row.id}" code="soiree.edit"/>
 				</jstl:if>
 			</display:column>
 			
 			<!-- Borrar-->
 			<display:column title="${delete}" sortable="false">		
 				<jstl:if test="${row.organizer.userAccount.id == id}">
-					<acme:url url="soiree/delete.do?q=${row.id}" code="soiree.delete"/>
+					<acme:url url="diner/soiree/delete.do?q=${row.id}" code="soiree.delete"/>
 				</jstl:if>
 			</display:column>
 			
 			<!-- Votar -->
 			<display:column title="${vote}" sortable="false">		
 				<jstl:if test="${isRegisteredInEvent and dinerCanCastAVote.contains(row)}">
-					<acme:url url="soiree/vote.do?q=${row.id}" code="soiree.vote"/>
+					<acme:url url="diner/vote/create.do?q=${row.id}" code="soiree.vote"/>
 				</jstl:if>
 			</display:column>
 		</security:authorize>
 	
 	</display:table>
-<security:authorize access="hasRole('DINER')">
-	<!-- Crear type of dishes -->
-	<input onclick="javascript:location.href='soiree/dish/dishType/create.do'" type="button" class="btn" value="<spring:message code="dish.addDishType" />">
-</security:authorize>
+

@@ -78,17 +78,17 @@
 			
 			<display:column title="${regist}" sortable="false">
 				<jstl:if test="${!myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id and eventCanRegistered.contains(row.id) and !dateIsBeforeCurrent.contains(row)}">
-					<acme:url url="event/diner/register.do?q=${row.id}" code="event.register"/>
+					<acme:url url="diner/event/register.do?q=${row.id}" code="event.register"/>
 				</jstl:if>
 				<jstl:if test="${myRegisteredEvents.contains(row) and row.organizer.userAccount.id != id and !dateIsBeforeCurrent.contains(row)}">
-					<acme:url url="event/diner/unregister.do?q=${row.id}" code="event.unregister"/>
+					<acme:url url="diner/event/unregister.do?q=${row.id}" code="event.unregister"/>
 				</jstl:if>
 			</display:column>
 			
 			<!-- Botón organizar una velada -->
 			<display:column title="${createsoirees}" sortable="false">
 				<jstl:if test="${myRegisteredEvents.contains(row) and canCreateSoiree.contains(row.id)}">
-					<acme:url url="event/soiree/create.do?q=${row.id}" code="event.createsoirees"/>				
+					<acme:url url="diner/soiree/create.do?q=${row.id}" code="event.createsoirees"/>				
 				</jstl:if>
 			</display:column>
 
@@ -99,25 +99,4 @@
 		
 		
 	</jstl:if>
-
-	<!--<jstl:if test="${a==1}">
-
-		<acme:list requestURI="course/listByAcademy.do" list="${courses}"
-			hidden_fields="applications,academy"  time_stamps="{time:hh mm,start:dd/MM/yyyy,end:dd/MM/yyyy}"
-			field_mapping="{levelCourse:value,style:name}"
-			entityUrl="{style:style/view.do,academy:academy/view.do}">
-		</acme:list>
-
-	</jstl:if>
-
-	<jstl:if test="${a==2}">
-
-		<acme:list requestURI="course/listByStyle.do" list="${courses}"
-			hidden_fields="id,version,applications"  time_stamps="{time:hh mm,start:dd/MM/yyyy,end:dd/MM/yyyy}"
-			field_mapping="{levelCourse:value,academy:commercialName}"
-			entityUrl="{style:style/view.do,academy:academy/view.do}">
-		</acme:list>
-
-	</jstl:if>-->
-
 </security:authorize>

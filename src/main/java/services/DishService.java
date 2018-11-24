@@ -67,6 +67,10 @@ public class DishService {
 
 	public Dish save(Dish dish) {
 		Assert.notNull(dish);
+		Assert.notNull(dish.getIngredients());
+		Assert.notEmpty(dish.getIngredients());
+		System.out.println(dish.getIngredients());
+		Assert.isTrue(dish.getIngredients().size()>=1);
 		Dish aca = null;
 
 		if (exists(dish.getId())) {

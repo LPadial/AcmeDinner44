@@ -1,5 +1,6 @@
 package services;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -79,7 +80,8 @@ public class SoireeService {
 		}
 
 		public Soiree save(Soiree soiree) {
-			Assert.isTrue(Calendar.getInstance().getTime().before(soiree.getDate()),"Date must be in the future");
+			Assert.notNull(soiree.getDate());
+			Assert.isTrue(Calendar.getInstance().getTime().before(soiree.getDate()),"error.date.future");
 			Assert.notNull(soiree);
 			Soiree aca = null;
 
@@ -115,7 +117,6 @@ public class SoireeService {
 					dishService.delete(d);
 				}
 			}
-			
 			soireeRepository.delete(soiree);
 		}
 

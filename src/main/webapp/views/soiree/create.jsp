@@ -14,13 +14,14 @@
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="event/soiree/save-create.do"
+	<acme:acme_form url="diner/soiree/save-create.do"
 		date_stamp="date"
-		hiddenFields="organizer,event,dishes,sponsorships,pictures" type="create" entity="${soiree}">
+		skip_fields="pictures"
+		hiddenFields="organizer,event,dishes,sponsorships" type="create" entity="${soiree}">
 		
 		<label for="label">${pictures}</label>
 		<div class="form-group" style="width: 55%;">			
-			<input type="text" name="pictures" id="pictures" class="form-control">
+			<textarea class="form-control" rows="5" style="resize: none;" name="pictures" id="pictures"></textarea>
 		</div>
 		
 	</acme:acme_form>

@@ -15,7 +15,7 @@
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="soiree/vote/save-create.do"
+	<acme:acme_form url="diner/vote/save-create.do"
 		numberMin="0"
 		numberMax="10" skip_fields="comments,pictures"
 		hiddenFields="voter,soiree" type="create" entity="${vote}">

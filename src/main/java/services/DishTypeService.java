@@ -45,6 +45,7 @@ public class DishTypeService {
 	
 	public DishType save(DishType dishType) {
 		Assert.notNull(dishType);
+		Assert.notNull(dishType.getValue());
 		DishType aca = null;
 
 		if (exists(dishType.getId())) {

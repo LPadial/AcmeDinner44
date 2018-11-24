@@ -62,7 +62,7 @@ public class AdministratorController extends AbstractController {
 	
 	//Update the scores of the diners ------------------------------------------------------------
 	@RequestMapping("/updateScore")
-	public ModelAndView register() {
+	public ModelAndView updateScore() {
 		ModelAndView result;
 		administratorService.updateScores();
 		result = new ModelAndView("redirect:/welcome/index.do");

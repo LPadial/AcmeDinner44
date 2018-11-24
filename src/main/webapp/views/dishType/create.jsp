@@ -10,11 +10,12 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <!-- Messages -->
-<spring:message code="dishType.value" var="value" />
+<spring:message code="dishtype.value" var="value" />
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="soiree/dish/dishType/save-create.do" type="create" entity="${dishType}">		
+	<acme:acme_form url="diner/dishType/save-create.do?q=${dishReturn}" type="create" entity="${dishType}">		
+		
 	</acme:acme_form>
 
 </security:authorize>

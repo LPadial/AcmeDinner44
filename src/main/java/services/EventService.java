@@ -166,8 +166,21 @@ public class EventService {
 	public void unregisterToEvent(int e){
 		Assert.notNull(e);
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-		if(d.getEvents().contains(findOne(e))){
-			d.getEvents().remove(findOne(e));
+		Event event = findOne(e);
+		Collection<Soiree> soireesOfEvent = event.getSoirees();
+		Collection<Soiree> soireesOfDiner = soireeService.soireesOfDiner(d.getId());
+		System.out.println(soireesOfEvent);
+		System.out.println(soireesOfDiner);
+		
+		if(d.getEvents().contains(event)){			
+			for(Soiree se: soireesOfEvent){
+				for (Soiree sd: soireesOfDiner){
+					if(se == sd){
+						soireeService.delete(sd);
+					}
+				}
+			}
+			d.getEvents().remove(event);			
 		}		
 	}
 	

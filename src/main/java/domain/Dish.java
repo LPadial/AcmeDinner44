@@ -43,6 +43,7 @@ public class Dish extends DomainEntity {
 		return description;
 	}
 
+	@NotNull
 	@NotEmpty
 	@ElementCollection
 	public Collection<String> getIngredients() {
@@ -50,6 +51,7 @@ public class Dish extends DomainEntity {
 	}
 	
 	@Min(1)
+	@NotNull
 	public Integer getOrderServed(){
 		return orderServed;
 	}

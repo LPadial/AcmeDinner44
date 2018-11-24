@@ -44,14 +44,15 @@
 	// Errors
 	Enumeration<? extends String> names = request.getAttributeNames();
 
-	while(names.hasMoreElements()) {		
+	while(names.hasMoreElements()) {
 		String next = names.nextElement();
-		
+		System.out.println(next);
 		if(request.getAttribute(next) instanceof BindingResult) {
 			BindingResult binding = (BindingResult) request.getAttribute(next);
+			System.out.println("Binding: " + binding);
 			if(binding.hasErrors()) {
 				for(FieldError e : binding.getFieldErrors()) {
-%>
+%>					
 					<div class="alert alert-warning" style="max-width: 55%;">
 					  <strong><spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + e.getField() %>' /></strong> <%=e.getDefaultMessage() %>
 					</div>
@@ -67,7 +68,7 @@
 <form:form action="${url}" modelAttribute="<%=entity.getClass().getSimpleName().toLowerCase() %>" method="POST" >
 <%
 	final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-	final SimpleDateFormat format_time = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	final SimpleDateFormat format_time = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 	List<String> date_stamp_list = new LinkedList<String>();
 	

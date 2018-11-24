@@ -31,7 +31,7 @@
 	} else {
 %>
 <div class="form-group" style="width: 55%;">
-	<label for="email"><spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + f.getName() %>' /></label>
+	<label for="<%=name%>"><spring:message code='<%=entity.getClass().getSimpleName().toLowerCase() + "." + f.getName() %>' /></label>
 	<input <%=showVal ? String.format("value='%s'", f.get(entity)) : "" %> name="<%=name%>" type="<%=typeIn%>" class="form-control" id="<%=name%>">
 </div>
 <%

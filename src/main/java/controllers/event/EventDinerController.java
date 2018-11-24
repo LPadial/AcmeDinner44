@@ -63,35 +63,6 @@ public class EventDinerController extends AbstractController {
 		return result;
 	}
 		
-	// Diner is registering to a event----------------------------------------------------------------
-
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register(@RequestParam(required = true) final int q) {
-		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
-		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		Event event = eventService.findOne(q);
-		if(!d.getEvents().contains(event)){
-			if(eventService.findRegisteredDinerInEvents(q).size()<4){
-				eventService.registerToEvent(q);
-				result = new ModelAndView("redirect:/diner/event/registeredList.do");
-			}
-		}			
-		return result;			
-	}
-	
-	// Diner is unregistering to a event----------------------------------------------------------------
-
-	@RequestMapping(value = "/unregister", method = RequestMethod.GET)
-	public ModelAndView unregister(@RequestParam(required = true) final int q) {
-		ModelAndView result = new ModelAndView("redirect:/misc/403.do");
-		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		if(d.getEvents().contains(eventService.findOne(q))){
-			eventService.unregisterToEvent(q);
-			result = new ModelAndView("redirect:/diner/event/registeredList.do");
-		}
-
-		return result;
-	}
 
 	// Ancillary methods ------------------------------------------------------
 

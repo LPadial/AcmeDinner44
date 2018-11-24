@@ -30,6 +30,7 @@ public class Vote extends DomainEntity {
 	// GETTERS
 
 	@Range(min = 0, max = 10)
+	@NotNull
 	public Integer getPoints() {
 		return points;
 	}
