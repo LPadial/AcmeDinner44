@@ -70,6 +70,7 @@ public class DinerService {
 		diner.setAvgScore(new Double(0.0));
 		diner.setFollowers(new ArrayList<Actor>());		
 		diner.setChirps(new ArrayList<Chirp>());
+		diner.setEvents(new ArrayList<Event>());
 		
 
 		Authority a = new Authority();
@@ -108,6 +109,7 @@ public class DinerService {
 			aca.setActorName(diner.getActorName());
 			aca.setSurname(diner.getSurname());
 			aca.setEmail(diner.getEmail());
+			aca.setEvents(diner.getEvents());
 			aca.setChirps(diner.getChirps());
 			aca.setFollowers(diner.getFollowers());
 			String fullName = diner.getActorName() + diner.getSurname();
@@ -141,6 +143,8 @@ public class DinerService {
 	// Other business methods -------------------------------------------------
 	
 	public Collection<Diner> findDinersByKeyWord(String keyword){
+		Assert.notNull(keyword);
+		Assert.isTrue(keyword.trim().length()>0);
 		Collection<Diner> diners = new HashSet<Diner>();
 		
 		Collection<Diner> dinersName = dinerRepository.findDinersByKeywordInNameOrPersonalSection(keyword);
@@ -172,6 +176,10 @@ public class DinerService {
 	
 	public List<CreditCard> findCreditCardsOfDiner(int idDiner){
 		return dinerRepository.findCreditCardsOfDiner(idDiner);
+	}
+
+	public void flush() {
+		dinerRepository.flush();
 	}
 	 
 

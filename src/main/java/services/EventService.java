@@ -144,6 +144,8 @@ public class EventService {
 	// Other business methods -------------------------------------------------
 	
 	public List<Event> findEventsByKeyWord(String keyword){
+		Assert.notNull(keyword);
+		Assert.isTrue(keyword.trim().length()>0);
 		return eventRepository.findEventsByKeyWord(keyword);
 	}
 	
@@ -154,12 +156,16 @@ public class EventService {
 	
 	public void registerToEvent(int e){
 		Assert.notNull(e);
+		Event event = findOne(e);
+		Assert.isTrue(!isOver(event));
+		Assert.notNull(event);
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(event.getOrganizer()!=d);
 		Collection<Diner> registeredDiners = findRegisteredDinerInEvents(e);
 		Integer numRegistered = registeredDiners.size();
-		Assert.isTrue(numRegistered<4,"There are already four registered diners");
+		Assert.isTrue(numRegistered<4);
 		if(numRegistered<4){
-			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-			d.getEvents().add(findOne(e));
+			d.getEvents().add(event);
 		}
 	}
 	
@@ -167,21 +173,22 @@ public class EventService {
 		Assert.notNull(e);
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Event event = findOne(e);
+		Assert.isTrue(!isOver(event));
+		Assert.isTrue(event.getOrganizer()!=d);
 		Collection<Soiree> soireesOfEvent = event.getSoirees();
 		Collection<Soiree> soireesOfDiner = soireeService.soireesOfDiner(d.getId());
-		System.out.println(soireesOfEvent);
-		System.out.println(soireesOfDiner);
-		
+		ArrayList<Soiree> soireesToDelete = new ArrayList<Soiree>();
 		if(d.getEvents().contains(event)){			
 			for(Soiree se: soireesOfEvent){
 				for (Soiree sd: soireesOfDiner){
-					if(se == sd){
-						soireeService.delete(sd);
+					if(se == sd){				
+						soireesToDelete.add(sd);
 					}
 				}
 			}
-			d.getEvents().remove(event);			
+			d.getEvents().remove(event);
 		}		
+		soireeService.delete(soireesToDelete);
 	}
 	
 	public Collection<Event> eventsWith4Soirees(){

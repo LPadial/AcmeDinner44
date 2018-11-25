@@ -33,7 +33,7 @@
 	<security:authorize access="hasRole('DINER')">
 		<!-- Mostrar -->
 		<display:column title="${view}" sortable="false">
-			<acme:url url="dish/view.do?q=${row.id}" code="dish.view"/>
+			<acme:url url="diner/dish/view.do?q=${row.id}" code="dish.view"/>
 		</display:column>
 				
 		<security:authentication property="principal.id" var="id" />

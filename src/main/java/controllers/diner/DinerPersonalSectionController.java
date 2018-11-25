@@ -41,7 +41,7 @@ public class DinerPersonalSectionController extends AbstractController{
 		Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		
 		result = new ModelAndView("personalSection/edit");
-		result.addObject("personalsection", d.getBusinessCard().getPersonalSection());
+		result.addObject("personalSection", d.getBusinessCard().getPersonalSection());
 		
 		return result;
 	}
@@ -51,18 +51,16 @@ public class DinerPersonalSectionController extends AbstractController{
 	public ModelAndView savePersonalSection(@Valid PersonalSection personalSection, BindingResult binding) {
 		ModelAndView result;
 		
-		for(FieldError e: binding.getFieldErrors()){
-			System.out.println(e.getDefaultMessage());
-		}
-		
 		if (binding.hasErrors()) {
-			result = createEditModelAndView(personalSection);
+			result = createEditModelAndView(personalSection,null);
 		} else {
 			try {
 				personalSectionService.save(personalSection);
 				result = new ModelAndView("redirect:/diner/businessCard/myView.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(personalSection, "personalsection.commit.error"); } }
+				result = createEditModelAndView(personalSection, "personalsection.commit.error"); 
+			} 
+		}
 
 		return result; 
 	}
@@ -70,19 +68,12 @@ public class DinerPersonalSectionController extends AbstractController{
 			
 	// Ancillary methods ------------------------------------------------------
 	
-	protected ModelAndView createEditModelAndView(PersonalSection personalSection){
-		ModelAndView result;
-		
-		result=createEditModelAndView(personalSection,null);
-		
-		return result;
-	}
-	
 	protected ModelAndView createEditModelAndView(PersonalSection personalSection,String message){
 		ModelAndView result;
 		
 		result = new ModelAndView("personalSection/edit");
-		result.addObject("personalsection", personalSection);
+		result.addObject("personalSection", personalSection);
+		result.addObject("message", message);
 		
 		return result;
 	}

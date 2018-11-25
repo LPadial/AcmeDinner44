@@ -11,7 +11,7 @@
 
 <security:authorize access="hasRole('DINER')">
 
-	<acme:acme_form url="diner/professionalSection/save-edit.do" type="edit" entity="${professionalSection}">
+	<acme:acme_form url="diner/professionalSection/save-edit.do" type="create" entity="${professionalSection}">
 	</acme:acme_form>
 
 </security:authorize>

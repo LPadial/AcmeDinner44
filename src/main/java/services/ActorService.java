@@ -101,4 +101,8 @@ public class ActorService {
 	public String encryptPassword(Actor a){
 		return actorRepository.encryptPassword(a);
 	}
+
+	public void flush() {
+		actorRepository.flush();
+	}
 }

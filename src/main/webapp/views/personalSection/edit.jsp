@@ -17,21 +17,21 @@
 <security:authorize access="hasRole('DINER')">
 
 	<acme:acme_form url="diner/personalSection/save-edit.do"
-		skip_fields="birthdate,likes,dislikes" type="edit" entity="${personalsection}">
+		skip_fields="birthdate,likes,dislikes" type="edit" entity="${personalSection}">
 		
 		<label for="label">${birthdate}</label>
 		<div class="form-group" style="width: 55%;">
-			<input value="<fmt:formatDate value="${personalsection.birthdate}" pattern="dd/MM/yyyy"/>" name="birthdate" placeholder="dd/MM/yyyy" type="text" class="form-control">
+			<input value="<fmt:formatDate value="${personalSection.birthdate}" pattern="dd/MM/yyyy"/>" name="birthdate" placeholder="dd/MM/yyyy" type="text" class="form-control">
 		</div>
 		
 		<label for="label">${likes}</label>
 		<div class="form-group" style="width: 55%;">
-			<textarea name="likes" style="resize: none;" class="form-control" rows="5" id="likes">${personalsection.likes}</textarea>
+			<textarea name="likes" style="resize: none;" class="form-control" rows="5" id="likes"><jstl:forEach var="e" varStatus="loop" items="${personalSection.likes}">${e}<jstl:if test="${!loop.last}">,</jstl:if></jstl:forEach></textarea>
 		</div>
 		
 		<label for="label">${dislikes}</label>
 		<div class="form-group" style="width: 55%;">
-			<textarea name="dislikes" style="resize: none;" class="form-control" rows="5" id="dislikes">${personalsection.dislikes}</textarea>
+			<textarea name="dislikes" style="resize: none;" class="form-control" rows="5" id="dislikes"><jstl:forEach var="e" varStatus="loop" items="${personalSection.dislikes}">${e}<jstl:if test="${!loop.last}">,</jstl:if></jstl:forEach></textarea>
 		</div>
 
 		

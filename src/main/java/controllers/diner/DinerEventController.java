@@ -53,13 +53,35 @@ public class DinerEventController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView events(@RequestParam(required = true) final int q) {
 		ModelAndView result;
+		ArrayList<Integer> canCreateSoiree = new ArrayList<Integer>();
+		ArrayList<Integer> eventCanRegistered = new ArrayList<Integer>();
+		ArrayList<Event> dateIsBeforeCurrent = new ArrayList<Event>();
 		result = new ModelAndView("event/list");
 		result.addObject("a", 0);
 		result.addObject("events", dinerService.findEventsOfDiner(q));	
 		result.addObject("requestURI","/diner/event/list.do");
 		if (LoginService.hasRole("DINER")) {
-			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("myRegisteredEvents", d.getEvents());			
+			Diner d = (Diner) loginService.findActorByUsername(LoginService
+					.getPrincipal().getId());
+			result.addObject("myRegisteredEvents", d.getEvents());
+
+			for (Event e : dinerService.findEventsOfDiner(q)) {
+				Collection<Diner> organizers = soireeService
+						.organizerOfSoireesOfEvent(e.getId());
+				if (!organizers.contains(d)) {
+					canCreateSoiree.add(e.getId());
+				}
+
+				if (eventService.findRegisteredDinerInEvents(e.getId()).size() < 4) {
+					eventCanRegistered.add(e.getId());
+				}
+				if (eventService.isOver(e)) {
+					dateIsBeforeCurrent.add(e);
+				}
+			}
+			result.addObject("dateIsBeforeCurrent", dateIsBeforeCurrent);
+			result.addObject("eventCanRegistered", eventCanRegistered);
+			result.addObject("canCreateSoiree", canCreateSoiree);
 		}
 		
 		return result;
@@ -70,6 +92,7 @@ public class DinerEventController extends AbstractController {
 	public ModelAndView eventsOrganized() {
 		ModelAndView result;
 		ArrayList<Integer> canCreateSoiree = new ArrayList<Integer>();
+		
 		result = new ModelAndView("event/list");
 		if (LoginService.hasRole("DINER")) {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
@@ -82,7 +105,8 @@ public class DinerEventController extends AbstractController {
 				}
 			}
 			result.addObject("canCreateSoiree", canCreateSoiree);
-			result.addObject("myRegisteredEvents", d.getEvents());			
+			result.addObject("myRegisteredEvents", d.getEvents());	
+			
 		}
 		result.addObject("requestURI","/diner/event/organizedList.do");
 			return result;
@@ -93,6 +117,7 @@ public class DinerEventController extends AbstractController {
 		public ModelAndView eventsRegistered() {
 			ModelAndView result;
 			ArrayList<Integer> canCreateSoiree = new ArrayList<Integer>();
+			ArrayList<Event> dateIsBeforeCurrent = new ArrayList<Event>();
 			result = new ModelAndView("event/list");
 			
 			if (LoginService.hasRole("DINER")) {
@@ -104,8 +129,12 @@ public class DinerEventController extends AbstractController {
 					if(!organizers.contains(d)){
 						canCreateSoiree.add(e.getId());
 					}
+					if (eventService.isOver(e)) {
+						dateIsBeforeCurrent.add(e);
+					}
 				}
 				result.addObject("myRegisteredEvents", d.getEvents());		
+				result.addObject("dateIsBeforeCurrent", dateIsBeforeCurrent);
 			}			
 			result.addObject("canCreateSoiree", canCreateSoiree);
 			result.addObject("requestURI","/diner/event/registeredList.do");

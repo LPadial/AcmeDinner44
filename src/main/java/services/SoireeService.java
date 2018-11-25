@@ -36,9 +36,6 @@ public class SoireeService {
 		private LoginService loginService;
 		
 		@Autowired
-		private DishService dishService;
-		
-		@Autowired
 		private SponsorshipService sponsorshipService;
 
 
@@ -104,6 +101,19 @@ public class SoireeService {
 			return soireeRepository.exists(soireeID);
 		}
 		
+		public void delete(Iterable<Soiree> entities) {
+			Assert.notNull(entities);
+			for(Soiree s: entities){
+				Collection<Sponsorship> sponsorshipsToDelete = sponsorsihpOfSoiree(s.getId());
+				for(Sponsorship ss: sponsorshipsToDelete){
+					sponsorshipService.delete(ss);
+				}
+			}
+			System.out.println("Delete soirees: " + entities.toString());
+			soireeRepository.delete(entities);
+		}
+
+		
 		public void delete(Soiree soiree) {
 			Assert.notNull(soiree);
 			
@@ -111,12 +121,7 @@ public class SoireeService {
 			for(Sponsorship ss: sponsorshipsToDelete){
 				sponsorshipService.delete(ss);
 			}
-			
-			if(soiree.getDishes().size() != 0){
-				for(Dish d: soiree.getDishes() ){
-					dishService.delete(d);
-				}
-			}
+			System.out.println("Borrada soiree: " + soiree);
 			soireeRepository.delete(soiree);
 		}
 

@@ -39,8 +39,16 @@
 			<display:column title="${birthdatePersonal}" sortable="false">
 				<fmt:formatDate value="${personalSection.birthdate}" pattern="dd/MM/yyyy"/>
 			</display:column>
-			<display:column property="likes" title="${likesPersonal}" sortable="false" />
-			<display:column property="dislikes" title="${dislikesPersonal}" sortable="false" />
+			<display:column title="${likesPersonal}" sortable="false">
+				<jstl:forEach var="e" varStatus="loop" items="${row.likes}">
+					${e}<jstl:if test="${!loop.last}">,</jstl:if>
+				</jstl:forEach>
+			</display:column>
+			<display:column title="${dislikesPersonal}" sortable="false">
+			<jstl:forEach var="e" varStatus="loop" items="${row.dislikes}">
+				${e}<jstl:if test="${!loop.last}">,</jstl:if>
+			</jstl:forEach>
+			</display:column>
 		</display:table>
 	</div>
 	<div class="col-md-4"></div>
