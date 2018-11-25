@@ -128,7 +128,7 @@ public class AdministratorUseCaseTest extends AbstractTest {
 		Finder finder = finderService.create();
 		Finder finderAdmin= finderService.save(finder);
 		
-		templateCreateNewAdministrator("diner1", "admin", "admins", "admin@gmail.com", userAccount, new ArrayList<Actor>(), new ArrayList<Chirp>(), finderAdmin, ConstraintViolationException.class);
+		templateCreateNewAdministrator("diner1", "admin", "admins", "admin@gmail.com", userAccount, new ArrayList<Actor>(), new ArrayList<Chirp>(), finderAdmin, ClassCastException.class);
 	}
 	
 	
@@ -186,7 +186,7 @@ public class AdministratorUseCaseTest extends AbstractTest {
 
 			//Test #03: Attempt to access by unauthorized user. Expected false.
 			{
-				"diner2", IllegalArgumentException.class
+				"diner2", ClassCastException.class
 			}
 
 		};
