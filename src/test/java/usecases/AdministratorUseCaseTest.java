@@ -131,5 +131,69 @@ public class AdministratorUseCaseTest extends AbstractTest {
 		templateCreateNewAdministrator("diner1", "admin", "admins", "admin@gmail.com", userAccount, new ArrayList<Actor>(), new ArrayList<Chirp>(), finderAdmin, ConstraintViolationException.class);
 	}
 	
+	
+	/*
+	 * 12.3: An administrator can display a dashboard with system information.
+	 */
+	public void dashboardTemplate(final String username, final Class<?> expected) {
+		Class<?> caught = null;
+
+		try {
+			this.authenticate(username);
+
+			administratorService.numDiners();
+			administratorService.avgMinMaxScore();
+			administratorService.avgNumberOfEventsOrganisedByDiners();
+			administratorService.maxNumberOfEventsOrganisedByDiners();
+			administratorService.minNumberOfEventsOrganisedByDiners();
+			administratorService.dinersWhoHaveMoreEvents();
+			administratorService.ratioOfEventsOver();
+			administratorService.avgMinMaxNumberOfDishesPerSoiree();
+			administratorService.ratioOfDinersWhoHaveAtLeastOneProfessionalSection();
+			administratorService.ratioOfDinersWhoHaveAtLeastOneSocialSection();
+			administratorService.avgMinMaxChirpsPerActor();
+			administratorService.avgMinMaxRequestSponsorshipPerSponsor();
+			administratorService.bestSelledItems();
+			administratorService.bestBuyingDiners();
+			administratorService.bestSellingSupermarkets();
+
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+
+			caught = oops.getClass();
+
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
+	//Drivers
+
+	@Test
+	public void dashboardDriver() {
+
+		final Object testingData[][] = {
+
+			//Test #01: Correct access. Expected true.
+			{
+				"admin1", null
+			},
+
+			//Test #02: Attempt to access by anonymous user. Expected false.
+			{
+				null, IllegalArgumentException.class
+			},
+
+			//Test #03: Attempt to access by unauthorized user. Expected false.
+			{
+				"diner2", IllegalArgumentException.class
+			}
+
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.dashboardTemplate((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	
 }
 

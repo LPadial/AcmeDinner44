@@ -181,14 +181,20 @@ public class AdministratorService {
 	
 	//Queries
 	public Integer numDiners(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return administratorRepository.numDiners();
 	}
 	
 	public Object[] avgMinMaxScore(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return administratorRepository.avgMinMaxScore();
 	}
 	
 	public Double avgNumberOfEventsOrganisedByDiners(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		Integer counter = 0;
 		Integer events = 0;
 		for(Number i: administratorRepository.numEventForDinner()){
@@ -199,13 +205,17 @@ public class AdministratorService {
 		return avg;
 	}
 	
-	public Number maxNumberOfEventsOrganisedByDiners(){				
+	public Number maxNumberOfEventsOrganisedByDiners(){			
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		List<Number> numEventsByDiner = administratorRepository.numEventForDinner();
 		Number max = numEventsByDiner.get(0);
 		return max;
 	}
 	
 	public Number minNumberOfEventsOrganisedByDiners(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		List<Number> numEventsByDiner = administratorRepository.numEventForDinner();
 		Number min = numEventsByDiner.get(numEventsByDiner.size()-1);
 		return min;
@@ -213,11 +223,15 @@ public class AdministratorService {
 	
 	
 	public List<Array[]> dinersWhoHaveMoreEvents(){		
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		List<Array[]> dinersMoreEvents = administratorRepository.dinersWhoHaveMoreEvents();
 		return dinersMoreEvents.subList(0,3);
 	}
 	
 	public Double ratioOfEventsOver(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		Integer counter = 0;
 		Double ratioOfEventsOver = 0.0;
 		for(Event e: eventService.eventsWith4Soirees()){
@@ -230,37 +244,55 @@ public class AdministratorService {
 	}
 	
 	public Object[] avgMinMaxNumberOfDishesPerSoiree(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return administratorRepository.avgMinMaxNumberOfDishesPerSoiree();
 	}
 	
 	public Integer ratioOfDinersWhoHaveAtLeastOneProfessionalSection(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return administratorRepository.ratioOfDinersWhoHaveAtLeastOneProfessionalSection();
 	}
 	
 	public Integer ratioOfDinersWhoHaveAtLeastOneSocialSection(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return administratorRepository.ratioOfDinersWhoHaveAtLeastOneSocialSection();
 	}
 	
 	public Object[] avgMinMaxChirpsPerActor(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return chirpRepository.avgMinMaxChirpsPerActor();
 	}
 	
 	public Object[] avgMinMaxRequestSponsorshipPerSponsor(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return sponsorshipRepository.avgMinMaxRequestSponsorshipPerSponsor();
 	}
 	
 	public Object[] avgMinMaxAcceptedSponsorshipPerSponsor(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return sponsorshipRepository.avgMinMaxAcceptedSponsorshipPerSponsor();
 	}
 	public List<Object[]> bestSelledItems(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return itemRepository.bestSelledItems();
 	}
 	
 	public List<Object[]> bestBuyingDiners(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return dinerRepository.bestBuyingDiners();
 	}
 	
 	public List<Object[]> bestSellingSupermarkets(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		return supermarketRepository.bestSellingSupermarkets();
 	}
 	
