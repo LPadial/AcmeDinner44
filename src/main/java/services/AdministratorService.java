@@ -28,6 +28,7 @@ import repositories.ItemRepository;
 import repositories.SponsorshipRepository;
 import repositories.SupermarketRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
 
 @Service
@@ -66,6 +67,9 @@ public class AdministratorService {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private LoginService loginService;
 
 	
 
@@ -104,6 +108,8 @@ public class AdministratorService {
 	
 	public Administrator save(Administrator administrator) {
 		Assert.notNull(administrator);
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		Administrator adm = null;
 
 		if (exists(administrator.getId())) {

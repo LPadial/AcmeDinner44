@@ -9,20 +9,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Diner;
 import domain.PersonalSection;
 
 import repositories.PersonalSectionRepository;
+import security.LoginService;
 
 @Service
 @Transactional
 public class PersonalSectionService {
-	// Managed repository -----------------------------------------------------
 	
+	// Managed repository -----------------------------------------------------	
 	@Autowired
 	private PersonalSectionRepository personalSectionRepository;
+	
 
 	// Supporting services ----------------------------------------------------
-	
+	@Autowired
+	private LoginService loginService;
 
 	// Constructors -----------------------------------------------------------
 	public PersonalSectionService() {
@@ -58,6 +62,8 @@ public class PersonalSectionService {
 	
 	public PersonalSection save(PersonalSection personalSection) {
 		Assert.notNull(personalSection);
+		Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(d instanceof Diner);
 		PersonalSection aca = null;
 
 		if (exists(personalSection.getId())) {
@@ -79,6 +85,10 @@ public class PersonalSectionService {
 
 	public boolean exists(Integer personalSectionID) {
 		return personalSectionRepository.exists(personalSectionID);
+	}
+
+	public void flush() {
+		personalSectionRepository.flush();
 	}
 
 

@@ -60,6 +60,8 @@ public class ProfessionalSectionService {
 	
 	public ProfessionalSection save(ProfessionalSection professionalSection) {
 		Assert.notNull(professionalSection);
+		Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(d instanceof Diner);
 		ProfessionalSection aca = null;
 
 		if (exists(professionalSection.getId())) {
@@ -72,7 +74,7 @@ public class ProfessionalSectionService {
 			aca = professionalSectionRepository.save(aca);
 		} else {
 			aca = professionalSectionRepository.save(professionalSection);
-			Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			
 			d.getBusinessCard().addProfessionalSection(aca);
 		}
 		return aca;
@@ -90,6 +92,10 @@ public class ProfessionalSectionService {
 		bc.removeProfessionalSection(professionalSection);		
 
 		professionalSectionRepository.delete(professionalSection);
+	}
+
+	public void flush() {
+		professionalSectionRepository.flush();
 	}
 
 

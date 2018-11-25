@@ -1,7 +1,6 @@
 package usecases;
 
-import java.util.Collection;
-import java.util.List;
+
 
 import javax.transaction.Transactional;
 
@@ -12,16 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Actor;
-import domain.BusinessCard;
-import domain.Chirp;
-import domain.Event;
-import domain.Finder;
 import domain.Supermarket;
 
 import security.LoginService;
-import security.UserAccount;
 import services.ActorService;
-import services.EventService;
 import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
@@ -35,9 +28,6 @@ public class ActorUseCaseTest extends AbstractTest {
 	
 	@Autowired
 	private ActorService actorService;
-	
-	@Autowired
-	private EventService eventService;
 	
 	@Autowired
 	private LoginService loginService;
@@ -81,6 +71,9 @@ public class ActorUseCaseTest extends AbstractTest {
 				
 			//Test #02: Correct access. Expected true.
 			{"supermarket1", "Paca11", "Padial11", "padial11@padial.es","Padial11","Padial11","BRand41",null},
+			
+			//Test #05: Correct access. Expected true.
+			{"admin1", "Paca12", "Padial12", "padial12@padial.es","Padial12","Padial12",null,null},
 				
 			//Test #03: Attempt to edit his data without authenticated. Expected false.
 			{"", "Paca", "Padial", "padial@padial.es","Padial","Padial",null,IllegalArgumentException.class},

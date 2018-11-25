@@ -61,6 +61,8 @@ public class SocialSectionService {
 	
 	public SocialSection save(SocialSection socialSection) {
 		Assert.notNull(socialSection);
+		Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(d instanceof Diner);
 		SocialSection aca = null;
 
 		if (exists(socialSection.getId())) {
@@ -74,7 +76,6 @@ public class SocialSectionService {
 			aca = socialSectionRepository.save(aca);
 		} else {
 			aca = socialSectionRepository.save(socialSection);
-			Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
 			d.getBusinessCard().addSocialSection(aca);
 		}
 		return aca;
@@ -92,6 +93,10 @@ public class SocialSectionService {
 		bc.removeSocialSection(socialSection);		
 
 		socialSectionRepository.delete(socialSection);
+	}
+
+	public void flush() {
+		socialSectionRepository.flush();
 	}
 
 
