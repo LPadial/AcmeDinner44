@@ -91,6 +91,7 @@ public class EventController extends AbstractController {
 		}
 
 		result.addObject("events", eventService.findAll());
+		result.addObject("requestURI","/event/list.do");
 
 		return result;
 	}
@@ -105,6 +106,7 @@ public class EventController extends AbstractController {
 
 		result.addObject("a", 0);
 		result.addObject("events", eventService.findEventsByKeyWord(q));
+		result.addObject("requestURI","/event/search.do");
 
 		if (LoginService.hasRole("DINER")) {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService
@@ -132,30 +134,20 @@ public class EventController extends AbstractController {
 
 		return result;
 	}
-
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView view(@RequestParam(required = true) int q) {
+	
+	//The event's diners -----------------------------------------------------------------
+	@RequestMapping(value = "/diner/list", method = RequestMethod.GET)
+	public ModelAndView diners(@RequestParam(required = true) final int q) {
 		ModelAndView result;
-		result = new ModelAndView("event/view");
-
-		Event e = eventService.findOne(q);
-
-		Collection<Dish> dishesView = new ArrayList<Dish>();
-
-		result.addObject("evento", e);
-		result.addObject("organizer", e.getOrganizer());
-		result.addObject("soirees", e.getSoirees());
-
-		for (Soiree s : e.getSoirees()) {
-			dishesView.addAll(s.getDishes());
-		}
-		result.addObject("dishes", dishesView);
+		result = new ModelAndView("diner/list");		
+		result.addObject("a",0);
+		result.addObject("diners", eventService.findRegisteredDinerInEvents(q));
+		result.addObject("requestURI","/event/diner/list.do");
 
 		return result;
 	}
 
-	// This event's soirees
-	// ----------------------------------------------------------------
+	// This event's soirees ----------------------------------------------------------------
 
 	@RequestMapping(value = "/soiree/list", method = RequestMethod.GET)
 	public ModelAndView soirees(@RequestParam(required = true) final int q) {
@@ -195,6 +187,7 @@ public class EventController extends AbstractController {
 			result.addObject("soireesOfDiner", soireesOfDiner);
 		}
 		result.addObject("soirees", e.getSoirees());
+		result.addObject("requestURI","/event/soiree/list.do");
 
 		return result;
 	}
@@ -210,89 +203,8 @@ public class EventController extends AbstractController {
 		Soiree s = soireeService.findOne(q);
 		result.addObject("dishes", soireeService.dishesOfSoiree(s.getId()));
 		result.addObject("soiree",q);
+		result.addObject("requestURI","/event/soiree/dish/list.do");
 
 		return result;
 	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
-		ModelAndView result;
-
-		result = createNewModelAndView(eventService.create(), null);
-
-		return result;
-	}
-
-	@RequestMapping("/edit")
-	public ModelAndView edit(@RequestParam Event q) {
-		ModelAndView result;
-		Diner d = (Diner) loginService.findActorByUsername(LoginService
-				.getPrincipal().getId());
-
-		if (d != null) {
-			if (q.getOrganizer() == d) {
-				result = createNewModelAndView(q, null);
-			} else {
-				result = new ModelAndView("redirect:/misc/403.do");
-			}
-		} else {
-			return new ModelAndView("redirect:/welcome/index.do");
-		}
-
-		return result;
-	}
-
-	@RequestMapping(value = "/save-create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveCreateEdit(@Valid Event event, BindingResult binding) {
-		ModelAndView result;
-		if (binding.hasErrors()) {
-			result = createNewModelAndView(event, null);
-		} else {
-			try {
-				eventService.save(event);
-				result = new ModelAndView(
-						"redirect:/diner/event/organizedList.do");
-
-			} catch (Throwable th) {
-				result = createNewModelAndView(event, "event.commit.error");
-			}
-		}
-		return result;
-	}
-
-	protected ModelAndView createNewModelAndView(Event event, String message) {
-		ModelAndView result;
-
-		if (event.getId() == 0) {
-			result = new ModelAndView("event/create");
-		} else {
-			result = new ModelAndView("event/edit");
-		}
-		result.addObject("event", event);
-		result.addObject("message", message);
-		return result;
-	}
-
-	@RequestMapping("/delete")
-	public ModelAndView delete(@RequestParam Event q) {
-		ModelAndView result;
-
-		Diner d = (Diner) loginService.findActorByUsername(LoginService
-				.getPrincipal().getId());
-
-		if (d != null) {
-			if (q.getOrganizer() == d) {
-				eventService.delete(q);
-				result = new ModelAndView(
-						"redirect:/diner/event/organizedList.do");
-			} else {
-				result = new ModelAndView("redirect:/misc/403.do");
-			}
-		} else {
-			return new ModelAndView("redirect:/welcome/index.do");
-		}
-
-		return result;
-	}
-
 }

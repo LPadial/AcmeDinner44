@@ -44,6 +44,7 @@ public class DinerController extends AbstractController {
 		Collection<Diner> diners;
 		diners = dinerService.findAll();		
 		mav.addObject("diners", diners);
+		mav.addObject("requestURI","/diner/list.do");
 
 		return mav;
 	}
@@ -54,6 +55,7 @@ public class DinerController extends AbstractController {
 		result = new ModelAndView("event/list");
 		result.addObject("a", 0);
 		result.addObject("events", dinerService.findEventsPastOfDiner(q));	
+		result.addObject("requestURI","/diner/eventPast/list.do");
 		
 		return result;
 	}
@@ -66,6 +68,7 @@ public class DinerController extends AbstractController {
 		
 		result.addObject("a", 0);
 		result.addObject("diners", dinerService.findDinersByKeyWord(q));
+		result.addObject("requestURI","/diner/search.do");
 		
 		return result;
 	}

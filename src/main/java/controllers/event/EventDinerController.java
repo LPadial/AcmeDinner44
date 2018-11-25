@@ -40,15 +40,7 @@ public class EventDinerController extends AbstractController {
 
 	// Registered diners in event ----------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView diners(@RequestParam(required = true) final int q) {
-		ModelAndView result;
-		result = new ModelAndView("diner/list");		
-		result.addObject("a",0);
-		result.addObject("diners", eventService.findRegisteredDinerInEvents(q));
-
-		return result;
-	}
+	
 	
 	// This soiree's dishes ----------------------------------------------------------------
 

@@ -111,7 +111,7 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="event/create.do"><spring:message code="diner.createEvent" /></a></li>
+								<li><a href="diner/event/create.do"><spring:message code="diner.createEvent" /></a></li>
 								<li><a href="diner/event/organizedList.do"><spring:message code="diner.organizedEvents" /></a></li>
 								<li><a href="diner/event/registeredList.do"><spring:message code="diner.registeredEvents" /></a></li>
 							</ul>

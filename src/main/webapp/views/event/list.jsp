@@ -57,7 +57,7 @@
 			<security:authorize access="hasRole('DINER')">
 		
 			<display:column title="${view}" sortable="false">
-				<acme:url url="event/view.do?q=${row.id}" code="event.view"/>
+				<acme:url url="diner/event/view.do?q=${row.id}" code="event.view"/>
 			</display:column>
 			
 			<security:authentication property="principal.id" var="id" />
@@ -65,14 +65,14 @@
 			<display:column title="${edit}" sortable="false">
 				<!-- Editar mis eventos -->
 				<jstl:if test="${row.organizer.userAccount.id == id}">
-					<acme:url url="event/edit.do?q=${row.id}" code="event.edit"/>
+					<acme:url url="diner/event/edit.do?q=${row.id}" code="event.edit"/>
 				</jstl:if>
 			</display:column>
 			
 			<display:column title="${delete}" sortable="false">
 				<!-- Borrar mis eventos -->
 				<jstl:if test="${row.organizer.userAccount.id == id}">
-					<acme:url url="event/delete.do?q=${row.id}" code="event.delete"/>
+					<acme:url url="diner/event/delete.do?q=${row.id}" code="event.delete"/>
 				</jstl:if>
 			</display:column>
 			

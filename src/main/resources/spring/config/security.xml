@@ -91,36 +91,37 @@
 			access="permitAll" />
 			
 		<!-- List, view, create, edit and search events  -->	
+		<security:intercept-url pattern="/diner/eventPast/list.do"
+			access="isAnonymous()" />	
 		<security:intercept-url pattern="/event/list.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/event/view.do"
-			access="hasRole('DINER')" />
+		<security:intercept-url pattern="/event/diner/list.do"
+			access="permitAll" />
 		<security:intercept-url pattern="/event/search.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/event/edit.do"
+		<security:intercept-url pattern="/diner/event/view.do"
+			access="hasRole('DINER')" />		
+		<security:intercept-url pattern="/diner/event/create.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/event/save.do"
+		<security:intercept-url pattern="/diner/event/edit.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/event/save-create.do"
+		<security:intercept-url pattern="/diner/event/save-create.do"
 			access="hasRole('DINER')" />	
+		<security:intercept-url pattern="/diner/event/delete.do"
+			access="hasRole('DINER')" />
+			
 		<security:intercept-url pattern="/event/diner/mylist.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/event/diner/apply.do"
 			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/event/diner/list.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/diner/eventPast/list.do"
-			access="isAnonymous()" />			
+		
+				
 		<security:intercept-url pattern="/diner/event/list.do"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/diner/event/registeredList.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/event/organizedList.do"
-			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/event/create.do"
-			access="hasRole('DINER')" />
-		<security:intercept-url pattern="/event/delete.do"
-			access="hasRole('DINER')" />
+			access="hasRole('DINER')" />	
 		<security:intercept-url pattern="/diner/event/register.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/event/unregister.do"
@@ -152,7 +153,7 @@
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/dish/save-create.do"
 			access="hasRole('DINER')" />					
-		<security:intercept-url pattern="/dish/view.do"
+		<security:intercept-url pattern="/diner/dish/view.do"
 			access="hasRole('DINER')" />
 		<security:intercept-url pattern="/diner/dish/edit.do"
 			access="hasRole('DINER')" />

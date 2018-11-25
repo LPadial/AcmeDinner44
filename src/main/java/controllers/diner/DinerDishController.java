@@ -46,6 +46,19 @@ public class DinerDishController extends AbstractController {
 
 	// Actions
 	
+	//View --------------------------------------------------------------------
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public ModelAndView view(@RequestParam(required = true) int q) {
+		ModelAndView result;
+		result = new ModelAndView("dish/view");
+		
+		Dish d = dishService.findOne(q);
+		
+		result.addObject("dish", d);
+		
+		return result;
+	}
+	
 	//Create ---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam(required = true) final int q) {
@@ -77,7 +90,7 @@ public class DinerDishController extends AbstractController {
 		return result;
 	}
 		
-		
+	//Delete ---------------------------------------------------------------------------------------
 	@RequestMapping("/delete")
 	public ModelAndView delete(@RequestParam Dish q, @RequestParam int soiree) {
 		ModelAndView result;
