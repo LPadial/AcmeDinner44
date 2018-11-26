@@ -98,6 +98,8 @@ public class EventService {
 
 	public Event save(Event event) {
 		Assert.notNull(event);
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(d instanceof Diner);
 		Event aca = null;
 
 		if (exists(event.getId())) {
@@ -112,7 +114,7 @@ public class EventService {
 		} else {
 
 			aca = eventRepository.save(event);
-			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			
 			d.getEvents().add(aca);
 		}
 		return aca;
@@ -175,6 +177,7 @@ public class EventService {
 		Event event = findOne(e);
 		Assert.isTrue(!isOver(event));
 		Assert.isTrue(event.getOrganizer()!=d);
+		Assert.isTrue(d.getEvents().contains(event));
 		Collection<Soiree> soireesOfEvent = event.getSoirees();
 		Collection<Soiree> soireesOfDiner = soireeService.soireesOfDiner(d.getId());
 		ArrayList<Soiree> soireesToDelete = new ArrayList<Soiree>();
@@ -214,5 +217,9 @@ public class EventService {
 	
 	public Object[] numEventForDinner(){
 		return eventRepository.numEventForDinner();
+	}
+
+	public void flush() {
+		eventRepository.flush();
 	}
 }

@@ -157,6 +157,8 @@ public class AdministratorService {
 	
 	//Update the scores of the diners
 	public void updateScores(){
+		Administrator admin = (Administrator) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(admin instanceof Administrator);
 		Collection<Diner> diners = dinerService.findAll();
 		
 		for(Diner d: diners){

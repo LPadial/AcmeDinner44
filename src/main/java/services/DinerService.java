@@ -59,8 +59,6 @@ public class DinerService {
 		BusinessCard businessCard = businessCardService.create();
 		businessCard = businessCardService.save(businessCard);
 		
-		
-		
 		diner.setFinder(finder);
 		diner.setBusinessCard(businessCard);
 		
@@ -71,7 +69,6 @@ public class DinerService {
 		diner.setFollowers(new ArrayList<Actor>());		
 		diner.setChirps(new ArrayList<Chirp>());
 		diner.setEvents(new ArrayList<Event>());
-		
 
 		Authority a = new Authority();
 		a.setAuthority(Authority.DINER);
@@ -87,9 +84,9 @@ public class DinerService {
 		return dinerRepository.findAll();
 	}
 
-	public Diner findOne(Integer dinner) {
-		Assert.notNull(dinner);
-		return dinerRepository.findOne(dinner);
+	public Diner findOne(Integer diner) {
+		Assert.notNull(diner);
+		return dinerRepository.findOne(diner);
 	}
 
 	public Diner save(Diner diner) {

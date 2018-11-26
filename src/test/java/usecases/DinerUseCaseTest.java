@@ -1,9 +1,6 @@
 package usecases;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
@@ -14,19 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Actor;
-import domain.BusinessCard;
-import domain.Chirp;
 import domain.Diner;
-import domain.Event;
-import domain.Finder;
 
 
 import security.Authority;
 import security.UserAccount;
-import services.BusinessCardService;
 import services.DinerService;
-import services.FinderService;
 import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
@@ -40,12 +30,6 @@ public class DinerUseCaseTest extends AbstractTest {
 	
 	@Autowired
 	private DinerService dinerService;
-	
-	@Autowired
-	private FinderService finderService;
-	
-	@Autowired
-	private BusinessCardService businessCardService;
 
 
 	//Templates
@@ -53,8 +37,7 @@ public class DinerUseCaseTest extends AbstractTest {
 	/*
 	 * 9.1: An actor who is not authenticated must be able to register to the system as a diner.
 	 */
-	protected void template(final String actorname, final String surname, final String email, final UserAccount userAccount, final List<Actor> followers, final List<Chirp> chirps,
-		final Finder finder, final Double avgScore, final BusinessCard businessCard, final Collection<Event> events, final Class<?> expected) {
+	protected void template(final String actorname, final String surname, final String email, final UserAccount userAccount, final Class<?> expected) {
 		Class<?> caught = null;
 
 		try {
@@ -64,12 +47,6 @@ public class DinerUseCaseTest extends AbstractTest {
 			diner.setSurname(surname);
 			diner.setEmail(email);
 			diner.setUserAccount(userAccount);
-			diner.setFollowers(followers);
-			diner.setChirps(chirps);
-			diner.setFinder(finder);
-			diner.setAvgScore(avgScore);
-			diner.setBusinessCard(businessCard);
-			diner.setEvents(events);
 
 			dinerService.save(diner);
 			dinerService.flush();
@@ -94,14 +71,8 @@ public class DinerUseCaseTest extends AbstractTest {
 		userAccount.setAuthorities(Arrays.asList(a));
 		userAccount.setPassword("diner7");
 		userAccount.setUsername("diner7");
-		
-		Finder finder = finderService.create();
-		Finder finderDiner = finderService.save(finder);
-		BusinessCard businessCard = businessCardService.create();
-		BusinessCard bussinessCardDiner = businessCardService.save(businessCard);
 
-
-		template("diner7", "diner7", "diner7@gmail.com", userAccount, new ArrayList<Actor>(), new ArrayList<Chirp>(), finderDiner, 0.0, bussinessCardDiner,  new ArrayList<Event>(), null);
+		template("diner7", "diner7", "diner7@gmail.com", userAccount, null);
 
 	}
 	
@@ -115,14 +86,8 @@ public class DinerUseCaseTest extends AbstractTest {
 		userAccount.setAuthorities(Arrays.asList(a));
 		userAccount.setPassword("");
 		userAccount.setUsername("");
-		
-		Finder finder = finderService.create();
-		Finder finderDiner = finderService.save(finder);
-		BusinessCard businessCard = businessCardService.create();
-		BusinessCard bussinessCardDiner = businessCardService.save(businessCard);
 
-
-		template("diner5", "diner5", "diner5@gmail.com", userAccount, new ArrayList<Actor>(), new ArrayList<Chirp>(), finderDiner, 0.0, bussinessCardDiner, null, IllegalArgumentException.class);
+		template("diner5", "diner5", "diner5@gmail.com", userAccount, IllegalArgumentException.class);
 
 	}
 	
@@ -136,14 +101,8 @@ public class DinerUseCaseTest extends AbstractTest {
 		userAccount.setAuthorities(Arrays.asList(a));
 		userAccount.setPassword("diner5");
 		userAccount.setUsername("diner5");
-		
-		Finder finder = finderService.create();
-		Finder finderDiner = finderService.save(finder);
-		BusinessCard businessCard = businessCardService.create();
-		BusinessCard bussinessCardDiner = businessCardService.save(businessCard);
 
-
-		template("", "", "diner5", userAccount, new ArrayList<Actor>(), new ArrayList<Chirp>(), finderDiner, 0.0, bussinessCardDiner, null, ConstraintViolationException.class);
+		template("", "", "diner5", userAccount, ConstraintViolationException.class);
 
 	}
 	
@@ -162,7 +121,7 @@ public class DinerUseCaseTest extends AbstractTest {
 	}
 	
 	@Test
-	public void displayDriver() {
+	public void driverDinerSearch() {
 
 		final Object testingData[][] = {
 					
@@ -178,5 +137,34 @@ public class DinerUseCaseTest extends AbstractTest {
 		};
 		for (int i = 0; i < testingData.length; i++)
 			this.templateDinerSearch((String)testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+	
+	/*
+	 * 10.3: 3.	List the diners of the system and display their names, surnames, business cards, and events that they have organised or they are going to organise.
+	 */
+	public void templateListDiner(final String username, final Class<?> expected) {
+		Class<?> caught = null;
+
+		try {
+			this.authenticate(username);
+			dinerService.findAll();	
+			this.unauthenticate();
+		} catch (final Throwable oops) {			
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+	
+	@Test
+	public void driverListDiner() {
+
+		final Object testingData[][] = {
+					
+			//Test #01: Correct access. Expected true.
+			{"supermarket1", null}				
+
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateListDiner((String)testingData[i][0], (Class<?>) testingData[i][1]);
 	}
 }

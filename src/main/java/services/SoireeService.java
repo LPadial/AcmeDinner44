@@ -148,5 +148,9 @@ public class SoireeService {
 			return soireeRepository.dishesOfSoiree(soireeID);
 		}
 
+		public void flush() {
+			soireeRepository.flush();
+		}
+
 
 }

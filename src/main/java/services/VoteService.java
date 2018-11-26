@@ -43,7 +43,7 @@ public class VoteService {
 			if(d.getEvents().contains(s.getEvent())){		
 				vote = new Vote();
 				
-				vote.setPoints(new Integer(-1));
+				vote.setPoints(new Integer(0));
 				vote.setComments(new ArrayList<String>());
 				vote.setPictures(new ArrayList<String>());
 				vote.setVoter(d);
@@ -97,4 +97,8 @@ public class VoteService {
 	 public Integer dinerHasVoteInSoiree(int dinerID, int soireeID){
 		 return voteRepository.dinerHasVoteInSoiree(dinerID, soireeID);
 	 }
+
+	public void flush() {
+		voteRepository.flush();
+	}
 }

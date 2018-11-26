@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -192,6 +191,55 @@ public class AdministratorUseCaseTest extends AbstractTest {
 		};
 		for (int i = 0; i < testingData.length; i++)
 			this.dashboardTemplate((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+	
+	
+	/*
+	 * 12.2: Run a process to update the scores of the diners.  The score must be computed as the average number of points awarded to the soirees that he or she has organised.
+	 */
+	public void updateScoreTemplate(final String username, final Class<?> expected) {
+		Class<?> caught = null;
+
+		try {
+			this.authenticate(username);
+
+			administratorService.updateScores();
+
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+
+			caught = oops.getClass();
+
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
+	//Drivers
+
+	@Test
+	public void updateScoreDriver() {
+
+		final Object testingData[][] = {
+
+			//Test #01: Correct access. Expected true.
+			{
+				"admin1", null
+			},
+
+			//Test #02: Attempt to access by anonymous user. Expected false.
+			{
+				null, IllegalArgumentException.class
+			},
+
+			//Test #03: Attempt to access by unauthorized user. Expected false.
+			{
+				"diner2", ClassCastException.class
+			}
+
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.updateScoreTemplate((String) testingData[i][0], (Class<?>) testingData[i][1]);
 	}
 
 	

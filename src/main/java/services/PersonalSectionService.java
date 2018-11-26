@@ -62,8 +62,6 @@ public class PersonalSectionService {
 	
 	public PersonalSection save(PersonalSection personalSection) {
 		Assert.notNull(personalSection);
-		Diner d = (Diner)loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-		Assert.isTrue(d instanceof Diner);
 		PersonalSection aca = null;
 
 		if (exists(personalSection.getId())) {
