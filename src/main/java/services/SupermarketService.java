@@ -115,4 +115,8 @@ public class SupermarketService {
 		return supermarketRepository.findItemsOfSupermarket(supermarketID); 
 	}
 
+	public void flush() {
+		supermarketRepository.flush();
+	}
+
 }

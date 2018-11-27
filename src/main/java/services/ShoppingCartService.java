@@ -69,7 +69,9 @@ public class ShoppingCartService {
 		Assert.isTrue(shoppingCart.getOwner() == d, "shoppingcart.error.nomine");
 		ShoppingCart aca = null;
 
-		if (exists(shoppingCart.getId())) {			
+		if (exists(shoppingCart.getId())) {	
+			Assert.isTrue(shoppingCart.getDeliveryAddress() != null);
+			Assert.isTrue(shoppingCart.getCreditCard() != null);
 			aca = findOne(shoppingCart.getId());
 			aca.setDeliveryAddress(shoppingCart.getDeliveryAddress());
 			aca.setCreditCard(shoppingCart.getCreditCard());

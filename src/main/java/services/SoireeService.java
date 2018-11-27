@@ -50,7 +50,7 @@ public class SoireeService {
 			
 			Collection<Diner> organizers = organizerOfSoireesOfEvent(e.getId());
 			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			
+			Assert.isTrue(!(organizers.contains(d)) && d.getEvents().contains(e));
 			Soiree soiree = null;
 			if(!(organizers.contains(d)) && d.getEvents().contains(e)){
 			
@@ -77,6 +77,8 @@ public class SoireeService {
 		}
 
 		public Soiree save(Soiree soiree) {
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+			Assert.isTrue(d instanceof Diner);			
 			Assert.notNull(soiree.getDate());
 			Assert.isTrue(Calendar.getInstance().getTime().before(soiree.getDate()),"error.date.future");
 			Assert.notNull(soiree);

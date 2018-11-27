@@ -32,6 +32,8 @@ public class ItemService {
 
 	// Simple CRUD methods ----------------------------------------------------
 	public Item create() {
+		Supermarket sm = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());	
+		Assert.isTrue(sm instanceof Supermarket);
 		Item item = new Item();	
 		
 		item.setSKU(new String());
@@ -40,8 +42,7 @@ public class ItemService {
 		item.setPrice(new Double(0.1));
 		item.setVAT(new Double(10.0));
 		item.setRetailed(new Boolean(true));
-		
-		Supermarket sm = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());		
+				
 		item.setSupermarket(sm);
 
 		return item;
@@ -57,6 +58,8 @@ public class ItemService {
 	}
 
 	public Item save(Item item) {
+		Supermarket sm = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());	
+		Assert.isTrue(sm instanceof Supermarket);
 		Assert.notNull(item);
 		Assert.isTrue(item.getPrice()!=null);
 		Assert.isTrue(item.getVAT()!=null);
@@ -64,13 +67,7 @@ public class ItemService {
 		Assert.isTrue(item.getVAT()>=0);
 		Item aca = null;
 
-		if (exists(item.getId())) {
-			aca = findOne(item.getId());
-			aca.setRetailed(item.getRetailed());
-
-			aca = itemRepository.save(aca);
-		} else {
-
+		if (!exists(item.getId())) {
 			aca = itemRepository.save(item);
 		}
 		return aca;
@@ -81,6 +78,8 @@ public class ItemService {
 	}
 
 	public Item changeToRetailed(Item item) {
+		Supermarket sm = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());	
+		Assert.isTrue(sm instanceof Supermarket);
 		Assert.notNull(item);
 		Assert.isTrue(item.getRetailed()==false);
 		item.setRetailed(true);
@@ -89,6 +88,8 @@ public class ItemService {
 	}
 	
 	public Item changeToNotRetailed(Item item) {
+		Supermarket sm = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());	
+		Assert.isTrue(sm instanceof Supermarket);
 		Assert.notNull(item);
 		Assert.isTrue(item.getRetailed()==true);
 		item.setRetailed(false);
@@ -108,6 +109,10 @@ public class ItemService {
 	
 	public List<Delivery> itemsNotDeliveredInAddress(String address, int idSupermarket){
 		return itemRepository.itemsNotDeliveredInAddress(address, idSupermarket);
+	}
+
+	public void flush() {
+		itemRepository.flush();
 	}
 
 }

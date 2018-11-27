@@ -40,7 +40,7 @@ public class DishService {
 	public Dish create(Soiree s) {
 		
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-		
+		Assert.isTrue(s.getOrganizer()==d);
 		Dish dish = null;
 		if(s.getOrganizer()==d){		
 			dish = new Dish();
@@ -69,8 +69,9 @@ public class DishService {
 		Assert.notNull(dish);
 		Assert.notNull(dish.getIngredients());
 		Assert.notEmpty(dish.getIngredients());
-		System.out.println(dish.getDishType());
 		Assert.isTrue(dish.getIngredients().size()>=1);
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Assert.isTrue(d instanceof Diner);
 		Dish aca = null;
 
 		if (exists(dish.getId())) {
@@ -94,8 +95,14 @@ public class DishService {
 	}
 	
 	public void delete(Dish dish) {
+		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Assert.isTrue(d instanceof Diner);
 		Assert.notNull(dish);		
 		dishRepository.delete(dish);
+	}
+
+	public void flush() {
+		dishRepository.flush();
 	}
 
 

@@ -817,7 +817,7 @@
 
 	<!-- Soiree -->
 	<bean id="soiree1" class="domain.Soiree">
-		<property name="date" value="20/11/2018 21:00" />
+		<property name="date" value="20/11/2017 21:00" />
 		<property name="address" value="Calle Pachanga vote, 1" />
 		<property name="pictures">
 			<list>
@@ -921,7 +921,7 @@
 	</bean>
 	
 	<bean id="soiree7" class="domain.Soiree">
-		<property name="date" value="21/11/2018 21:00" />
+		<property name="date" value="21/11/2016 21:00" />
 		<property name="address" value="Calle Pachanga vote, 2" />
 		<property name="pictures">
 			<list>
@@ -938,7 +938,7 @@
 	</bean>
 	
 	<bean id="soiree8" class="domain.Soiree">
-		<property name="date" value="22/11/2018 21:00" />
+		<property name="date" value="22/11/2016 21:00" />
 		<property name="address" value="Calle Pachanga vote, 3" />
 		<property name="pictures">
 			<list>
@@ -955,7 +955,7 @@
 	</bean>
 	
 	<bean id="soiree9" class="domain.Soiree">
-		<property name="date" value="23/11/2018 21:00" />
+		<property name="date" value="23/11/2016 21:00" />
 		<property name="address" value="Calle Pachanga vote, 4" />
 		<property name="pictures">
 			<list>
