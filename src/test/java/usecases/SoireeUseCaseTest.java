@@ -1,12 +1,10 @@
 package usecases;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,16 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import security.LoginService;
-import services.DinerService;
 import services.EventService;
 import services.SoireeService;
-import services.VoteService;
 import utilities.AbstractTest;
 
 import domain.Diner;
 import domain.Event;
 import domain.Soiree;
-import domain.Vote;
 
 @ContextConfiguration(locations = { "classpath:spring/junit.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,9 +33,6 @@ public class SoireeUseCaseTest extends AbstractTest{
 		
 		@Autowired
 		private LoginService loginService;
-		
-		@Autowired
-		private DinerService dinerService;
 		
 		@Autowired
 		private SoireeService soireeService;
@@ -93,13 +85,13 @@ public class SoireeUseCaseTest extends AbstractTest{
 		
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{"diner1",1994,gc.getTime(),"address1",pictures, null },
+				{"diner1",2188,gc.getTime(),"address1",pictures, null },
 
 				// Test #02: Attempt to create a soiree in a event that the diner is not registered. Expected false.
-				{"diner3",1994,gc.getTime(),"address1",pictures, IllegalArgumentException.class },
+				{"diner3",2188,gc.getTime(),"address1",pictures, IllegalArgumentException.class },
 				
 				// Test #03: Attempt to create a soiree with past date. Expected false.
-				{"diner1",1994,pastDate.getTime(),"address1",pictures, IllegalArgumentException.class }
+				{"diner1",2188,pastDate.getTime(),"address1",pictures, IllegalArgumentException.class }
 
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -148,13 +140,13 @@ public class SoireeUseCaseTest extends AbstractTest{
 		
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{"diner1",1992,gc.getTime(),"address1",pictures, null },
+				{"diner1",2192,gc.getTime(),"address1",pictures, null },
 
 				// Test #02: Attempt to create a soiree in a event that the diner is not registered. Expected false.
-				{"supermarket1",1992,gc.getTime(),"address1",pictures, ClassCastException.class },
+				{"supermarket1",2192,gc.getTime(),"address1",pictures, ClassCastException.class },
 				
 				// Test #03: Attempt to create a soiree with past date. Expected false.
-				{"diner1",1992,pastDate.getTime(),"address1",pictures, IllegalArgumentException.class }
+				{"diner1",2192,pastDate.getTime(),"address1",pictures, IllegalArgumentException.class }
 
 		};
 		for (int i = 0; i < testingData.length; i++)

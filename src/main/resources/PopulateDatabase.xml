@@ -145,6 +145,18 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="supermarket4" />
+		<property name="password" value="2234f10c2e28e28a8ccbd429d4d095cf" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SUPERMARKET" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="super" />
@@ -247,6 +259,13 @@
 		<property name="maxResults" value="10" />
 		<property name="storageCache" value="15/10/2019 19:56:23" />
 	</bean>
+	
+	<bean id="finder12" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
 
 
 
@@ -340,6 +359,25 @@
 			<ref bean="finder4" />
 		</property>
 		<property name="brand" value="TOARE" />
+	</bean>
+	
+	<bean id="supermarket4" class="domain.Supermarket">
+		<property name="actorName" value="Dolores " />
+		<property name="surname" value="Díaz" />
+		<property name="email" value="dd@hotmail.com" />
+		<property name="userAccount" ref="userAccount13" />
+		<property name="followers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder12" />
+		</property>
+		<property name="brand" value="DOLO" />
 	</bean>
 
 	<!-- Diner -->
@@ -648,6 +686,16 @@
 		<property name="VAT" value="10.0" />
 		<property name="retailed" value="true" />
 		<property name="supermarket" ref="supermarket3"/>
+	</bean>
+	
+	<bean class="domain.Item" id="item4">
+		<property name="SKU" value="SAN-5" />
+		<property name="name" value="Sandía" />
+		<property name="photo" value="https://i.pinimg.com/564x/f7/a0/82/f7a082333a3bc332f2b8222b5ffa258e.jpg" />
+		<property name="price" value="5.0" />
+		<property name="VAT" value="10.0" />
+		<property name="retailed" value="true" />
+		<property name="supermarket" ref="supermarket4"/>
 	</bean>
 	
 	<!-- Shopping cart -->

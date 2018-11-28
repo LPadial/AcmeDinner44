@@ -123,17 +123,17 @@ public class DinerShoppingCartController extends AbstractController {
 	
 	//Save shopping cart --------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/save-order", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveCreateEdit(@Valid ShoppingCart shoppingCart, BindingResult binding) {
+	public ModelAndView saveCreateEdit(@Valid ShoppingCart shoppingcart, BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			result = createNewModelAndView(shoppingCart, null);
+			result = createNewModelAndView(shoppingcart, null);
 		} else {
 			try {
-				shoppingCartService.save(shoppingCart);
+				shoppingCartService.order(shoppingcart);
 				result = new ModelAndView("redirect:/diner/shoppingCart/mylist.do");
 
 			} catch (Throwable th) {
-				result = createNewModelAndView(shoppingCart, "shoppingCart.commit.error");
+				result = createNewModelAndView(shoppingcart, "shoppingcart.commit.error");
 			}
 		}
 		return result;

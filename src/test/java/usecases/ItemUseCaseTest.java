@@ -1,5 +1,6 @@
 package usecases;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,6 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import domain.Brand;
+import domain.CreditCard;
 import domain.Delivery;
 import domain.Diner;
 import domain.Event;
@@ -25,6 +28,7 @@ import domain.Soiree;
 import domain.Supermarket;
 
 import security.LoginService;
+import services.AdministratorService;
 import services.CreditCardService;
 import services.DeliveryService;
 import services.DinerService;
@@ -62,6 +66,9 @@ public class ItemUseCaseTest extends AbstractTest {
 	
 	@Autowired
 	private CreditCardService creditCardService;
+	
+	@Autowired
+	private AdministratorService administratorService;
 
 	/*
 	 * 22.1: Manage their catalogue of items, which includes listing, showing, and creating them.  Once an item is registered, the system must not allow to change anything, but the indication on whether it is currently retailed or not.  To create an item, a supermarket should be able to copy its data from an existing item.
@@ -142,13 +149,13 @@ public class ItemUseCaseTest extends AbstractTest {
 
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{ "supermarket1", 1931, null },
+				{ "supermarket1", 2124, null },
 
-				// Test #02: Attempt to change  a property item by a supermarket. Expected false.
-				{ "diner1", 1931,ClassCastException.class },
+				// Test #02: Attempt to change  a property item by a diner. Expected false.
+				{ "diner1", 2124,ClassCastException.class },
 
 				// Test #03: Attempt to change  a property item by a anonymous. Expected false.
-				{ null, 1931, IllegalArgumentException.class }
+				{ null, 2124, IllegalArgumentException.class }
 
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -182,13 +189,13 @@ public class ItemUseCaseTest extends AbstractTest {
 
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{ "supermarket2", 1932, null },
+				{ "supermarket2", 2125, null },
 
-				// Test #02: Attempt to change  a property item by a supermarket. Expected false.
-				{ "diner1", 1932,ClassCastException.class },
+				// Test #02: Attempt to change  a property item by a diner. Expected false.
+				{ "diner1", 2125,ClassCastException.class },
 
 				// Test #03: Attempt to change  a property item by a anonymous. Expected false.
-				{ null, 1932, IllegalArgumentException.class }
+				{ null, 2125, IllegalArgumentException.class }
 
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -206,15 +213,15 @@ public class ItemUseCaseTest extends AbstractTest {
 			Supermarket supermarket = (Supermarket) loginService.findActorByUsername(username);
 			
 			
-			List<Object[]> delivery = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(supermarket.getId());
+			Integer sizeBefore = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(supermarket.getId()).size();
 			List<Delivery> deliveries = itemService.itemsNotDeliveredInAddress(address, supermarket.getId());
 			for(Delivery d: deliveries){
 				Assert.isTrue(d.getDelivered()==false);
 				deliveryService.changeToDelivered(d);			
 				Assert.isTrue(d.getDelivered()==true);
 			}
-			List<Object[]> deliveryAfter = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(supermarket.getId());
-			Assert.isTrue(delivery.size()>deliveryAfter.size());
+			Integer sizeAfter = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(supermarket.getId()).size();
+			Assert.isTrue(sizeBefore>sizeAfter);
 			
 			itemService.flush();
 
@@ -262,6 +269,7 @@ public class ItemUseCaseTest extends AbstractTest {
 			Assert.isTrue(d.getDelivered()==true);
 			
 			itemService.flush();
+			deliveryService.flush();
 
 			this.unauthenticate();
 
@@ -294,30 +302,32 @@ public class ItemUseCaseTest extends AbstractTest {
 	/*
 	 * 22.4:	List the items that they have to deliver, grouped by delivery address.
 	 */
-	public void templateListItemGroupedDelivered(final String username, final Integer itemid, final Class<?> expected) {
+	public void templateListItemGroupedDelivered(final String username, final Integer shoppingCartid, final Integer itemid, final Class<?> expected) {
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
-			Diner diner = (Diner) loginService.findActorByUsername(username);			
+			Diner diner = (Diner) loginService.findActorByUsername(username);	
 			
 			Integer supermarketid = itemService.findOne(itemid).getSupermarket().getId();
-			List<Object[]> deliveredItems = itemService.itemsOfSupermarketDeliveredGroupByDeliveredAddress(supermarketid);
-			ShoppingCart shoppingCart = shoppingCartService.create();
-			shoppingCart.setDeliveryAddress("nueva address");
-			shoppingCart.setDateCreation(new Date());
-			shoppingCart.setIsOrdered(false);
-			shoppingCart.setOwner(diner);
-			shoppingCart.setPriceTotal(1.0);
-			shoppingCart.setCreditCard(dinerService.findCreditCardsOfDiner(diner.getId()).iterator().next());
-			shoppingCartService.save(shoppingCart);
-			Delivery delivery = deliveryService.create(shoppingCart, itemService.findOne(itemid));
-			delivery.setDelivered(false);
-			deliveryService.save(delivery);
-			List<Object[]> deliveredItemsAfter = itemService.itemsOfSupermarketDeliveredGroupByDeliveredAddress(supermarketid);
-			Assert.isTrue(deliveredItems.size()<deliveredItemsAfter.size());
 			
-			itemService.flush();
+			Integer sizeBefore = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(supermarketid).size();
+			
+			ShoppingCart shoppingCart = shoppingCartService.findOne(shoppingCartid);
+			
+			shoppingCart.setPriceTotal(shoppingCartService.priceOfShoppingCart(shoppingCartid));			
+			shoppingCart.setCreditCard(dinerService.findCreditCardsOfDiner(diner.getId()).iterator().next());
+			shoppingCart.setIsOrdered(true);
+			ShoppingCart sc = shoppingCartService.save(shoppingCart);
+			
+			Delivery delivery = deliveryService.create(sc,itemService.findOne(itemid));
+			deliveryService.save(delivery);
+			
+			Integer sizeAfter = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(supermarketid).size();
+			Assert.isTrue(sizeBefore<sizeAfter);
+			
+			shoppingCartService.flush();
+			deliveryService.flush();
 
 			this.unauthenticate();
 
@@ -332,18 +342,17 @@ public class ItemUseCaseTest extends AbstractTest {
 
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{ "diner1", 1933, null },
+				{ "diner3", 2169,2127, null },
 
 				// Test #02: Attempt to order in a supermarket that already have a order. Expected false.
-				{ "diner1", 1931, ClassCastException.class },
+				{ "diner1", 2169,2127, IllegalArgumentException.class },
 
 				// Test #03: Attempt to order by anonymous. Expected false.
-				{ null,1933, IllegalArgumentException.class }
+				{ null,2169,2127, IllegalArgumentException.class }
 
 		};
 		for (int i = 0; i < testingData.length; i++)
-			this.templateListItemGroupedDelivered((String) testingData[i][0],(Integer) testingData[i][1],
-					(Class<?>) testingData[i][2]);
+			this.templateListItemGroupedDelivered((String) testingData[i][0],(Integer) testingData[i][1],(Integer) testingData[i][2],(Class<?>) testingData[i][3]);
 	}
 
 

@@ -11,14 +11,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
-import services.EventService;
 import services.SoireeService;
 import services.VoteService;
 import utilities.AbstractTest;
 
-import domain.Event;
 import domain.Soiree;
 import domain.Vote;
 
@@ -34,8 +31,6 @@ public class VoteUseCaseTest extends AbstractTest{
 	@Autowired
 	private SoireeService soireeService;
 	
-	@Autowired
-	private EventService eventService;
 	
 	/*
 	 * 11.5: When an event in which he or she has registered is over, he or she can cast a vote regarding the corresponding soirees.  An event is over when it has exactly four soirees and their moments have elapsed. 
@@ -81,13 +76,13 @@ public class VoteUseCaseTest extends AbstractTest{
 		
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{"diner1", 1990, 3, comments, pictures, null },
+				{"diner1", 2184, 3, comments, pictures, null },
 				
 				// Test #02: Attempt to voter in a soiree from a event not over. Expected false.
-				{"diner1", 1995, 3, comments, pictures, IllegalArgumentException.class },
+				{"diner1", 2186, 3, comments, pictures, IllegalArgumentException.class },
 				
 				// Test #03: Soiree of a event with negative points. Expected false.
-				{"diner2", 1990, -1, comments, pictures, ConstraintViolationException.class }
+				{"diner2", 2184, -1, comments, pictures, ConstraintViolationException.class }
 
 		};
 		for (int i = 0; i < testingData.length; i++)

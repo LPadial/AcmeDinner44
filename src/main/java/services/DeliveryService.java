@@ -60,7 +60,8 @@ public class DeliveryService {
 		if (exists(delivery.getId())) {
 			aca = findOne(delivery.getId());		
 			
-			delivery.setDelivered(aca.getDelivered());
+			aca.setDelivered(delivery.getDelivered());
+			
 			aca = deliveryRepository.save(aca);
 		} else {
 
@@ -92,6 +93,10 @@ public class DeliveryService {
 	
 	public Delivery findDelivery(int idShoppingCart, int idItem){
 		return deliveryRepository.findDelivery(idShoppingCart, idItem).get(0);
+	}
+
+	public void flush() {
+		deliveryRepository.flush();		
 	}
 
 }

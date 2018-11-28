@@ -67,6 +67,7 @@ public class SupermarketItemController extends AbstractController {
 		result.addObject("a", 1);
 		if (LoginService.hasRole("SUPERMARKET")) {
 			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+			System.out.println(itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(s.getId()));
 			result.addObject("items", itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(s.getId()));	
 			result.addObject("notDelivered", true);
 			result.addObject("requestURI","/supermarket/item/notDelivered.do");

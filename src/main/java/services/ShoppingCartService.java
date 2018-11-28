@@ -64,19 +64,16 @@ public class ShoppingCartService {
 
 	public ShoppingCart save(ShoppingCart shoppingCart) {
 		Assert.notNull(shoppingCart);
-		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 		
-		Assert.isTrue(shoppingCart.getOwner() == d, "shoppingcart.error.nomine");
 		ShoppingCart aca = null;
 
-		if (exists(shoppingCart.getId())) {	
-			Assert.isTrue(shoppingCart.getDeliveryAddress() != null);
-			Assert.isTrue(shoppingCart.getCreditCard() != null);
+		if (exists(shoppingCart.getId())) {			
+			Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());		
+			Assert.isTrue(shoppingCart.getOwner() == d, "shoppingcart.error.nomine");
 			aca = findOne(shoppingCart.getId());
 			aca.setDeliveryAddress(shoppingCart.getDeliveryAddress());
 			aca.setCreditCard(shoppingCart.getCreditCard());
 			aca.setDateCreation(shoppingCart.getDateCreation());
-			aca.setIsOrdered(true);
 			aca.setPriceTotal(shoppingCart.getPriceTotal());
 			aca.setOwner(shoppingCart.getOwner());		
 
@@ -125,7 +122,8 @@ public class ShoppingCartService {
 	
 	public ShoppingCart order(ShoppingCart shoppingCart) {
 		Assert.notNull(shoppingCart);
-		
+		Assert.isTrue(shoppingCart.getCreditCard() != null);
+		Assert.isTrue(shoppingCart.getDeliveryAddress() != null);
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 		Assert.isTrue(shoppingCart.getOwner() == d);
 		
@@ -161,6 +159,10 @@ public class ShoppingCartService {
 	
 	public Integer countItemInShoppingCart(int idShoppingCart, int idItem){
 		return shoppingCartRepository.countItemInShoppingCart(idShoppingCart, idItem);
+	}
+
+	public void flush() {
+		shoppingCartRepository.flush();
 	}
 
 }

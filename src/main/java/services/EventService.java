@@ -162,6 +162,7 @@ public class EventService {
 		Assert.isTrue(!isOver(event));
 		Assert.notNull(event);
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(!d.getEvents().contains(event));
 		Assert.isTrue(event.getOrganizer()!=d);
 		Collection<Diner> registeredDiners = findRegisteredDinerInEvents(e);
 		Integer numRegistered = registeredDiners.size();

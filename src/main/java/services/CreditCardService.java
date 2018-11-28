@@ -42,7 +42,7 @@ public class CreditCardService {
 		card.setBrandName(brand);
 		card.setCVV(new Integer(100));
 		card.setExpirationMonth(new Integer(1));
-		card.setExpirationYear(new Integer(2000));
+		card.setExpirationYear(new Integer(2020));
 		card.setHolderName(new String());
 		card.setNumber(new BigInteger("0"));
 		

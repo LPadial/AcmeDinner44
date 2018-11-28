@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import domain.Diner;
 import domain.Event;
@@ -262,7 +263,7 @@ public class EventUseCaseTest extends AbstractTest {
 	 * 11.3: Manage his or her registrations to events, which includes listing, showing, creating, and deleting them.  A diner cannot register or unregister from an event that he or she organises.  A diner can unregister from an event that he or she has not going to organise at will.
 	 */
 	/*
-	 * 11.3.1: Register event
+	 * 11.3.1: Register event and list registrations to events of diner
 	 */
 	public void templateRegisterToEvent(final String username, int eventid, final Class<?> expected) {
 		Class<?> caught = null;
@@ -270,9 +271,18 @@ public class EventUseCaseTest extends AbstractTest {
 		try {
 			this.authenticate(username);
 			
+			Diner diner = (Diner) loginService.findActorByUsername(username);
+			
+			Integer sizeBefore = diner.getEvents().size();
+			
 			eventService.registerToEvent(eventid);
+			
+			Integer sizeAfter = diner.getEvents().size();
+			Assert.isTrue(sizeBefore<sizeAfter);
 
 			eventService.flush();
+			
+			this.unauthenticate();
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -285,13 +295,13 @@ public class EventUseCaseTest extends AbstractTest {
 		
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{"diner1",1991, null },
+				{"diner2",2194, null },
 
 				// Test #02: Attempt to register in a event already registered . Expected false.
-				{"diner2",1985, IllegalArgumentException.class },
+				{"diner2",2188, IllegalArgumentException.class },
 				
 				// Test #03: Attempt to register in a event that he has organized . Expected false.
-				{"diner2",1991, IllegalArgumentException.class },
+				{"diner2",2185, IllegalArgumentException.class },
 
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -307,9 +317,17 @@ public class EventUseCaseTest extends AbstractTest {
 		try {
 			this.authenticate(username);
 			
+			Diner diner = (Diner) loginService.findActorByUsername(username);
+			
+			Integer sizeBefore = diner.getEvents().size();
+			
 			eventService.unregisterToEvent(eventid);
+			
+			Integer sizeAfter = diner.getEvents().size();
+			Assert.isTrue(sizeBefore>sizeAfter);
 
 			eventService.flush();
+			this.unauthenticate();
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -322,53 +340,17 @@ public class EventUseCaseTest extends AbstractTest {
 		
 		final Object testingData[][] = {
 				// Test #01: Correct access. Expected true.
-				{"diner2",1994, null },
+				{"diner2",2188, null },
 
 				// Test #02: Attempt to unregister in a event not registered . Expected false.
-				{"diner2",2000, IllegalArgumentException.class },
+				{"diner1",2185, IllegalArgumentException.class },
 				
 				// Test #03: Attempt to unregister in a event that he has organized . Expected false.
-				{"diner2",1991, IllegalArgumentException.class },
+				{"diner1",2188, IllegalArgumentException.class },
 
 		};
 		for (int i = 0; i < testingData.length; i++)
 			this.templateUnregisterToEvent((String) testingData[i][0], (Integer) testingData[i][1], (Class<?>) testingData[i][2]);
-	}
-	
-	/*
-	 * 11.3.3: List registrations to events of diner
-	 */
-	public void templateListRegistrationToEvent(final String username, final Class<?> expected) {
-		Class<?> caught = null;
-
-		try {
-			this.authenticate(username);
-			Diner diner = (Diner) loginService.findActorByUsername(username);
-			Event eventSelected = diner.getEvents().iterator().next();
-			if(eventSelected.getOrganizer()==diner){
-				eventSelected = diner.getEvents().iterator().next();
-			}
-			
-			eventService.unregisterToEvent(eventSelected.getId());
-
-			eventService.flush();
-
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-		this.checkExceptions(expected, caught);
-	}
-
-	@Test
-	public void driverListEventRegistrations() {
-		
-		final Object testingData[][] = {
-				// Test #01: Correct access. Expected true.
-				{"diner1", null },
-
-		};
-		for (int i = 0; i < testingData.length; i++)
-			this.templateListRegistrationToEvent((String) testingData[i][0],(Class<?>) testingData[i][1]);
 	}
 	
 

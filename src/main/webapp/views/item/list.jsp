@@ -79,6 +79,7 @@
 	<jstl:if test="${a==1}">
 		<security:authorize access="hasRole('SUPERMARKET')">
 			<jstl:forEach items="${items}" var="i" >
+			<jstl:if test="${items.size()>0}">
 				<div class="title">${i[0]}</div>
 				<jstl:if test="${notDelivered==true }">
 					<acme:url url="supermarket/item/markDelivered.do?address=${i[0]}" code="item.markDelivered"/>
@@ -116,6 +117,7 @@
 					</jstl:if>
 					
 				</display:table>
+				</jstl:if>
 			</jstl:forEach>
 		</security:authorize>
 		
