@@ -56,7 +56,7 @@
 							</ul>
 						</li>
 
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
+						<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false"><spring:message
 									code="master.page.actor.chirps" /><span class="caret"></span></a>
@@ -70,7 +70,7 @@
 								<li><a href="chirp/actor/mylist.do"><spring:message
 											code="master.page.actor.mychirps" /></a></li>
 							</ul>
-						</li>
+						</li> -->
 					</security:authorize>
 					
 					<!-- Register new administrator -->

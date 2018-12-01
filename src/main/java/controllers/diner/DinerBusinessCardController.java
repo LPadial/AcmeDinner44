@@ -42,6 +42,7 @@ public class DinerBusinessCardController extends AbstractController {
 			result.addObject("professionalSections", d.getBusinessCard().getProfessionalSections());
 			result.addObject("socialSections", d.getBusinessCard().getSocialSections());
 			result.addObject("businessCard", d.getBusinessCard());
+			result.addObject("requestURI", "/diner/businessCard/view.do");
 			
 			return result;
 		}
@@ -58,6 +59,7 @@ public class DinerBusinessCardController extends AbstractController {
 			result.addObject("professionalSections", d.getBusinessCard().getProfessionalSections());
 			result.addObject("socialSections", d.getBusinessCard().getSocialSections());
 			result.addObject("businessCard", d.getBusinessCard());
+			result.addObject("requestURI", "/diner/businessCard/myView.do");
 
 			return result;
 		}

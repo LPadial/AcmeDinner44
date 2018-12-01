@@ -78,47 +78,61 @@
 	
 	<jstl:if test="${a==1}">
 		<security:authorize access="hasRole('SUPERMARKET')">
-			<jstl:forEach items="${items}" var="i" >
 			<jstl:if test="${items.size()>0}">
-				<div class="title">${i[0]}</div>
-				<jstl:if test="${notDelivered==true }">
-					<acme:url url="supermarket/item/markDelivered.do?address=${i[0]}" code="item.markDelivered"/>
-				</jstl:if>
-					<!-- Table -->
-				<display:table  name="${i[1]}" id="row" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 			
-					<display:column property="SKU" title="${SKU}" sortable="false" />
-					<display:column property="name" title="${name}" sortable="false" />
-					<display:column title="${photo}" sortable="false" >
-						<img src="${row.photo}" style="max-width:120px;max-height:120px;">
-					</display:column>
-					<display:column property="price" title="${price}" sortable="false" />
-					<display:column property="VAT" title="${VAT}" sortable="false" />
-					<display:column title="${num}" sortable="false" >
-						<jstl:out value="${i[2]}"></jstl:out>
-					</display:column>
-					<security:authentication property="principal.id" var="id" />
+				<jstl:forEach items="${items}" var="it" >
+				
+					<div class="title">${it[0]}</div>
 					
-					<jstl:if test="${row.supermarket.userAccount.id == id}">
-						<display:column title="${retailed}" sortable="false" >
-							<jstl:if test="${row.retailed == true}">
-								<acme:url url="supermarket/item/changeToNotRetailed.do?q=${row.id}" code="item.changeToFalse"/>
-							</jstl:if>
-							<jstl:if test="${row.retailed == false}">
-								<acme:url url="supermarket/item/changeToRetailed.do?q=${row.id}" code="item.changeToTrue"/>
-							</jstl:if>
-						</display:column>
-						<display:column title="${view}" sortable="false">
-							<acme:url url="supermarket/item/view.do?q=${row.id}" code="acme.view"/>
-						</display:column>
-						<display:column title="${copy}" sortable="false">
-							<acme:url url="supermarket/item/copy.do?q=${row.id}" code="item.copy"/>
-						</display:column>					
+					<jstl:if test="${notDelivered==1}">
+						<acme:url url="supermarket/item/markDelivered.do?address=${it[0]}" code="item.markDelivered"/>
 					</jstl:if>
 					
-				</display:table>
-				</jstl:if>
-			</jstl:forEach>
+					<!-- Table -->
+					<display:table  name="${it[1]}" id="row" requestURI="${requestURI}" pagesize="10" class="table table-hover">
+				
+						<display:column property="SKU" title="${SKU}" sortable="false" />
+						<display:column property="name" title="${name}" sortable="false" />
+						
+						<display:column title="${photo}" sortable="false" >
+							<img src="${it[1].photo}" style="width:120px;height:120px;">
+						</display:column>
+						
+						<display:column property="price" title="${price}" sortable="false" />
+						<display:column property="VAT" title="${VAT}" sortable="false" />
+						
+						<display:column title="${num}" sortable="false" >
+							<jstl:out value="${it[2]}"></jstl:out>
+						</display:column>
+						
+						<security:authentication property="principal.id" var="id" />
+						
+						<jstl:if test="${it[1].supermarket.userAccount.id == id}">
+						
+							<display:column title="${retailed}" sortable="false" >
+								<jstl:if test="${it[1].retailed == true}">
+									<acme:url url="supermarket/item/changeToNotRetailed.do?q=${it[1].id}" code="item.changeToFalse"/>
+								</jstl:if>
+								<jstl:if test="${it[1].retailed == false}">
+									<acme:url url="supermarket/item/changeToRetailed.do?q=${it[1].id}" code="item.changeToTrue"/>
+								</jstl:if>
+							</display:column>
+							
+							<display:column title="${view}" sortable="false">
+								<acme:url url="supermarket/item/view.do?q=${it[1].id}" code="acme.view"/>
+							</display:column>
+							
+							<display:column title="${copy}" sortable="false">
+								<acme:url url="supermarket/item/copy.do?q=${it[1].id}" code="item.copy"/>
+							</display:column>	
+											
+						</jstl:if>
+						
+					</display:table>
+					
+				</jstl:forEach>
+				
+			</jstl:if>
 		</security:authorize>
 		
 	</jstl:if>
