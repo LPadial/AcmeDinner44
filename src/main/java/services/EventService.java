@@ -146,8 +146,9 @@ public class EventService {
 	// Other business methods -------------------------------------------------
 	
 	public List<Event> findEventsByKeyWord(String keyword){
-		Assert.notNull(keyword);
-		Assert.isTrue(keyword.trim().length()>0);
+		if(keyword == null){
+			keyword=" ";
+		}
 		return eventRepository.findEventsByKeyWord(keyword);
 	}
 	

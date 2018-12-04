@@ -140,8 +140,9 @@ public class DinerService {
 	// Other business methods -------------------------------------------------
 	
 	public Collection<Diner> findDinersByKeyWord(String keyword){
-		Assert.notNull(keyword);
-		Assert.isTrue(keyword.trim().length()>0);
+		if(keyword == null){
+			keyword=" ";
+		}
 		Collection<Diner> diners = new HashSet<Diner>();
 		
 		Collection<Diner> dinersName = dinerRepository.findDinersByKeywordInNameOrPersonalSection(keyword);

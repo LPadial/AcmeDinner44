@@ -44,7 +44,7 @@ public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	Collection<Event> findEventsOfDiner(int dinerID);
 	
 	//The events that a diner has organized
-	@Query("select e from Event e join e.soirees s where s.date<CURRENT_DATE and e.organizer.id = ?1")
+	@Query("select distinct e from Event e join e.soirees s where s.date<CURRENT_DATE and e.organizer.id = ?1")
 	Collection<Event> findEventsPastOfDiner(int dinerID);
 	
 	//The shopping carts that a diner has 

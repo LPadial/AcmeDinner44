@@ -128,11 +128,11 @@ public class DinerUseCaseTest extends AbstractTest {
 			//Test #01: Correct access. Expected true.
 			{"diner", null},
 				
-			//Test #02: Attempt to search without keyword. Expected false.
-			{null, IllegalArgumentException.class},
+			//Test #02: Attempt to search without keyword. Expected true.
+			{null, null},
 				
-			//Test #03: Attempt to search with empty keyword. Expected false.
-			{"", IllegalArgumentException.class}
+			//Test #03: Attempt to search with empty keyword. Expected true.
+			{"", null}
 
 		};
 		for (int i = 0; i < testingData.length; i++)
