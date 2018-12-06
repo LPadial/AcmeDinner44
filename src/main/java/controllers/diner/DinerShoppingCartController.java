@@ -134,6 +134,9 @@ public class DinerShoppingCartController extends AbstractController {
 
 			} catch (Throwable th) {
 				result = createNewModelAndView(shoppingcart, "shoppingcart.commit.error");
+				Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
+				List<CreditCard> creditCards = dinerService.findCreditCardsOfDiner(d.getId());				
+				result.addObject("creditCards",creditCards);
 			}
 		}
 		return result;

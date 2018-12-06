@@ -35,21 +35,21 @@ public class CreditCardService {
 
 	// Simple CRUD methods ----------------------------------------------------
 	public CreditCard create() {
-		CreditCard card= new CreditCard();
+		CreditCard creditCard= new CreditCard();
 		
 		Brand brand= new Brand();
 		brand.setValue("VISA");
-		card.setBrandName(brand);
-		card.setCVV(new Integer(100));
-		card.setExpirationMonth(new Integer(1));
-		card.setExpirationYear(new Integer(2020));
-		card.setHolderName(new String());
-		card.setNumber(new BigInteger("0"));
+		creditCard.setBrandName(brand);
+		creditCard.setCVV(new Integer(100));
+		creditCard.setExpirationMonth(new Integer(1));
+		creditCard.setExpirationYear(new Integer(2020));
+		creditCard.setHolderName(new String());
+		creditCard.setNumber(new BigInteger("0"));
 		
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
-		card.setOwner(d);
+		creditCard.setOwner(d);
 		
-		return card;
+		return creditCard;
 	}
 	
 	public void flush() {

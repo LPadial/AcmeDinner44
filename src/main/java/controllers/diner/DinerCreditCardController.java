@@ -32,20 +32,21 @@ public class DinerCreditCardController extends AbstractController {
 	// Actions
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam (required = true) final int sc) {
+	public ModelAndView create(@RequestParam (required = true) final int q) {
 		ModelAndView result;
 
 		result = createNewModelAndView(creditCardService.create(), null);
-		result.addObject("idsc",sc);
+		result.addObject("idsc",q);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveCreateEdit(@Valid CreditCard creditCard, @RequestParam (required = true) final Integer q, BindingResult binding) {
+	public ModelAndView saveCreateEdit(@Valid CreditCard creditCard, BindingResult binding, @RequestParam (required = true) final Integer q) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			result = createNewModelAndView(creditCard, null);
+			result.addObject("idsc",q);
 		} else {
 			try {
 				creditCardService.save(creditCard);
@@ -53,6 +54,7 @@ public class DinerCreditCardController extends AbstractController {
 
 			} catch (Throwable th) {
 				result = createNewModelAndView(creditCard, "creditcard.commit.error");
+				result.addObject("idsc",q);
 			}
 		}
 		return result;

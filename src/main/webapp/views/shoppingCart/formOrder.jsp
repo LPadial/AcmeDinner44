@@ -34,7 +34,7 @@
 		<br>
 	</acme:acme_form>
 	<br>
-	<a href="diner/creditCard/create.do?sc=${shoppingcart.id}">
+	<a href="diner/creditCard/create.do?q=${shoppingcart.id}">
 		<button style="color:white; background-color:green;">
 			<spring:message code="newcreditcard" />
 		</button>

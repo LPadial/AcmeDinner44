@@ -124,6 +124,8 @@ public class ShoppingCartService {
 		Assert.notNull(shoppingCart);
 		Assert.isTrue(shoppingCart.getCreditCard() != null);
 		Assert.isTrue(shoppingCart.getDeliveryAddress() != null);
+		Assert.isTrue(shoppingCart.getDeliveryAddress().length() > 0);
+		Assert.isTrue(shoppingCart.getIsOrdered() == false);
 		Diner d = (Diner) loginService.findActorByUsername(LoginService.getPrincipal().getId());
 		Assert.isTrue(shoppingCart.getOwner() == d);
 		
