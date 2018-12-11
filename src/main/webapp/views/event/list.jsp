@@ -32,10 +32,12 @@
 <security:authorize access="permitAll">
 	
 	<!-- Finder -->
-	<form class="searchForm" action="event/search.do" method="get">
-		${eventSearchText}
-		<input type="search" class="form-control" name="q" placeholder="${eventSearch}">
-	</form>
+	<jstl:if test="${finder==1}">
+		<form class="searchForm" action="event/search.do" method="get">
+			${eventSearchText}
+			<input type="search" class="form-control" name="q" placeholder="${eventSearch}">
+		</form>
+	</jstl:if>
 
 	<jstl:if test="${a==0}">
 		

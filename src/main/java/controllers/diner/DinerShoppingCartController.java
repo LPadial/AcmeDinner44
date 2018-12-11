@@ -170,7 +170,7 @@ public class DinerShoppingCartController extends AbstractController {
 		List<Item> itemsToDelete = new ArrayList<Item>();
 		result = new ModelAndView("item/list");
 		result.addObject("a",0);
-		result.addObject("items", itemService.findAll());	
+		result.addObject("items", itemService.itemsRetailed());	
 		for(Item i : itemService.findAll()){
 			if(shoppingCartService.countItemInShoppingCart(q, i.getId()) >= 1){
 				itemsToDelete.add(i);

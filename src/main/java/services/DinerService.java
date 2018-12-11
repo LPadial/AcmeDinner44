@@ -18,6 +18,7 @@ import domain.BusinessCard;
 import domain.Chirp;
 import domain.CreditCard;
 import domain.Diner;
+import domain.Entidad;
 import domain.Event;
 import domain.Finder;
 import domain.ShoppingCart;
@@ -174,6 +175,10 @@ public class DinerService {
 	
 	public List<CreditCard> findCreditCardsOfDiner(int idDiner){
 		return dinerRepository.findCreditCardsOfDiner(idDiner);
+	}
+	
+	public List<Entidad> findEntidadesOfDiner(int idDiner){
+		return dinerRepository.findEntidadesOfDiner(idDiner);
 	}
 
 	public void flush() {

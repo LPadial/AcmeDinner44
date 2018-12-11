@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import security.LoginService;
 import services.EventService;
 import services.SoireeService;
 import utilities.AbstractTest;
 
-import domain.Diner;
 import domain.Event;
 import domain.Soiree;
 
@@ -30,9 +28,6 @@ public class SoireeUseCaseTest extends AbstractTest{
 
 		@Autowired
 		private EventService eventService;
-		
-		@Autowired
-		private LoginService loginService;
 		
 		@Autowired
 		private SoireeService soireeService;
@@ -156,13 +151,12 @@ public class SoireeUseCaseTest extends AbstractTest{
 	/*
 	 * 11.4.3: Delete soiree
 	 */
-	public void templateDeleteSoiree(final String username, final Class<?> expected) {
+	public void templateDeleteSoiree(final String username, final Integer soireeid, final Class<?> expected) {
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);			
-			Diner diner = (Diner) loginService.findActorByUsername(username);
-			Soiree soiree = soireeService.soireesOfDiner(diner.getId()).iterator().next();
+			Soiree soiree = soireeService.findOne(soireeid);
 			soireeService.delete(soiree);
 			soireeService.flush();
 
@@ -178,17 +172,17 @@ public class SoireeUseCaseTest extends AbstractTest{
 		final Object testingData[][] = {
 				
 				// Test #01: Correct access. Expected true.
-				{"diner1", null },
+				{"diner2",2186, null },
 				
 				// Test #02: Attempt to delete a event by a supermarket. Expected false.
-				{"supermarket1", ClassCastException.class },
+				{"supermarket1",2186, NullPointerException.class },
 				
 				// Test #03: Attempt to delete a event of a user anonymous. Expected false.
-				{null, IllegalArgumentException.class }			
+				{null,2186, NullPointerException.class }			
 
 		};
 		
 		for (int i = 0; i < testingData.length; i++)
-			this.templateDeleteSoiree((String) testingData[i][0],(Class<?>) testingData[i][1]);
+			this.templateDeleteSoiree((String) testingData[i][0],(Integer) testingData[i][1],(Class<?>) testingData[i][2]);
 	}
 }

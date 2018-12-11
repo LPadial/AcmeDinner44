@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,7 @@ public class Diner extends Actor {
 	
 	private BusinessCard businessCard;
 	private Collection<Event> events;
+	private Collection<Entidad> entidades;
 
 	
 	
@@ -61,6 +63,16 @@ public class Diner extends Actor {
 
 	public void setEvents(Collection<Event> events) {
 		this.events = events;
+	}
+	
+	@Valid
+	@OneToMany
+	public Collection<Entidad> getEntidades() {
+		return entidades;
+	}
+
+	public void setEntidades(Collection<Entidad> entidades) {
+		this.entidades = entidades;
 	}
 
 

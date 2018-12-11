@@ -1,6 +1,7 @@
 package controllers.diner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -65,6 +66,7 @@ public class DinerSoireeController extends AbstractController {
 	public ModelAndView soireesOrganized() {
 		ModelAndView result;
 		ArrayList<Soiree> dinerCanCastAVote = new ArrayList<Soiree>();
+		ArrayList<Soiree> pastSoirees = new ArrayList<Soiree>();
 		result = new ModelAndView("soiree/list");
 
 		if (LoginService.hasRole("DINER")) {
@@ -80,11 +82,16 @@ public class DinerSoireeController extends AbstractController {
 								s.getId()) < 1) {
 					dinerCanCastAVote.add(s);
 				}
+				if(s.getDate().before(Calendar.getInstance().getTime())){
+					pastSoirees.add(s);
+				}
 			}
 			result.addObject("dinerCanCastAVote", dinerCanCastAVote);
+			result.addObject("pastSoirees", pastSoirees);
 			result.addObject("isRegisteredInEvent", true);
 			result.addObject("soireesOfDiner", soirees);
 		}
+		
 		return result;
 	}
 

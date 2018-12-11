@@ -17,6 +17,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Chirp;
 import domain.Diner;
+import domain.Entidad;
 import domain.Event;
 import domain.Finder;
 import domain.Soiree;
@@ -298,5 +299,8 @@ public class AdministratorService {
 		return supermarketRepository.bestSellingSupermarkets();
 	}
 	
+	public List<Entidad> findEntidadesOfAdministrator(int idAdmin){
+		return administratorRepository.findEntidadesOfAdmin(idAdmin);
+	}
 }
 

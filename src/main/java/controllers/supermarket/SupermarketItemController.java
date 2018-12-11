@@ -1,5 +1,8 @@
 package controllers.supermarket;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -63,12 +66,27 @@ public class SupermarketItemController extends AbstractController {
 	@RequestMapping(value = "/notDelivered", method = RequestMethod.GET)
 	public ModelAndView itemsNotDelivery() {
 		ModelAndView result;
-		result = new ModelAndView("item/list");
-		result.addObject("a", 1);
+		result = new ModelAndView("item/group");
+		
 		if (LoginService.hasRole("SUPERMARKET")) {
 			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("items", itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(s.getId()));	
+			List<Object[]> items = itemService.itemsOfSupermarketNotDeliveredGroupByDeliveredAddress(s.getId());
+			HashMap<String, ArrayList<Item>> dirItems = new HashMap<String, ArrayList<Item>>();
+			ArrayList<Item> listItems = new ArrayList<Item>();
+			for(Object[] i: items){
+				if(!dirItems.containsKey(i[0])){
+					listItems = new ArrayList<Item>();
+					listItems.add((Item)i[1]);
+					dirItems.put((String)i[0], listItems);
+				}else{
+					listItems.add((Item)i[1]);
+					dirItems.put((String)i[0], listItems);
+				}
+			}
+			result.addObject("dirItems",dirItems);
+			result.addObject("items", items);	
 			result.addObject("notDelivered", 1);
+			result.addObject("a", 1);
 			result.addObject("requestURI","/supermarket/item/notDelivered.do");
 		}		
 		return result;
@@ -78,11 +96,25 @@ public class SupermarketItemController extends AbstractController {
 	@RequestMapping(value = "/delivered", method = RequestMethod.GET)
 	public ModelAndView itemsDelivery() {
 		ModelAndView result;
-		result = new ModelAndView("item/list");
-		result.addObject("a", 1);
+		result = new ModelAndView("item/group");
 		if (LoginService.hasRole("SUPERMARKET")) {
 			Supermarket s = (Supermarket) loginService.findActorByUsername(LoginService.getPrincipal().getId());
-			result.addObject("items", itemService.itemsOfSupermarketDeliveredGroupByDeliveredAddress(s.getId()));	
+			List<Object[]> items = itemService.itemsOfSupermarketDeliveredGroupByDeliveredAddress(s.getId());
+			HashMap<String, ArrayList<Item>> dirItems = new HashMap<String, ArrayList<Item>>();
+			ArrayList<Item> listItems = new ArrayList<Item>();
+			for(Object[] i: items){
+				if(!dirItems.containsKey(i[0])){
+					listItems = new ArrayList<Item>();
+					listItems.add((Item)i[1]);
+					dirItems.put((String)i[0], listItems);
+				}else{
+					listItems.add((Item)i[1]);
+					dirItems.put((String)i[0], listItems);
+				}
+			}
+			result.addObject("dirItems",dirItems);
+			result.addObject("items", items);	
+			result.addObject("a", 1);
 			result.addObject("requestURI","/supermarket/item/delivered.do");
 		}		
 		return result;

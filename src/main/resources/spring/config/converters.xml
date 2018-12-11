@@ -74,6 +74,10 @@
 		<bean class="converters.StringToUserAccountConverter" />
 		<bean class="converters.StringToVoteConverter" />
 		
+		
+		<bean class="converters.EntidadToStringConverter" />
+		<bean class="converters.StringToEntidadConverter" />
+		
 	</util:list>
 	
 </beans>

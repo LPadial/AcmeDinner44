@@ -110,6 +110,10 @@ public class ItemService {
 	public List<Delivery> itemsNotDeliveredInAddress(String address, int idSupermarket){
 		return itemRepository.itemsNotDeliveredInAddress(address, idSupermarket);
 	}
+	
+	public List<Item> itemsRetailed(){
+		return itemRepository.itemsRetailed();
+	}
 
 	public void flush() {
 		itemRepository.flush();

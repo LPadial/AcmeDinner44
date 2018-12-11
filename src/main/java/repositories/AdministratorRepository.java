@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Administrator;
+import domain.Entidad;
 
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
@@ -40,6 +41,11 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	//Ratio of diners who have at least one social section
 	@Query("select count(d)/(select count(d1) from Diner d1) from Diner d join d.businessCard bc where bc.socialSections.size>=1")
 	Integer ratioOfDinersWhoHaveAtLeastOneSocialSection();
+	
+	//PLANTILLA
+	//Entidades de administrator
+	@Query("select e from Entidad e where e.admin.id=?1")
+	List<Entidad> findEntidadesOfAdmin(int idAdmin);
 
 	//El mínimo, media, desviación estándar y máximo de cursos por academia.
 	/*@Query("select min(a.courses.size),avg(a.courses.size),stddev(a.courses.size),max(a.courses.size) from Academy a")

@@ -1,20 +1,18 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Diner;
-import domain.Dish;
 import domain.Event;
 import domain.Soiree;
 
@@ -91,6 +89,7 @@ public class EventController extends AbstractController {
 		}
 
 		result.addObject("events", eventService.findAll());
+		result.addObject("finder", 1);
 		result.addObject("requestURI","/event/list.do");
 
 		return result;
@@ -107,6 +106,7 @@ public class EventController extends AbstractController {
 		result.addObject("a", 0);
 		result.addObject("events", eventService.findEventsByKeyWord(q));
 		result.addObject("requestURI","/event/search.do");
+		result.addObject("finder", 1);
 
 		if (LoginService.hasRole("DINER")) {
 			Diner d = (Diner) loginService.findActorByUsername(LoginService
@@ -161,6 +161,7 @@ public class EventController extends AbstractController {
 
 			ArrayList<Soiree> soireesOfDiner = new ArrayList<Soiree>();
 			ArrayList<Soiree> canCreateDish = new ArrayList<Soiree>();
+			ArrayList<Soiree> pastSoirees = new ArrayList<Soiree>();
 			Boolean isRegisteredInEvent = false;
 			ArrayList<Soiree> dinerCanCastAVote = new ArrayList<Soiree>();
 
@@ -176,6 +177,9 @@ public class EventController extends AbstractController {
 								s.getId()) < 1) {
 					dinerCanCastAVote.add(s);
 				}
+				if(s.getDate().before(Calendar.getInstance().getTime())){
+					pastSoirees.add(s);
+				}
 			}
 
 			if (d.getEvents().contains(e)) {
@@ -185,6 +189,7 @@ public class EventController extends AbstractController {
 			result.addObject("isRegisteredInEvent", isRegisteredInEvent);
 			result.addObject("canCreateDish", canCreateDish);
 			result.addObject("soireesOfDiner", soireesOfDiner);
+			result.addObject("pastSoirees", pastSoirees);
 		}
 		result.addObject("soirees", e.getSoirees());
 		result.addObject("requestURI","/event/soiree/list.do");

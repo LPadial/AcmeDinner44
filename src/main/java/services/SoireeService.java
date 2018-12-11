@@ -111,19 +111,18 @@ public class SoireeService {
 					sponsorshipService.delete(ss);
 				}
 			}
-			System.out.println("Delete soirees: " + entities.toString());
 			soireeRepository.delete(entities);
 		}
 
 		
 		public void delete(Soiree soiree) {
+			Assert.isTrue(Calendar.getInstance().getTime().before(soiree.getDate()));
 			Assert.notNull(soiree);
 			
 			Collection<Sponsorship> sponsorshipsToDelete = sponsorsihpOfSoiree(soiree.getId());
 			for(Sponsorship ss: sponsorshipsToDelete){
 				sponsorshipService.delete(ss);
 			}
-			System.out.println("Borrada soiree: " + soiree);
 			soireeRepository.delete(soiree);
 		}
 

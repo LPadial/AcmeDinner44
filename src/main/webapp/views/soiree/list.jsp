@@ -43,7 +43,7 @@
 		<security:authorize access="hasRole('DINER')">
 			<!-- Botón crear un plato -->
 			<display:column title="${createdish}" sortable="false">
-				<jstl:if test="${soireesOfDiner.contains(row)}">
+				<jstl:if test="${soireesOfDiner.contains(row) && !pastSoirees.contains(row)}">
 					<acme:url url="diner/dish/create.do?q=${row.id}" code="soiree.createdish"/>				
 				</jstl:if>
 			</display:column>
@@ -57,14 +57,14 @@
 			
 			<!-- Editar -->		
 			<display:column title="${edit}" sortable="false">		
-				<jstl:if test="${row.organizer.userAccount.id == id}">
+				<jstl:if test="${row.organizer.userAccount.id == id && !pastSoirees.contains(row)}">
 					<acme:url url="diner/soiree/edit.do?q=${row.id}" code="soiree.edit"/>
 				</jstl:if>
 			</display:column>
 			
 			<!-- Borrar-->
 			<display:column title="${delete}" sortable="false">		
-				<jstl:if test="${row.organizer.userAccount.id == id}">
+				<jstl:if test="${row.organizer.userAccount.id == id && !pastSoirees.contains(row)}">
 					<acme:url url="diner/soiree/delete.do?q=${row.id}" code="soiree.delete"/>
 				</jstl:if>
 			</display:column>

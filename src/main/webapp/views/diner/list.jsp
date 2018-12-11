@@ -19,12 +19,16 @@
 <spring:message code="diner.events" var="organizedEvents" />
 <spring:message code='diner.search' var="search"/>
 <spring:message code='diner.avgScore' var="avgScore"/>
+<spring:message code='diner.entidades' var="entidades"/>
+<spring:message code='diner.createEntidad' var="createEntidad"/>
 
 <!-- Finder -->
-<form class="searchForm" action="diner/search.do" method="get">
-	<spring:message code='diner.searchtext'/>
-	<input type="search" class="form-control" name="q" placeholder="${search}">
-</form>
+<jstl:if test="${finder==1}">
+	<form class="searchForm" action="diner/search.do" method="get">
+		<spring:message code='diner.searchtext'/>
+		<input type="search" class="form-control" name="q" placeholder="${search}">
+	</form>
+</jstl:if>
 
 <jstl:if test="${a==0}">
 	<br/>
@@ -39,6 +43,17 @@
 		<display:column title="${dinerBusinessCard}">
 			<acme:url url="diner/businessCard/view.do?q=${row.id}" code="diner.businessCard"/>
 		</display:column>
+		<!-- Comienzo plantilla -->
+		<display:column title="${entidades}" sortable="false">
+				<acme:url url="diner/entidad/list.do?q=${row.id}" code="diner.entidades"/>
+		</display:column>
+		<security:authorize access="hasRole('ADMINISTRATOR')">
+			<display:column title="${createEntidad}" sortable="false">
+					<acme:url url="administrator/entidad/create.do?q=${row.id}" code="diner.createEntidad"/>
+			</display:column>
+		</security:authorize>
+		<!--  Fin plantilla -->
+		
 		<security:authorize access="isAnonymous()">
 			<display:column title="${organizedEvents}" sortable="false">
 				<acme:url url="diner/eventPast/list.do?q=${row.id}" code="diner.events"/>
@@ -61,6 +76,17 @@
 			<display:column property="surname" title="${dinerSurname}" sortable="false" />
 			<display:column property="email" title="${dinerEmail}" sortable="false" />
 			<display:column property="avgScore" title="${avgScore}" sortable="false" />
+				<!-- Comienzo plantilla -->
+			<display:column title="${entidades}" sortable="false">
+					<acme:url url="diner/entidad/list.do?q=${row.id}" code="diner.entidades"/>
+			</display:column>
+			<security:authorize access="hasRole('ADMINISTRATOR')">
+				<display:column title="${createEntidad}" sortable="false">
+						<acme:url url="administrator/entidad/create.do?q=${row.id}" code="diner.createEntidad"/>
+				</display:column>
+			</security:authorize>
+			<!--  Fin plantilla -->
+			
 			<display:column title="${dinerBusinessCard}">
 				<acme:url url="diner/businessCard/view.do?q=${row.id}" code="diner.businessCard"/>
 			</display:column>
@@ -71,4 +97,5 @@
 		</display:table>
 	</jstl:if>
 </security:authorize>
+
 

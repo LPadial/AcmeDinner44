@@ -11,6 +11,7 @@ import domain.CreditCard;
 import domain.Diner;
 import domain.Event;
 import domain.ShoppingCart;
+import domain.Entidad;
 
 @Repository
 public interface DinerRepository extends JpaRepository<Diner, Integer>{
@@ -54,5 +55,10 @@ public interface DinerRepository extends JpaRepository<Diner, Integer>{
 	//The credit cards of a diner
 	@Query("select cc from CreditCard cc where cc.owner.id = ?1")
 	List<CreditCard> findCreditCardsOfDiner(int idDiner);
+	
+	//PLANTILLA
+	//Entidades de diner
+	@Query("select e from Entidad e where e.diner.id=?1")
+	List<Entidad> findEntidadesOfDiner(int idDiner);
 
 }

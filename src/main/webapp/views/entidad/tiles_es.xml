@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="entidad/create" extends="master.page">	
+		<put-attribute name="title" value="CREA ENTIDAD" />
+		<put-attribute name="body" value="/views/entidad/create.jsp" />
+	</definition>
+	
+	<definition name="entidad/edit" extends="master.page">	
+		<put-attribute name="title" value="EDITA ENTIDAD" />
+		<put-attribute name="body" value="/views/entidad/edit.jsp" />
+	</definition>
+	
+	<definition name="entidad/list" extends="master.page">	
+		<put-attribute name="title" value="LISTA DE ENTIDADES" />
+		<put-attribute name="body" value="/views/entidad/list.jsp" />
+	</definition>
+	
+	<definition name="entidad/view" extends="master.page">	
+		<put-attribute name="title" value="VISTA DE ENTIDADES" />
+		<put-attribute name="body" value="/views/entidad/view.jsp" />
+	</definition>
+	
+</tiles-definitions>

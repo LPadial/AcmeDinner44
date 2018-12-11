@@ -43,6 +43,8 @@
 		<value>/views/supermarket/messages</value>
 		<value>/views/vote/messages</value>
 		
+		<value>/views/entidad/messages</value>
+		
 	</util:list>
 
 </beans>

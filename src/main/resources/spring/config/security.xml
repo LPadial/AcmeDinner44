@@ -285,6 +285,24 @@
 
 		<security:intercept-url pattern="/chirp/actor/myListSubscribe.do"
 			access="isAuthenticated()" />
+			
+		<!-- PLANTILLA -->
+		<security:intercept-url pattern="/administrator/entidad/create.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/entidad/edit.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/entidad/list.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/entidad/view.do"
+			access="hasRole('ADMINISTRATOR')" />
+			<security:intercept-url pattern="/administrator/entidad/delete.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/entidad/finalMode.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/administrator/entidad/save-create.do"
+			access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/diner/entidad/list.do"
+			access="permitAll" />
 
 
 		<security:intercept-url pattern="/**"
@@ -296,6 +314,8 @@
 
 		<security:logout logout-success-url="/"
 			invalidate-session="true" />
+			
+		
 	</security:http>
 
 </beans>

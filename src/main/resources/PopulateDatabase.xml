@@ -23,6 +23,18 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount14" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMINISTRATOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="diner1" />
@@ -266,6 +278,13 @@
 		<property name="maxResults" value="10" />
 		<property name="storageCache" value="15/10/2019 19:56:23" />
 	</bean>
+	
+	<bean id="finder13" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="city" value="" />
+		<property name="maxResults" value="10" />
+		<property name="storageCache" value="15/10/2019 19:56:23" />
+	</bean>
 
 
 
@@ -289,6 +308,34 @@
 		</property>
 		<property name="finder">
 			<ref bean="finder1" />
+		</property>
+		<property name="entidades">
+			<ref bean="entidad1" />
+		</property>
+
+	</bean>
+	
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="actorName" value="Juan" />
+		<property name="surname" value="Padial" />
+		<property name="email" value="juanpad@hotmail.com" />
+		<property name="userAccount" ref="userAccount14" />
+		<property name="followers">
+			<list>
+				<ref bean="supermarket2" />
+				<ref bean="diner1" />
+				<ref bean="diner2" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="finder">
+			<ref bean="finder13" />
+		</property>
+		<property name="entidades">
+			<ref bean="entidad2" />
 		</property>
 
 	</bean>
@@ -363,7 +410,7 @@
 	
 	<bean id="supermarket4" class="domain.Supermarket">
 		<property name="actorName" value="Dolores " />
-		<property name="surname" value="Díaz" />
+		<property name="surname" value="DÃ­az" />
 		<property name="email" value="dd@hotmail.com" />
 		<property name="userAccount" ref="userAccount13" />
 		<property name="followers">
@@ -409,6 +456,9 @@
 			</list>
 		</property>
 		<property name="businessCard" ref="businessCard1" />
+		<property name="entidades">
+			<ref bean="entidad1" />
+		</property>
 	</bean>
 
 	<bean id="diner2" class="domain.Diner">
@@ -439,11 +489,14 @@
 			</list>
 		</property>
 		<property name="businessCard" ref="businessCard2" />
+		<property name="entidades">
+			<ref bean="entidad2" />
+		</property>
 	</bean>
 
 	<bean id="diner3" class="domain.Diner">
 		<property name="actorName" value="Manoli" />
-		<property name="surname" value="González" />
+		<property name="surname" value="GonzÃ¡lez" />
 		<property name="email" value="mg@hotmail.com" />
 		<property name="avgScore" value="3.5" />
 		<property name="userAccount" ref="userAccount11" />
@@ -690,7 +743,7 @@
 	
 	<bean class="domain.Item" id="item4">
 		<property name="SKU" value="SAN-5" />
-		<property name="name" value="Sandía" />
+		<property name="name" value="SandÃ­a" />
 		<property name="photo" value="https://i.pinimg.com/564x/f7/a0/82/f7a082333a3bc332f2b8222b5ffa258e.jpg" />
 		<property name="price" value="5.0" />
 		<property name="VAT" value="10.0" />
@@ -786,7 +839,7 @@
 		<property name="ticker" value="181017-190510-ABCD" />
 		<property name="title" value="Comida casera" />
 		<property name="city" value="Madrid" />
-		<property name="description" value="La cocina de antaño es el punto fuerte de este evento" />
+		<property name="description" value="La cocina de antaÃ±o es el punto fuerte de este evento" />
 		<property name="organizer" ref="diner3"></property>
 		<property name="soirees">
 			<list>
@@ -800,9 +853,9 @@
 
 	<bean id="event2" class="domain.Event">
 		<property name="ticker" value="181017-190510-ABCE" />
-		<property name="title" value="Comida española" />
+		<property name="title" value="Comida espaÃ±ola" />
 		<property name="city" value="Sevilla" />
-		<property name="description" value="Todos los platos típicos tienen cabida ene ste evento, el salmorejo, la tortilla de patatas, paella, etc." />
+		<property name="description" value="Todos los platos tÃ­picos tienen cabida ene ste evento, el salmorejo, la tortilla de patatas, paella, etc." />
 		<property name="organizer" ref="diner2"></property>
 		<property name="soirees">
 			<list>
@@ -828,7 +881,7 @@
 		<property name="ticker" value="181017-190511-AEDD" />
 		<property name="title" value="Cocina moderna para innovar" />
 		<property name="city" value="Sevilla" />
-		<property name="description" value="En este evento se innovará en los platos, deja volar tu imaginación" />
+		<property name="description" value="En este evento se innovarÃ¡ en los platos, deja volar tu imaginaciÃ³n" />
 		<property name="organizer" ref="diner2"></property>
 		<property name="soirees">
 			<list>
@@ -840,7 +893,7 @@
 	<bean id="event5" class="domain.Event">
 		<property name="ticker" value="181017-190512-ABCD" />
 		<property name="title" value="Comida del mar" />
-		<property name="city" value="Cádiz" />
+		<property name="city" value="CÃ¡diz" />
 		<property name="description" value="En este evento podremos disfrutar de los peces de nuestro mar" />
 		<property name="organizer" ref="diner3"></property>
 		<property name="soirees">
@@ -953,7 +1006,7 @@
 
 	<bean id="soiree6" class="domain.Soiree">
 		<property name="date" value="20/08/2019 21:00" />
-		<property name="address" value="Calle Alegría, 1" />
+		<property name="address" value="Calle AlegrÃ­a, 1" />
 		<property name="pictures">
 			<list>
 				<value>https://i.pinimg.com/564x/81/4b/35/814b35fd003220a0c43a9f192b3d4760.jpg</value>
@@ -1041,7 +1094,7 @@
 	<!-- Dish -->
 	<bean id="dish1" class="domain.Dish">
 		<property name="name" value="ensalada" />
-		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="description" value="ecolÃ³gica de la huerta a tu casa" />
 		<property name="ingredients">
 			<list>
 				<value>tomate</value>
@@ -1055,7 +1108,7 @@
 
 	<bean id="dish2" class="domain.Dish">
 		<property name="name" value="ensalada" />
-		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="description" value="ecolÃ³gica de la huerta a tu casa" />
 		<property name="ingredients">
 			<list>
 				<value>tomate</value>
@@ -1069,7 +1122,7 @@
 
 	<bean id="dish3" class="domain.Dish">
 		<property name="name" value="ensalada" />
-		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="description" value="ecolÃ³gica de la huerta a tu casa" />
 		<property name="ingredients">
 			<list>
 				<value>tomate</value>
@@ -1083,7 +1136,7 @@
 
 	<bean id="dish4" class="domain.Dish">
 		<property name="name" value="ensalada" />
-		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="description" value="ecolÃ³gica de la huerta a tu casa" />
 		<property name="ingredients">
 			<list>
 				<value>tomate</value>
@@ -1097,7 +1150,7 @@
 
 	<bean id="dish5" class="domain.Dish">
 		<property name="name" value="ensalada" />
-		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="description" value="ecolÃ³gica de la huerta a tu casa" />
 		<property name="ingredients">
 			<list>
 				<value>tomate</value>
@@ -1111,7 +1164,7 @@
 
 	<bean id="dish6" class="domain.Dish">
 		<property name="name" value="ensalada" />
-		<property name="description" value="ecológica de la huerta a tu casa" />
+		<property name="description" value="ecolÃ³gica de la huerta a tu casa" />
 		<property name="ingredients">
 			<list>
 				<value>tomate</value>
@@ -1129,7 +1182,7 @@
 		<property name="comments">
 			<list>
 				<value>La comida estaba muy buena</value>
-				<value>El sitio no me impresionó</value>
+				<value>El sitio no me impresionÃ³</value>
 			</list>
 		</property>
 		<property name="pictures">
@@ -1147,7 +1200,7 @@
 		<property name="comments">
 			<list>
 				<value>La comida no era de calidad</value>
-				<value>El sitio tenía unas vistas espectaculares</value>
+				<value>El sitio tenÃ­a unas vistas espectaculares</value>
 			</list>
 		</property>
 		<property name="pictures">
@@ -1299,7 +1352,7 @@
 
 	<!-- Sections -->
 	<bean id="personalSection1" class="domain.PersonalSection">
-		<property name="title" value="Mi sección" />
+		<property name="title" value="Mi secciÃ³n" />
 		<property name="fullName" value="Laura Padial" />
 		<property name="photo" value="https://farm8.staticflickr.com/7334/13939619830_582458357a_z.jpg" />
 		<property name="birthdate" value="20/08/1994" />
@@ -1367,7 +1420,7 @@
 
 	<bean id="personalSection3" class="domain.PersonalSection">
 		<property name="title" value="My life" />
-		<property name="fullName" value="Manoli González" />
+		<property name="fullName" value="Manoli GonzÃ¡lez" />
 		<property name="photo" value="https://farm3.staticflickr.com/2888/12733249174_8f3656edb8_z.jpg" />
 		<property name="birthdate" value="20/06/1960" />
 		<property name="likes">
@@ -1487,5 +1540,29 @@
 	</bean>
 
 	<!-- Configuration -->
+	
+	<!-- PLANTILLA -->
+	<!-- Entidad -->
+	<bean id="entidad1" class="domain.Entidad">
+		<property name="title" value="TEST1" />
+		<property name="description" value="descr1" />
+		<property name="moment" value="10/10/2020 10:00" />
+		<property name="ticker" value="abcde-12345" />
+		<property name="gauge" value="1" />
+		<property name="isSaveFinalMode" value="false" />
+		<property name="admin" ref="administrator1" />
+		<property name="diner" ref="diner1" />
+	</bean>
+
+	<bean id="entidad2" class="domain.Entidad">
+		<property name="title" value="TEST2" />
+		<property name="description" value="descr2" />
+		<property name="moment" value="10/10/2021 10:00" />
+		<property name="ticker" value="abhfn-12346" />
+		<property name="gauge" value="3" />
+		<property name="isSaveFinalMode" value="false" />
+		<property name="admin" ref="administrator2" />
+		<property name="diner" ref="diner2" />
+	</bean>
 
 </beans>

@@ -85,6 +85,13 @@
 								<spring:message code="master.page.updateScore" />
 							</a>
 						</li>
+						<!-- PLANTILLA -->
+						<li>
+							<a class="fNiv" href="administrator/entidad/list.do">
+								<spring:message code="master.page.entidades" />
+							</a>
+						</li>
+						<!-- FIN PLANTILLA -->
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
 								<spring:message code="master.page.register" /> <span class="caret"></span>
